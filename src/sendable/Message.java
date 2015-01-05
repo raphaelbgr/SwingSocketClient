@@ -233,7 +233,7 @@ public class Message implements Serializable, Comparable<Message> {
 	public Message buildConnectMessage() {
 		this.setOwner(getOwner());
 		this.setCreationtime(Calendar.getInstance().getTimeInMillis());
-		this.setType("connect");
+		this.setType("connectreq");
 		this.setPcname(getPcname());
 		this.setTimestamp();
 		this.setDate();

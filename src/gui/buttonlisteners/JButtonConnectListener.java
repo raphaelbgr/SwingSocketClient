@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
@@ -27,10 +28,9 @@ public class JButtonConnectListener implements ActionListener {
 		try {
 			if (ClientMain.sock == null) {
 				ClientMain.sock = new Socket(((JanelaSelectServer) jsv).getIpText(), ((JanelaSelectServer) jsv).getPortNumber());
-				jam.getJtxt_cnlog().setText("Connected succesfuly on server " + ClientMain.ip + " on port " + ClientMain.port);
-				jam.getJtxt_cnlog().setBackground(Color.GREEN);
 				jsv.lockFields();
 				ClientMain.oos 		= new ObjectOutputStream(clientmain.ClientMain.sock.getOutputStream());
+				ClientMain.ois 		= new ObjectInputStream(clientmain.ClientMain.sock.getInputStream());
 				ClientMain.ip 		= ((JanelaSelectServer) jsv).getIpText();
 				ClientMain.port		= ((JanelaSelectServer) jsv).getPortNumber();
 				Message m = new Message();
@@ -41,8 +41,13 @@ public class JButtonConnectListener implements ActionListener {
 				
 				//CONNECTION MESSAGE
 				clientmain.ClientMain.oos.writeObject(m);
-				ClientMain.receiver = new Thread(new ReceiveFromServerThread(jam));
-				ClientMain.receiver.start();
+				clientmain.ClientMain.oos.flush();
+				
+				
+				
+				//NOT WORKING
+//				ClientMain.receiver = new Thread(new ReceiveFromServerThread(jam));
+//				ClientMain.receiver.start();
 				
 			} else {
 				jam.getJtxt_cnlog().setText("Disconnection required first...");

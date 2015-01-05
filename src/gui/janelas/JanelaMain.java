@@ -6,6 +6,7 @@ import gui.buttonlisteners.JButtonExitListener;
 import gui.buttonlisteners.JButtonSelectServerListener;
 import gui.buttonlisteners.JButtonSendServerListener;
 import gui.jmenuListeners.JMenuExitListener;
+import gui.listas.ListaChat;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -16,37 +17,38 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
+import sendable.Message;
+
 @SuppressWarnings("serial")
 public class JanelaMain extends JFrame {
 
-	FlowLayout layout 						= new FlowLayout();
-	JTextField jtxt_send 					= null;
+	FlowLayout layout 							= new FlowLayout();
+	JTextField jtxt_send 						= null;
 	
 	@SuppressWarnings("unused")
-	private JanelaSelectServer jsv			= null;
-	private static JTextField jtxt_cnlog 	= null;
-	public 	static JTextArea msg_list1		= null;
-	public 	static JList<String> msg_list	= null;
+	private JanelaSelectServer jsv				= null;
+	private static JTextField jtxt_cnlog 		= null;
+	public 	static ListaChat msg_list			= new ListaChat();
+	public  static JScrollPane msg_list_sp 		= null;
 
 	public JTextField getTextField() {
 		return this.jtxt_send;
 	}
 
 	public JanelaMain(JanelaSelectServer jsv) {
-		super("Fasolti Intranet Chat Client");
+		super("Open Source Chat Client");
 		
 		this.jsv = jsv;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(490, 240);
+		this.setSize(490, 290);
 		this.setLayout(layout);
 
 		//Bloco de criação do Menu e seus botões
@@ -56,8 +58,7 @@ public class JanelaMain extends JFrame {
 		jmexit.addActionListener (new JMenuExitListener());			//
 		this.setJMenuBar(jmb);										//
 		jmb.add(jmi);												//
-		jmi.add(jmexit);											//	
-		msg_list				= new JList<String>();						//
+		jmi.add(jmexit);											//
 		JLabel jlbl_msg 		= new JLabel("Message");			//
 		JLabel jlbl_list 		= new JLabel("Chat log");			//
 		JLabel jlbl_cnlog		= new JLabel("Connection log");		//
@@ -104,7 +105,7 @@ public class JanelaMain extends JFrame {
 		jbt_connect.addActionListener(	new JButtonConnectListener(this,jsv));			//Comportamento para o botão "Connect"
 		jbt_disconn.addActionListener(	new JButtonDisconnectListener(this,jsv));		//Comportamento para o botão "Disconnect"
 
-		getJtxt_cnlog().setEditable(false);											//Desabilita o campo para edição
+		getJtxt_cnlog().setEditable(false);												//Desabilita o campo para edição
 		getJtxt_cnlog().setBackground(Color.LIGHT_GRAY);								//Muda a cor do campo "Connection log" para cinza
 
 		//Cria Borda para a JTextArea da Lista de mensagens
@@ -114,38 +115,32 @@ public class JanelaMain extends JFrame {
 		jtxt_send.setBorder(BorderFactory.createCompoundBorder(border, 
 				BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 
-		msg_list.setBorder(border);		//
-//		msg_list.setEditable(false);	//Desabilita edição para a lista de mensagens
-
-		//NEEDS HELP CREATING THIS JLIST TO STORE THE BROADCASTED MESSAGES FROM SERVER!!!!
-/*		msg_list = new JList(new Message [30] ); //data has type Object[]
-		msg_list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		msg_list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		msg_list.setSize(40, 180);
-		msg_list.setSize(30, getDefaultCloseOperation());
-		msg_list.setVisibleRowCount(-1);
-		JScrollPane listScroller = new JScrollPane();
-		listScroller.setPreferredSize(new Dimension(250, 80));*/
+		msg_list.setBorder(border);
 		
-		//Montagem do componente JFrame, em ordem
-		this.add(jlbl_list);			//
-		this.add(msg_list);				//
-		this.add(jlbl_msg);				//JLabel da Mensagem
-		this.add(jtxt_send);			//TextField da Mensagem à enviar
-		this.add(jbt_send);				//
-		this.add(jlbl_cnlog);			//
-		this.add(getJtxt_cnlog());			//
-		this.add(jbt_connect);			//
-		this.add(jbt_selserv);			//
-		this.add(jbt_disconn);			//
-		this.add(jbt_exit);				//
+		
+		//Montagem do componente JFrame, em ordem		
+		this.add(jlbl_list);						//
+		this.add(this.msg_list.getScrollPane());	//Adds the ScrolledPane JTextArea
+		this.add(jlbl_msg);							//JLabel da Mensagem
+		this.add(jtxt_send);						//TextField da Mensagem à enviar
+		this.add(jbt_send);							//
+		this.add(jlbl_cnlog);						//
+		this.add(getJtxt_cnlog());					//
+		this.add(jbt_connect);						//
+		this.add(jbt_selserv);						//
+		this.add(jbt_disconn);						//
+		this.add(jbt_exit);							//
 
-		this.setResizable(false);		//Desabilita redimensionamento desta janela
-		this.setVisible(true);			//Torna essa janela visível
-		this.setAlwaysOnTop(true);		//Janela se sobrepoe
+		this.setResizable(false);					//Desabilita redimensionamento desta janela
+		this.setVisible(true);						//Torna essa janela visível
+		this.setAlwaysOnTop(true);					//Janela se sobrepoe
 
 	}
 
+	public void addMessageToChatLog(Message m) {
+		
+	}
+	
 	public JanelaMain getInstance() {
 		return this;
 	}

@@ -1,12 +1,15 @@
 package clientmain;
 
-import gui.janelas.JanelaMain;
-import gui.janelas.JanelaSelectServer;
-
+import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import javax.swing.JFrame;
+
+import gui.janelas.JanelaMain;
+import gui.janelas.JanelaSelectServer;
 
 public class ClientMain {
 	
@@ -20,9 +23,9 @@ public class ClientMain {
 	public static String ip 				= null;		
 	public static String your_name 			= null;		
 	
-	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {	
 		JanelaSelectServer jsv			= new JanelaSelectServer("Address Input");	//É possível também pegar a instância desses objetos
 		JanelaMain jam 					= new JanelaMain(jsv);						//É possível também pegar a instância desses objetos
+		jam.setLocationByPlatform(false);
 	}
 }
