@@ -30,7 +30,7 @@ public class JButtonConnectListener implements ActionListener {
 				ClientMain.sock = new Socket(((JanelaSelectServer) jsv).getIpText(), ((JanelaSelectServer) jsv).getPortNumber());
 				jsv.lockFields();
 				ClientMain.oos 		= new ObjectOutputStream(clientmain.ClientMain.sock.getOutputStream());
-				ClientMain.ois 		= new ObjectInputStream(clientmain.ClientMain.sock.getInputStream());
+//				ClientMain.ois 		= new ObjectInputStream(clientmain.ClientMain.sock.getInputStream());
 				ClientMain.ip 		= ((JanelaSelectServer) jsv).getIpText();
 				ClientMain.port		= ((JanelaSelectServer) jsv).getPortNumber();
 				Message m = new Message();
