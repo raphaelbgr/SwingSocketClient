@@ -16,27 +16,27 @@ import javax.swing.KeyStroke;
 
 @SuppressWarnings("serial")
 public class JanelaSelectServer extends JFrame {
-	
+
 	JTextField field_ip 	= null;
 	JTextField field_port 	= null;
 	JTextField field_name 	= null;
 	private JanelaMain jam;
-	
+
 	public String getIpText() {
 		return this.field_ip.getText();
 	}
-	
+
 	public int getPortNumber() {
 		return Integer.valueOf(this.field_port.getText());
 	}
 	public String getNameField() {
 		return this.field_name.getText();
 	}
-	
+
 	public JanelaSelectServer(String title) {
-		
-		super(title);
-		
+
+		super("Address Input");
+
 		JPanel jpnl 		= new JPanel();
 		JLabel ip_lbl 		= new JLabel("IP Address");
 		this.field_ip 		= new JTextField(12);
@@ -45,7 +45,7 @@ public class JanelaSelectServer extends JFrame {
 		JLabel lbl_name		= new JLabel("Your name");
 		this.field_name 	= new JTextField(12);
 		JButton btn_OK	= new JButton("OK");
-		
+
 		this.add(jpnl);
 		jpnl.add(ip_lbl);
 		jpnl.add(this.field_ip);
@@ -54,32 +54,28 @@ public class JanelaSelectServer extends JFrame {
 		jpnl.add(lbl_name);
 		jpnl.add(field_name);
 		jpnl.add(btn_OK);
-		
-		//Propiedades do botão OK
+
+		//Propiedades do botï¿½o OK
 		btn_OK.addActionListener(new JButtonSelectServerOKListener(jam, this));
 		btn_OK.setFocusable(true);
 		btn_OK.setMnemonic('o');
-		
+
 		//Propiedades default dos campos:
 		this.field_ip.setText("127.0.0.1");
 		this.field_name.setText("Teste");
 		this.field_port.setText("21215");
-		
-		//Atribui a keystroke ENTER para o envio da mensagem quando o campo de texto do chat está em foco.
-		this.field_name.setAutoscrolls(true); //Propiedade do botão Send
+
+		//Atribui a keystroke ENTER para o envio da mensagem quando o campo de texto do chat estï¿½ em foco.
+		this.field_name.setAutoscrolls(true); //Propiedade do botï¿½o Send
 		KeyStroke keystroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
 		this.field_name.registerKeyboardAction(new JButtonSelectServerOKListener(jam, this), keystroke,JComponent.WHEN_FOCUSED);
-		
+
 		this.setSize(350, 150);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setLocation(0, 170);
-		
+
 		setResizable(false);
-		
-	}
-	
-	public JanelaSelectServer getInstance() {
-		return this;
+
 	}
 
 	public JTextField getField_name() {
@@ -89,7 +85,7 @@ public class JanelaSelectServer extends JFrame {
 	public void setField_name(JTextField field_name) {
 		this.field_name = field_name;
 	}
-	
+
 	public void lockFields() {
 		this.field_ip.setEditable(false);
 		this.field_port.setEditable(false);
@@ -98,7 +94,7 @@ public class JanelaSelectServer extends JFrame {
 		this.field_port.setBackground(Color.LIGHT_GRAY);
 		this.field_name.setBackground(Color.LIGHT_GRAY);
 	}
-	
+
 	public void unlockFields() {
 		this.field_ip.setEditable(true);
 		this.field_port.setEditable(true);
@@ -107,8 +103,15 @@ public class JanelaSelectServer extends JFrame {
 		this.field_port.setBackground(Color.white);
 		this.field_name.setBackground(Color.white);
 	}
+
 	
-	public JanelaSelectServer(JanelaSelectServer jsv) {
-		//this.jam = jam;
+	//SINGLETON PATTERN BLOCK
+	private JanelaSelectServer() {}
+	private static JanelaSelectServer jsv;
+	public static JanelaSelectServer getInstance() {
+		if (jsv == null) {
+			jsv = new JanelaSelectServer();
+		} 
+		return jsv;
 	}
 }

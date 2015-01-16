@@ -1,31 +1,18 @@
 package clientmain;
 
-import java.awt.GraphicsEnvironment;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-
-import javax.swing.JFrame;
-
 import gui.janelas.JanelaMain;
-import gui.janelas.JanelaSelectServer;
 
 public class ClientMain {
-	
-	public static int port 					= 0;
-	public static ObjectOutputStream oos 	= null;		//É possível também pegar a instância desses objetos
-	public static ObjectInputStream  ois 	= null;		//É possível também pegar a instância desses objetos
-	public static Socket sock 				= null;		//É possível também pegar a instância desses objetos
-	
+
+	public static int port 				= 0;
+
 	public static Thread receiver			= null;
 
 	public static String ip 				= null;		
-	public static String your_name 			= null;		
-	
-	public static void main(String[] args) throws IOException {	
-		JanelaSelectServer jsv			= new JanelaSelectServer("Address Input");	//É possível também pegar a instância desses objetos
-		JanelaMain jam 					= new JanelaMain(jsv);						//É possível também pegar a instância desses objetos
+	public static String your_name 		= null;		
+
+	public static void main(String[] args) {	
+		JanelaMain jam = JanelaMain.getInstance();		//ï¿½ possï¿½vel tambï¿½m pegar a instï¿½ncia desses objetos
 		jam.setLocationByPlatform(false);
 	}
 }

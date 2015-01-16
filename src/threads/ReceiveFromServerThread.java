@@ -2,18 +2,23 @@ package threads;
 
 import exceptions.ServerException;
 import gui.janelas.JanelaMain;
+import gui.updatelogs.ConnectionLog;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.net.Socket;
 
 import javax.swing.JTextField;
 
 import sendable.Message;
+import sync.ClientStream;
 import clientmain.ClientMain;
 
 public class ReceiveFromServerThread implements Runnable {
 
 	private JanelaMain jam;
+	private ClientStream stream = ClientStream.getInstance();
+	private ConnectionLog clog = ConnectionLog.getInstance();
 
 	@Override
 	public void run() {
@@ -21,33 +26,29 @@ public class ReceiveFromServerThread implements Runnable {
 		while (true) {
 
 			try {
-				Object o = ClientMain.ois.readObject();
-				System.out.println("isexecuting?");
+				Object o = stream.receiveMessage();
 				if (o != null) {
 					if (o instanceof Message) {
-						if (((Message) o).getType().equals("normal") && ((Message) o).getType() != null) {
-							jam.getJtxt_cnlog().setText("SERVER> " + ((Message) o).getServresponse());
-							jam.getJtxt_cnlog().setBackground(Color.GREEN);
-						} else if (((Message) o).getType().equals("broadcast") && ((Message) o).getType() != null) {
-							JanelaMain.msg_list.add(((Message) o).getText(), new JTextField()); 					// TERMINAR ISSO DAQUI
-						} else if (((Message) o).getType().equals("connectok") && ((Message) o).getType() != null) {
-							jam.getJtxt_cnlog().setText(((Message) o).getServresponse() + " on " + ClientMain.ip + " on port " + ClientMain.port);
-							jam.getJtxt_cnlog().setBackground(Color.GREEN);
+						Message m = (Message) o;
+						if (m.getType().equals("normal") && (m.getType() != null)) {
+							clog.setGreenMessage("SERVER> " + m.getServresponse());
+						} else if (m.getType().equals("broadcast") && (m.getType() != null)) {
+							//TERMINAR ISSO
+							jam.getMsg_list().add(m.getText(), new JTextField());
+						} else if (m.getType().equals("connectok") && (m.getType() != null)) {
+							clog.setGreenMessage(m.getServresponse() + " on " + ClientMain.ip + " on port " + ClientMain.port);
 						}
 					} else if (o instanceof ServerException) {
-						jam.getJtxt_cnlog().setText(((ServerException) o).getMessage());
-						jam.getJtxt_cnlog().setBackground(Color.RED);
+						ServerException se = (ServerException) o;
+						clog.setErrorMessage(se.getMessage());
 					}
 				} else {
-					jam.getJtxt_cnlog().setText("Connected but not responding.");
-					jam.getJtxt_cnlog().setBackground(Color.RED);
+					clog.setErrorMessage("Connected but not responding.");
 				}
 			} catch (ClassNotFoundException e) {
-				// break;
 			} catch (IOException e) {
-				// break;
+				clog.setErrorMessage("I/O Error, operation aborted.");
 			} finally {
-
 			}
 		}
 	}

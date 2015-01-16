@@ -6,25 +6,28 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.SocketException;
 
 import sendable.Message;
-import clientmain.ClientMain;
+import sync.ClientStream;
 
 public class JButtonSendServerListener implements ActionListener {
 
 	Message m = null;
 	private JanelaMain jam;
 	private JanelaSelectServer jsv;
+	private Socket sock = ClientStream.getInstance().getSock();
+	private ClientStream stream = ClientStream.getInstance();
 
 	//Monta o objeto mensagem
 	public Message assembleMessage() {
 		m = new Message();
 		m.setText(((JanelaMain) jam).getTextField().getText());
 		m.setOwner(((JanelaSelectServer) jsv).getField_name().getText());
-		m.setIp(ClientMain.sock.getLocalAddress().toString());
+		m.setIp(sock.getLocalAddress().toString());
 		m.setType("normal");
-		m.setPcname(ClientMain.sock.getInetAddress().getCanonicalHostName());
+		m.setPcname(sock.getInetAddress().getCanonicalHostName());
 		m.setTimestamp();
 		m.setDate();
 		return m;
@@ -33,22 +36,21 @@ public class JButtonSendServerListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			if (clientmain.ClientMain.sock == null || clientmain.ClientMain.sock.isConnected() == false) {
-				jam.getJtxt_cnlog().setText("A connection is needed first");
-				jam.getJtxt_cnlog().setBackground(Color.RED);
+			if (sock == null || sock.isConnected() == false) {
+				jam.getCn_log().setText("A connection is needed first");
+				jam.getCn_log().setBackground(Color.RED);
 			} else if (((JanelaMain) jam).getTextField().getText().length() == 0) {
-				jam.getJtxt_cnlog().setText("Empty messages not permitted");
-				jam.getJtxt_cnlog().setBackground(Color.RED);
+				jam.getCn_log().setText("Empty messages not permitted");
+				jam.getCn_log().setBackground(Color.RED);
 			} else {
-				clientmain.ClientMain.oos.writeObject(this.assembleMessage());
-//				jam.getJtxt_cnlog().setText("Message succefully sent to server");
-//				jam.getJtxt_cnlog().setBackground(Color.GREEN);
-				((JanelaMain) jam).getTextField().setText("");
+				stream.sendMessage(this.assembleMessage());
+				jam.getCn_log().setText("Message succefully sent to server");
+				jam.getCn_log().setBackground(Color.GREEN);
+				(jam).getTextField().setText("");
 			}
 		} catch (SocketException e2) {
-			//e2.printStackTrace();
-			jam.getJtxt_cnlog().setText("Currently not conencted to any host");
-			jam.getJtxt_cnlog().setBackground(Color.RED);
+			jam.getCn_log().setText("Currently not conencted to any host");
+			jam.getCn_log().setBackground(Color.RED);
 			
 		} catch (IOException e1) {
 			e1.printStackTrace();

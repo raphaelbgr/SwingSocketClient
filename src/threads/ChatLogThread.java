@@ -3,7 +3,7 @@ package threads;
 import java.util.Observable;
 import java.util.Observer;
 
-import sendable.LocalMessageCenter;
+import sync.LocalMessageCenter;
 
 public class ChatLogThread extends Thread implements Observer {
 

@@ -6,40 +6,36 @@ import gui.janelas.JanelaSelectServer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.SocketException;
 
 import sendable.Message;
-import clientmain.ClientMain;
+import sync.ClientStream;
 
 public class JButtonExitListener implements ActionListener {
 
 	@SuppressWarnings("unused")
 	private JanelaMain jam;
 	private JanelaSelectServer jsv;
+	private Socket sock = ClientStream.getInstance().getSock();
+	private ClientStream stream = ClientStream.getInstance();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			Message m = new Message(((JanelaSelectServer) jsv).getField_name().getText(), ((JanelaSelectServer) jsv).getField_name().getText(),ClientMain.sock.getLocalAddress().toString());
-			m.setPcname(ClientMain.sock.getInetAddress().getCanonicalHostName());
-			ClientMain.oos.writeObject(m.buildDisconnectMessage());
-			clientmain.ClientMain.oos.close();
-			clientmain.ClientMain.sock.close();
+			Message m = new Message((jsv).getField_name().getText(), (jsv).getField_name().getText(),sock.getLocalAddress().toString());
+			m.setPcname(sock.getInetAddress().getCanonicalHostName());
+			stream.sendMessage(m.buildDisconnectMessage());
+			sock.close();
 		} catch (SocketException e2) {
-			try {
-				clientmain.ClientMain.oos.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-				clientmain.ClientMain.oos = null;
-			}
+			e2.printStackTrace();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} finally {
 			System.exit(0);
 		}
 	}
-	
+
 	public JButtonExitListener(JanelaMain jam, JanelaSelectServer jsv) {
 		this.jam = jam;
 		this.jsv = jsv;

@@ -1,7 +1,9 @@
-package sendable;
+package sync;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import sendable.Message;
 
 public class LocalMessageCenter {
 	private List<Message> mList = null;
