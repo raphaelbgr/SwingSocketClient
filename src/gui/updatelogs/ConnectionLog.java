@@ -9,8 +9,8 @@ import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class ConnectionLog extends JTextField {
-	
-	private JanelaMain jam = JanelaMain.getInstance();
+
+	private JanelaMain jam;
 
 	public void setErrorMessage(String s) {
 		jam.getCn_log().setText(s);
@@ -26,19 +26,9 @@ public class ConnectionLog extends JTextField {
 		
 	}
 
-
-	//SINGLETON PATTERN BLOCK
-	private static ConnectionLog cl;
-	public static ConnectionLog getInstance() {
-		if (ConnectionLog.cl == null){
-			cl = new ConnectionLog(30);
-		}
-		return cl;
-	}
-	private ConnectionLog() {
-	}
-	private ConnectionLog(int i) {
+	public ConnectionLog(JanelaMain jam, int i) {
 		super(i);
+		this.jam = jam;
 	}
 
 }

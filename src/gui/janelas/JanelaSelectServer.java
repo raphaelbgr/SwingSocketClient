@@ -35,7 +35,7 @@ public class JanelaSelectServer extends JFrame {
 
 	public JanelaSelectServer(String title) {
 
-		super("Address Input");
+		super(title);
 
 		JPanel jpnl 		= new JPanel();
 		JLabel ip_lbl 		= new JLabel("IP Address");
@@ -105,13 +105,13 @@ public class JanelaSelectServer extends JFrame {
 	}
 
 	
-	//SINGLETON PATTERN BLOCK
-	private JanelaSelectServer() {}
-	private static JanelaSelectServer jsv;
-	public static JanelaSelectServer getInstance() {
-		if (jsv == null) {
-			jsv = new JanelaSelectServer();
-		} 
-		return jsv;
-	}
+//	//SINGLETON PATTERN BLOCK
+//	private JanelaSelectServer() {}
+//	private static JanelaSelectServer jsv;
+//	public static JanelaSelectServer getInstance() {
+//		if (jsv == null) {
+//			jsv = new JanelaSelectServer();
+//		} 
+//		return jsv;
+//	}
 }

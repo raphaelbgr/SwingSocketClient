@@ -4,9 +4,7 @@ import exceptions.ServerException;
 import gui.janelas.JanelaMain;
 import gui.updatelogs.ConnectionLog;
 
-import java.awt.Color;
 import java.io.IOException;
-import java.net.Socket;
 
 import javax.swing.JTextField;
 
@@ -16,9 +14,9 @@ import clientmain.ClientMain;
 
 public class ReceiveFromServerThread implements Runnable {
 
-	private JanelaMain jam;
+	private JanelaMain jam = JanelaMain.getInstance();
 	private ClientStream stream = ClientStream.getInstance();
-	private ConnectionLog clog = ConnectionLog.getInstance();
+	private ConnectionLog clog = jam.getCn_log();
 
 	@Override
 	public void run() {
@@ -53,8 +51,8 @@ public class ReceiveFromServerThread implements Runnable {
 		}
 	}
 
-	public ReceiveFromServerThread(JanelaMain jam) {
-		this.jam = jam;
-	}
+//	public ReceiveFromServerThread(JanelaMain jam) {
+//		this.jam = jam;
+//	}
 
 }

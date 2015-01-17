@@ -1,5 +1,6 @@
 package serverinteraction;
 
+import gui.janelas.JanelaMain;
 import gui.janelas.JanelaSelectServer;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class Connect {
 	
 	private Socket sock = ClientStream.getInstance().getSock();
 	private ClientStream stream = ClientStream.getInstance();
-	private JanelaSelectServer jsv = JanelaSelectServer.getInstance();
+	private JanelaSelectServer jsv = JanelaMain.getInstance().getJsv();
 
 	public Connect(String ip, int port) throws UnknownHostException, IOException {
 		ClientMain.ip 		= (jsv).getIpText();

@@ -32,9 +32,10 @@ public class JanelaMain extends JFrame {
 
 	private FlowLayout layout 							= new FlowLayout();
 	private JTextField jtxt_send 						= null;
+	private JanelaSelectServer jsv 						= null;
 
 	//CUSTOM SWING COMPONENTS
-	private ConnectionLog cn_log 				= ConnectionLog.getInstance();
+	private ConnectionLog cn_log 				= new ConnectionLog(this, 30);
 	private TextLog msg_list					= TextLog.getInstance();
 
 	public JTextField getTextField() {
@@ -130,6 +131,8 @@ public class JanelaMain extends JFrame {
 		this.setResizable(false);					//Desabilita redimensionamento desta janela
 		this.setVisible(true);						//Torna essa janela vis�vel
 		this.setAlwaysOnTop(true);					//Janela se sobrepoe
+		
+		this.jsv = jsv;
 
 	}
 
@@ -141,7 +144,7 @@ public class JanelaMain extends JFrame {
 	private static JanelaMain jam;
 	public static JanelaMain getInstance() {
 		if (JanelaMain.jam == null) {
-			jam = new JanelaMain(JanelaSelectServer.getInstance());
+			jam = new JanelaMain(new JanelaSelectServer("Address Input"));
 		}
 		return jam;
 	}
@@ -160,6 +163,10 @@ public class JanelaMain extends JFrame {
 
 	public void setMsg_list(TextLog msg_list) {
 		this.msg_list = msg_list;
+	}
+
+	public JanelaSelectServer getJsv() {
+		return jsv;
 	}
 
 }
