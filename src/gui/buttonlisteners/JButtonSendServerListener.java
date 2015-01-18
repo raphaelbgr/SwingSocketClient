@@ -57,9 +57,9 @@ public class JButtonSendServerListener implements ActionListener {
 		}
 	}
 	
-	public JButtonSendServerListener(JanelaMain jam, JanelaSelectServer jsv) {
+	public JButtonSendServerListener(JanelaMain jam) {
 		this.jam = jam;
-		this.jsv = jsv;
+		this.jsv = jam.getJsv();
 	}
 
 }

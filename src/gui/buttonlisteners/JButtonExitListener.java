@@ -36,9 +36,9 @@ public class JButtonExitListener implements ActionListener {
 		}
 	}
 
-	public JButtonExitListener(JanelaMain jam, JanelaSelectServer jsv) {
+	public JButtonExitListener(JanelaMain jam) {
 		this.jam = jam;
-		this.jsv = jsv;
+		this.jsv = jam.getJsv();
 	}
 
 }

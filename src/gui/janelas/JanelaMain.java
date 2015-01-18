@@ -36,7 +36,7 @@ public class JanelaMain extends JFrame {
 
 	//CUSTOM SWING COMPONENTS
 	private ConnectionLog cn_log 				= new ConnectionLog(this, 30);
-	private TextLog msg_list					= TextLog.getInstance();
+	private TextLog msg_list					= new TextLog();
 
 	public JTextField getTextField() {
 		return this.jtxt_send;
@@ -45,6 +45,8 @@ public class JanelaMain extends JFrame {
 	private JanelaMain(JanelaSelectServer jsv) {
 		super("Open Source Chat Client");
 
+		this.jsv = jsv;
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(490, 290);
 		this.setLayout(layout);
@@ -94,13 +96,13 @@ public class JanelaMain extends JFrame {
 		//Atribui a keystroke ENTER para o envio da mensagem quando o campo de texto do chat est� em foco.
 		jtxt_send.setAutoscrolls(true); //Propiedade do bot�o Send
 		KeyStroke keystroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
-		jtxt_send.registerKeyboardAction(new JButtonSendServerListener(this, jsv), keystroke,JComponent.WHEN_FOCUSED);
+		jtxt_send.registerKeyboardAction(new JButtonSendServerListener(this), keystroke,JComponent.WHEN_FOCUSED);
 
-		jbt_send.addActionListener(		new JButtonSendServerListener(this, jsv));		//Comportamento do bot�o "Send"
-		jbt_selserv.addActionListener(	new JButtonSelectServerListener(this,jsv));		//Comportamento do bot�o "Select Server"
-		jbt_exit.addActionListener(		new JButtonExitListener(this,jsv));				//Comportamento do bot�o "Exit"
-		jbt_connect.addActionListener(	new JButtonConnectListener(this,jsv));			//Comportamento para o bot�o "Connect"
-		jbt_disconn.addActionListener(	new JButtonDisconnectListener(this,jsv));		//Comportamento para o bot�o "Disconnect"
+		jbt_send.addActionListener(		new JButtonSendServerListener(this));		//Comportamento do bot�o "Send"
+		jbt_selserv.addActionListener(	new JButtonSelectServerListener(this));		//Comportamento do bot�o "Select Server"
+		jbt_exit.addActionListener(		new JButtonExitListener(this));				//Comportamento do bot�o "Exit"
+		jbt_connect.addActionListener(	new JButtonConnectListener(this));			//Comportamento para o bot�o "Connect"
+		jbt_disconn.addActionListener(	new JButtonDisconnectListener(this));		//Comportamento para o bot�o "Disconnect"
 
 		getCn_log().setEditable(false);												//Desabilita o campo para edi��o
 		getCn_log().setBackground(Color.LIGHT_GRAY);								//Muda a cor do campo "Connection log" para cinza
@@ -131,8 +133,6 @@ public class JanelaMain extends JFrame {
 		this.setResizable(false);					//Desabilita redimensionamento desta janela
 		this.setVisible(true);						//Torna essa janela vis�vel
 		this.setAlwaysOnTop(true);					//Janela se sobrepoe
-		
-		this.jsv = jsv;
 
 	}
 

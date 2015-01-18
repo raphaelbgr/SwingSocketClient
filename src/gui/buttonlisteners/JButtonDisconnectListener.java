@@ -53,8 +53,8 @@ public class JButtonDisconnectListener implements ActionListener {
 		}
 	}
 
-	public JButtonDisconnectListener(JanelaMain jam, JanelaSelectServer jsv) {
-		this.jsv = jsv;
+	public JButtonDisconnectListener(JanelaMain jam) {
+		this.jsv = jam.getJsv();
 		this.jam = jam;
 	}
 

@@ -16,9 +16,9 @@ public class JButtonSelectServerListener implements ActionListener {
 		jsv.setVisible(true);
 	}
 
-	public JButtonSelectServerListener(JanelaMain jam, JanelaSelectServer jsv) {
+	public JButtonSelectServerListener(JanelaMain jam) {
 		this.jam = jam;
-		this.jsv = jsv;
+		this.jsv = jam.getJsv();
 	}
 	
 }

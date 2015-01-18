@@ -12,7 +12,7 @@ public class ClientMain {
 	public static String your_name 			= null;		
 
 	public static void main(String[] args) {	
-		JanelaMain jam = JanelaMain.getInstance();		//� poss�vel tamb�m pegar a inst�ncia desses objetos
+		JanelaMain jam = JanelaMain.getInstance();
 		jam.setLocationByPlatform(false);
 	}
 }

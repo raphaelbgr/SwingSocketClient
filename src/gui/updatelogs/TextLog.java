@@ -10,7 +10,7 @@ public class TextLog extends JTextArea {
 	private static final long serialVersionUID = 1L;
 	JScrollPane sp = null;
 
-	private TextLog() {
+	public TextLog() {
 		JScrollPane scrollPane = new JScrollPane(this);
 		scrollPane.setPreferredSize(new Dimension(380, 100));
 		this.setLineWrap(true);
@@ -24,14 +24,14 @@ public class TextLog extends JTextArea {
 		return sp;
 	}
 
-	//SINGLETON PATTERN BLOCK
-	private static TextLog tl;
-	public static TextLog getInstance() {
-		if (tl == null){
-			return new TextLog();
-		} else {
-			return tl;
-		}
-	}
+//	//SINGLETON PATTERN BLOCK
+//	private static TextLog tl;
+//	public static TextLog getInstance() {
+//		if (tl == null){
+//			return new TextLog();
+//		} else {
+//			return tl;
+//		}
+//	}
 
 }
