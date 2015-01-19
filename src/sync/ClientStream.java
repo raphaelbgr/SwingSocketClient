@@ -25,12 +25,12 @@ public class ClientStream {
 
 
 	//SINGLETON PATTERN BLOCK
-	private static ClientStream sockets;
+	private static ClientStream instance;
 	public static ClientStream getInstance() {
-		if (sockets == null){
-			sockets = new ClientStream();
+		if (instance == null){
+			instance = new ClientStream();
 		}
-		return sockets;
+		return instance;
 	}
 	private ClientStream() {
 	}
@@ -39,13 +39,13 @@ public class ClientStream {
 		ObjectOutputStream oos = new ObjectOutputStream(this.sock.getOutputStream());
 		oos.writeObject(m);
 		oos.flush();
-		oos.close();
+//		oos.close();
 	}
 
 	public synchronized Object receiveMessage() throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(this.sock.getInputStream());
 		Object o = ois.readObject();
-		ois.close();
+//		ois.close();
 		return o;
 	}
 

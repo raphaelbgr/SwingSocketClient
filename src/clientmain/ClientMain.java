@@ -11,8 +11,8 @@ public class ClientMain {
 	public static String ip 				= null;		
 	public static String your_name 			= null;		
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {	
 		JanelaMain jam = JanelaMain.getInstance();
-		jam.setLocationByPlatform(false);
 	}
 }

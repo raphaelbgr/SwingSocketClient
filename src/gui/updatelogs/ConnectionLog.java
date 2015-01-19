@@ -23,7 +23,8 @@ public class ConnectionLog extends JTextField {
 	}
 	
 	public void setGreyMessage(String s) {
-		
+		jam.getCn_log().setText(s);
+		jam.getCn_log().setBackground(Color.LIGHT_GRAY);
 	}
 
 	public ConnectionLog(JanelaMain jam, int i) {
