@@ -33,23 +33,23 @@ public class JButtonDisconnectListener implements ActionListener {
 				stream.sendMessage(m);
 
 				jsv.unlockFields();
-				jam.getCn_log().setText("Disconencted from host");
-				jam.getCn_log().setBackground(Color.LIGHT_GRAY);
+				jam.getConnectionLog().setText("Disconencted from host");
+				jam.getConnectionLog().setBackground(Color.LIGHT_GRAY);
 			} else if (sock == null) {
-				jam.getCn_log().setText("No connection has been made yet.");
-				jam.getCn_log().setBackground(Color.red);
+				jam.getConnectionLog().setText("No connection has been made yet.");
+				jam.getConnectionLog().setBackground(Color.red);
 			} else if (!sock.isConnected()) {
 				sock.close();
-				jam.getCn_log().setText("Already disconnected.");
-				jam.getCn_log().setBackground(Color.red);
+				jam.getConnectionLog().setText("Already disconnected.");
+				jam.getConnectionLog().setBackground(Color.red);
 			}
 		} catch (SocketException e2){ 
-			jam.getCn_log().setText("Already disconnected.");
-			jam.getCn_log().setBackground(Color.LIGHT_GRAY);
+			jam.getConnectionLog().setText("Already disconnected.");
+			jam.getConnectionLog().setBackground(Color.LIGHT_GRAY);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-			jam.getCn_log().setText("Could not disconnect from host");
-			jam.getCn_log().setBackground(Color.RED);
+			jam.getConnectionLog().setText("Could not disconnect from host");
+			jam.getConnectionLog().setBackground(Color.RED);
 		}
 	}
 

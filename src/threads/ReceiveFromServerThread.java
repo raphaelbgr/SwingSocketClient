@@ -2,7 +2,7 @@ package threads;
 
 import exceptions.ServerException;
 import gui.janelas.JanelaMain;
-import gui.updatelogs.ConnectionLog;
+import gui.updatelogs.ConnectionLogUpdater;
 
 import java.io.IOException;
 
@@ -14,15 +14,14 @@ import clientmain.ClientMain;
 
 public class ReceiveFromServerThread implements Runnable {
 
-	private JanelaMain jam = JanelaMain.getInstance();
+	private JanelaMain jam = null;;
 	private ClientStream stream = ClientStream.getInstance();
-	private ConnectionLog clog = jam.getCn_log();
+	private ConnectionLogUpdater clog = null;
 
 	@Override
 	public void run() {
 
 		while (true) {
-
 			try {
 				Object o = stream.receiveMessage();
 				if (o != null) {
@@ -51,8 +50,9 @@ public class ReceiveFromServerThread implements Runnable {
 		}
 	}
 
-//	public ReceiveFromServerThread(JanelaMain jam) {
-//		this.jam = jam;
-//	}
+		public ReceiveFromServerThread(JanelaMain jam) {
+			this.jam = jam;
+			this.clog = jam.getConnectionLog();
+		}
 
 }

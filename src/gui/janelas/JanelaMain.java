@@ -1,12 +1,13 @@
 package gui.janelas;
 
+import gui.WindowDataFacade;
 import gui.buttonlisteners.JButtonConnectListener;
 import gui.buttonlisteners.JButtonDisconnectListener;
 import gui.buttonlisteners.JButtonExitListener;
 import gui.buttonlisteners.JButtonSelectServerListener;
 import gui.buttonlisteners.JButtonSendServerListener;
 import gui.jmenuListeners.JMenuExitListener;
-import gui.updatelogs.ConnectionLog;
+import gui.updatelogs.ConnectionLogUpdater;
 import gui.updatelogs.TextLog;
 
 import java.awt.Color;
@@ -30,19 +31,19 @@ import sendable.Message;
 @SuppressWarnings("serial")
 public class JanelaMain extends JFrame {
 
-	private FlowLayout layout 							= new FlowLayout();
-	private JTextField jtxt_send 						= null;
-	private JanelaSelectServer jsv 						= null;
+	private FlowLayout layout 					= new FlowLayout();
+	private JTextField jtxt_send 				= null;
+	private JanelaSelectServer jsv 				= null;
 
 	//CUSTOM SWING COMPONENTS
-	private ConnectionLog cn_log 				= new ConnectionLog(this, 30);
+	private ConnectionLogUpdater cnlog 			= new ConnectionLogUpdater(this, 30);
 	private TextLog msg_list					= new TextLog();
 
 	public JTextField getTextField() {
 		return this.jtxt_send;
 	}
 
-	private JanelaMain(JanelaSelectServer jsv) {
+	public JanelaMain(JanelaSelectServer jsv) {
 		super("Open Source Chat Client");
 
 		this.jsv = jsv;
@@ -51,7 +52,7 @@ public class JanelaMain extends JFrame {
 		this.setSize(490, 290);
 		this.setLayout(layout);
 
-		//Bloco de cria��o do Menu e seus bot�es
+		//Bloco de criacao do Menu e seus botoes
 		JMenuBar jmb			= new JMenuBar();					//
 		JMenu jmi				= new JMenu("File");				//
 		JMenuItem jmexit 		= new JMenuItem("Exit");			//
@@ -69,43 +70,43 @@ public class JanelaMain extends JFrame {
 		JButton jbt_disconn		= new JButton("Disconnect");		//
 		JButton jbt_exit 		= new JButton("Exit");				//
 
-		//Propiedades bot�o Send
-		jbt_send.setFocusable(true);								//Atrubui Sele��o com Tab
+		//Propiedades botao Send
+		jbt_send.setFocusable(true);								//Atrubui Selecao com Tab
 		jbt_send.setMnemonic('s'); 									//Atribui atalho Alt+S
 
-		//Propiedades do bot�o do Menu Exit
+		//Propiedades do botao do Menu Exit
 		jmexit.setFocusable(true);
 		jmexit.setMnemonic('e');
 
-		//Propiedades do bot�o Exit
+		//Propiedades do botao Exit
 		jbt_exit.setFocusable(true);
 		jbt_exit.setMnemonic('e');
 
-		//Propiedades do bot�o Connect
+		//Propiedades do botao Connect
 		jbt_connect.setFocusable(true);
 		jbt_connect.setMnemonic('c');
 
-		//Propiedades do bot�o Disconnect
+		//Propiedades do botao Disconnect
 		jbt_disconn.setFocusable(true);
 		jbt_disconn.setMnemonic('d');
 
-		//Propiedades do bot�o Select Server
+		//Propiedades do botao Select Server
 		jbt_selserv.setFocusable(true);
 		jbt_selserv.setMnemonic('v');
 
-		//Atribui a keystroke ENTER para o envio da mensagem quando o campo de texto do chat est� em foco.
-		jtxt_send.setAutoscrolls(true); //Propiedade do bot�o Send
+		//Atribui a keystroke ENTER para o envio da mensagem quando o campo de texto do chat estiver em foco.
+		jtxt_send.setAutoscrolls(true); 											//Propiedade do botao Send
 		KeyStroke keystroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
 		jtxt_send.registerKeyboardAction(new JButtonSendServerListener(this), keystroke,JComponent.WHEN_FOCUSED);
 
-		jbt_send.addActionListener(		new JButtonSendServerListener(this));		//Comportamento do bot�o "Send"
-		jbt_selserv.addActionListener(	new JButtonSelectServerListener(this));		//Comportamento do bot�o "Select Server"
-		jbt_exit.addActionListener(		new JButtonExitListener(this));				//Comportamento do bot�o "Exit"
-		jbt_connect.addActionListener(	new JButtonConnectListener(this));			//Comportamento para o bot�o "Connect"
-		jbt_disconn.addActionListener(	new JButtonDisconnectListener(this));		//Comportamento para o bot�o "Disconnect"
+		jbt_send.addActionListener(		new JButtonSendServerListener(this));		//Comportamento do botao "Send"
+		jbt_selserv.addActionListener(	new JButtonSelectServerListener(this));		//Comportamento do botao "Select Server"
+		jbt_exit.addActionListener(		new JButtonExitListener(this));				//Comportamento do botao "Exit"
+		jbt_connect.addActionListener(	new JButtonConnectListener(this,cnlog));			//Comportamento para o botao "Connect"
+		jbt_disconn.addActionListener(	new JButtonDisconnectListener(this));		//Comportamento para o botao "Disconnect"
 
-		getCn_log().setEditable(false);												//Desabilita o campo para edi��o
-		getCn_log().setBackground(Color.LIGHT_GRAY);								//Muda a cor do campo "Connection log" para cinza
+		getConnectionLog().setEditable(false);										//Desabilita o campo para edi��o
+		getConnectionLog().setBackground(Color.LIGHT_GRAY);							//Muda a cor do campo "Connection log" para cinza
 
 		//Cria Borda para a JTextArea da Lista de mensagens
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
@@ -113,7 +114,6 @@ public class JanelaMain extends JFrame {
 				BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		jtxt_send.setBorder(BorderFactory.createCompoundBorder(border, 
 				BorderFactory.createEmptyBorder(1, 1, 1, 1)));
-
 		msg_list.setBorder(border);
 
 
@@ -124,37 +124,41 @@ public class JanelaMain extends JFrame {
 		this.add(jtxt_send);						//TextField da Mensagem � enviar
 		this.add(jbt_send);							//
 		this.add(jlbl_cnlog);						//
-		this.add(getCn_log());						//
+		this.add(getConnectionLog());				//
 		this.add(jbt_connect);						//
 		this.add(jbt_selserv);						//
 		this.add(jbt_disconn);						//
 		this.add(jbt_exit);							//
 
 		this.setResizable(false);					//Desabilita redimensionamento desta janela
-		this.setVisible(true);						//Torna essa janela vis�vel
+		this.setVisible(true);						//Torna essa janela visivel
 		this.setAlwaysOnTop(true);					//Janela se sobrepoe
+		
+		WindowDataFacade wdf = WindowDataFacade.getInstance();	//Guarda as instancias numa classe estatica
+		wdf.loadInstance(this, this.getJsv());					//Guarda as instancias numa classe estatica
 
 	}
 
 	public void addMessageToChatLog(Message m) {
+		
 	}
 
 
-	//SINGLETON PATTERN BLOCK
-	private static JanelaMain jam;
-	public static JanelaMain getInstance() {
-		if (JanelaMain.jam == null) {
-			jam = new JanelaMain(new JanelaSelectServer("Address Input"));
-		}
-		return jam;
+//	//SINGLETON PATTERN BLOCK
+//	private static JanelaMain jam;
+//	public static JanelaMain getInstance() {
+//		if (JanelaMain.jam == null) {
+//			jam = new JanelaMain(new JanelaSelectServer("Address Input"));
+//		}
+//		return jam;
+//	}
+
+	public ConnectionLogUpdater getConnectionLog() {
+		return cnlog;
 	}
 
-	public ConnectionLog getCn_log() {
-		return cn_log;
-	}
-
-	public void setCn_log(ConnectionLog cn_log) {
-		this.cn_log = cn_log;
+	public void setCn_log(ConnectionLogUpdater cn_log) {
+		this.cnlog = cn_log;
 	}
 
 	public TextLog getMsg_list() {

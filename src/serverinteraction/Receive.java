@@ -1,8 +1,8 @@
 package serverinteraction;
 
 import exceptions.ServerException;
-import gui.janelas.JanelaMain;
-import gui.updatelogs.ConnectionLog;
+import gui.WindowDataFacade;
+import gui.updatelogs.ConnectionLogUpdater;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class Receive {
 
 	public Receive() throws ClassNotFoundException, IOException {
 		ClientStream stream 	= ClientStream.getInstance();
-		ConnectionLog log = new ConnectionLog(JanelaMain.getInstance(), 30);
+		ConnectionLogUpdater log = WindowDataFacade.getJam().getConnectionLog();
 		
 		Object o = stream.receiveMessage();
 		if (o instanceof Message) {

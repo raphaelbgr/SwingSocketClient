@@ -1,70 +1,44 @@
 package serverinteraction;
 
+import gui.WindowDataFacade;
 import gui.janelas.JanelaMain;
 import gui.janelas.JanelaSelectServer;
 
-import java.awt.Color;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.UnknownHostException;
 
 import sendable.Message;
+import sendable.NormalMessage;
+import sync.ClientStream;
 
 public class Send {
 
-	Message m = null;
-	JanelaMain jam = null;
+	JanelaMain jam 			= null;
+	ClientStream stream 	= ClientStream.getInstance();
+	JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
 
-	private Socket sock;
-
-	public void send(Socket sock, Object o, JanelaMain jam) throws IOException {
-		
-		ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
-		oos.writeObject(o);
-		oos.flush();
-		//oos.close();
+	public boolean send(Object o) throws UnknownHostException, IOException {
+		if (o instanceof NormalMessage) {
+			if(stream.checkOnlineStatus()) {
+				stream.sendMessage(assembleMessage());	//SENDS THE MESSAGE
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
-
+	
 	//Monta o objeto mensagem
 	public Message assembleMessage() {
-		JanelaSelectServer jsv = jam.getJsv();
-		m = new Message();
-		m.setText(((JanelaMain) jam).getTextField().getText());
-		m.setOwner(((JanelaSelectServer) jsv).getField_name().getText());
-		m.setIp(sock.getLocalAddress().toString());
-		m.setType("normal");
-		m.setPcname(sock.getInetAddress().getCanonicalHostName());
-		m.setTimestamp();
-		m.setDate();
-		return m;
-	}
-
-	public Send(Socket sock) {
-		this.sock = sock;
-	}
-
-	public void sendAndhandleLog(JanelaMain jam) {
-		try {
-			if (sock == null || sock.isConnected() == false) {
-				jam.getCn_log().setText("A connection is needed first");
-				jam.getCn_log().setBackground(Color.RED);
-			} else if (((JanelaMain) jam).getTextField().getText().length() == 0) {
-				jam.getCn_log().setText("Empty messages not permitted");
-				jam.getCn_log().setBackground(Color.RED);
-			} else {
-				this.send(sock,this.assembleMessage(),jam);
-				jam.getCn_log().setText("Message succefully sent to server");
-				jam.getCn_log().setBackground(Color.GREEN);
-				(jam).getTextField().setText("");
-			}
-		} catch (SocketException e2) {
-			jam.getCn_log().setText("Currently not conencted to any host");
-			jam.getCn_log().setBackground(Color.RED);
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		NormalMessage nm 	= new NormalMessage();
+		nm.setOwner(jsv.getNameField());
+		nm.setPcname(stream.getSock().getInetAddress().getCanonicalHostName());
+		nm.setText(jsv.getIpText());
+		nm.setTimestamp();
+		nm.setDate();
+		return nm;
 	}
 
 }

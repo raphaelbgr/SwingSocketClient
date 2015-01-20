@@ -44,7 +44,7 @@ public class JanelaSelectServer extends JFrame {
 		this.field_port 	= new JTextField(5);
 		JLabel lbl_name		= new JLabel("Your name");
 		this.field_name 	= new JTextField(12);
-		JButton btn_OK	= new JButton("OK");
+		JButton btn_OK		= new JButton("OK");
 
 		this.add(jpnl);
 		jpnl.add(ip_lbl);
@@ -55,7 +55,7 @@ public class JanelaSelectServer extends JFrame {
 		jpnl.add(field_name);
 		jpnl.add(btn_OK);
 
-		//Propiedades do bot�o OK
+		//Propiedades do botao OK
 		btn_OK.addActionListener(new JButtonSelectServerOKListener(jam, this));
 		btn_OK.setFocusable(true);
 		btn_OK.setMnemonic('o');
@@ -65,8 +65,8 @@ public class JanelaSelectServer extends JFrame {
 		this.field_name.setText("Teste");
 		this.field_port.setText("21215");
 
-		//Atribui a keystroke ENTER para o envio da mensagem quando o campo de texto do chat est� em foco.
-		this.field_name.setAutoscrolls(true); //Propiedade do bot�o Send
+		//Atribui a keystroke ENTER para o envio da mensagem quando o campo de texto do chat esta em foco.
+		this.field_name.setAutoscrolls(true); 							//Propiedade do botao Send
 		KeyStroke keystroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
 		this.field_name.registerKeyboardAction(new JButtonSelectServerOKListener(jam, this), keystroke,JComponent.WHEN_FOCUSED);
 

@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import sendable.Message;
+import clientmain.ClientMain;
 
 /**
  * This class is supposed to store the socket of the connection generated with the server.
@@ -35,18 +35,26 @@ public class ClientStream {
 	private ClientStream() {
 	}
 
-	public synchronized void sendMessage(Message m) throws IOException {
+	public synchronized void sendMessage(Object o) throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(this.sock.getOutputStream());
-		oos.writeObject(m);
+		oos.writeObject(o);
 		oos.flush();
-//		oos.close();
 	}
 
 	public synchronized Object receiveMessage() throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(this.sock.getInputStream());
 		Object o = ois.readObject();
-//		ois.close();
 		return o;
+	}
+	
+	public boolean checkOnlineStatus() {
+		if(this.sock.isConnected()) {
+			ClientMain.CONNECTED = true;
+			return true;
+		} else {
+			ClientMain.CONNECTED = false;
+			return false;
+		}
 	}
 
 }

@@ -2,8 +2,8 @@ package gui.buttonlisteners;
 
 import gui.janelas.JanelaMain;
 import gui.janelas.JanelaSelectServer;
+import gui.updatelogs.ConnectionLogUpdater;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -16,55 +16,52 @@ import sync.ClientStream;
 
 public class JButtonConnectListener implements ActionListener {
 
-	private JanelaMain jam;
-	private JanelaSelectServer jsv;
+//	private JanelaMain jam = WindowDataFacade.getJam();
+	private JanelaSelectServer jsv = null;
 	private String ip;
 	private int port;
 	private ClientStream stream = ClientStream.getInstance();
+	private ConnectionLogUpdater log = null;
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		if ((jsv.getIpText()) != null) {
-			if ((jsv.getPortNumber() > 1) && (jsv.getPortNumber() < 65535)) {
+			if ((jsv.getPortNumber() >= 1) && (jsv.getPortNumber() <= 65535)) {
 				try {
-
-					if (ClientStream.getInstance().getSock() == null) {
+					if (stream.getSock() == null) {
 						new Connect(ip, port);
-						jsv.lockFields();	
-
+						jsv.lockFields();
 					} else {
-						jam.getCn_log().setText("Disconnection required first...");
-						jam.getCn_log().setBackground(Color.RED);
+						new Connect(ip, port);
+						jsv.lockFields();
 					}
 				} catch (ConnectException e5) {
-					jam.getCn_log().setText("Connection refused by host " + ((JanelaSelectServer) jsv).getIpText() + " on port " + ((JanelaSelectServer) jsv).getPortNumber());
-					jam.getCn_log().setBackground(Color.RED);
+					log.setErrorMessage("LOCAL> Connection refused by host " + jsv.getIpText() + " on port " + jsv.getPortNumber());
+					jsv.unlockFields();
 				} catch (SocketException e6) {
-					jam.getCn_log().setText("Lost conenction to server. Socket dropped...Try again.");
-					jam.getCn_log().setBackground(Color.RED);
-					stream.setSock(null);
+					log.setErrorMessage("LOCAL> Lost conenction to server. Socket dropped...Try again.");
+					jsv.unlockFields();
 				} catch (NumberFormatException e2) {
-					jam.getCn_log().setText("No IP or Port informed");
-					jam.getCn_log().setBackground(Color.RED);
+					log.setErrorMessage("LOCAL> No IP or Port informed");
+					jsv.unlockFields();
 				} catch (UnknownHostException e3) {
-					jam.getCn_log().setText("Host could not be resolved");
-					jam.getCn_log().setBackground(Color.RED);
+					log.setErrorMessage("LOCAL> Host could not be resolved");
+					jsv.unlockFields();
 				} catch (IllegalArgumentException e4) {
-					jam.getCn_log().setText("Invalid Port value");
-					jam.getCn_log().setBackground(Color.RED);
+					log.setErrorMessage("LOCAL> Invalid Port value");
+					jsv.unlockFields();
 				} catch (IOException e1) {
-					jam.getCn_log().setText("I/O Error");
-					jam.getCn_log().setBackground(Color.RED);
-					e1.printStackTrace();
+					log.setErrorMessage("LOCAL> I/O Error");
+					jsv.unlockFields();
 				}
 			}
 		}
 	}
 
-	public JButtonConnectListener(JanelaMain jam) {
-		this.jam = jam;
+	public JButtonConnectListener(JanelaMain jam, ConnectionLogUpdater log) {
+//		this.jam = jam;
 		this.jsv = jam.getJsv();
+		this.log = log;
 	}
 
 }
