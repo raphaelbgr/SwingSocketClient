@@ -36,13 +36,13 @@ public class JButtonConnectListener implements ActionListener {
 						jsv.lockFields();
 					}
 				} catch (ConnectException e5) {
-					log.setErrorMessage("LOCAL> Connection refused by host " + jsv.getIpText() + " on port " + jsv.getPortNumber());
+					log.setErrorMessage("LOCAL> Connection refused on " + jsv.getIpText() + ":" + jsv.getPortNumber());
 					jsv.unlockFields();
 				} catch (SocketException e6) {
-					log.setErrorMessage("LOCAL> Lost conenction to server. Socket dropped...Try again.");
+					log.setErrorMessage("LOCAL> Lost conenction to server. Socket dropped...Try again");
 					jsv.unlockFields();
 				} catch (NumberFormatException e2) {
-					log.setErrorMessage("LOCAL> No IP or Port informed");
+					log.setErrorMessage("LOCAL> Wrong or no IP/port informed");
 					jsv.unlockFields();
 				} catch (UnknownHostException e3) {
 					log.setErrorMessage("LOCAL> Host could not be resolved");

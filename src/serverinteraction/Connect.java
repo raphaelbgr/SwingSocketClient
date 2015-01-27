@@ -19,13 +19,13 @@ public class Connect {
 	public Connect(String ip, int port) throws UnknownHostException, IOException {
 		ClientStream stream 	= ClientStream.getInstance();
 		JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
-		
-		ip 				= sock.getInetAddress().getHostAddress();
+
+		ip 				= jsv.getIpText();
 		port			= (jsv).getPortNumber();
 		
 		this.sock 		= stream.getSock();
 		this.owner 		= jsv.getNameField();
-		this.pcname 	= sock.getInetAddress().getCanonicalHostName();
+//		this.pcname 	= sock.getInetAddress().getCanonicalHostName();
 		
 		stream.setSock(new Socket(ip, port));
 		
