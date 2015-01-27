@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @SuppressWarnings("unused")
@@ -18,7 +19,7 @@ public class Message implements Serializable, Comparable<Message> {
 	 */
 	private static final long serialVersionUID = -8905875007093416665L;
 
-	private Set<String> receivedby = null;
+	private Set<String> receivedby = new HashSet<String>();
 
 	private Date msg_Date;
 

@@ -32,10 +32,10 @@ public class Send {
 	
 	//Monta o objeto mensagem
 	public Message assembleMessage() {
-		NormalMessage nm 	= new NormalMessage();
-		nm.setOwner(jsv.getNameField());
+		NormalMessage nm = new NormalMessage();
+		nm.setOwner(WindowDataFacade.getJsv().getNameField());
 		nm.setPcname(stream.getSock().getInetAddress().getCanonicalHostName());
-		nm.setText(jsv.getIpText());
+		nm.setText(WindowDataFacade.getJsv().getIpText());
 		nm.setTimestamp();
 		nm.setDate();
 		return nm;

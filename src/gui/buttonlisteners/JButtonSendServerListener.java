@@ -33,6 +33,7 @@ public class JButtonSendServerListener implements ActionListener {
 		log = jam.getConnectionLog();
 		try {
 			send.send(assembleNormalMessage());
+			log.setGreenMessage("LOCAL> Sent to server");
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			log.setErrorMessage("LOCAL> Unknown host, or host disconencted.");
@@ -73,7 +74,7 @@ public class JButtonSendServerListener implements ActionListener {
 				throw new ServerException("Blank messages not permitted.");
 			} else {
 				Message m = new NormalMessage();
-				m.addSeen(jsv.getName());
+				m.addSeen(jsv.getNameField());
 				m.setOwner(jsv.getName());
 				m.setText(jam.getTextField().getText());
 				m.setTimestamp();
