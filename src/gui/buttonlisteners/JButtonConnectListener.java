@@ -1,5 +1,6 @@
 package gui.buttonlisteners;
 
+import gui.WindowDataFacade;
 import gui.janelas.JanelaMain;
 import gui.janelas.JanelaSelectServer;
 import gui.updatelogs.ConnectionLogUpdater;
@@ -10,6 +11,9 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import serverinteraction.Connect;
 import sync.ClientStream;
@@ -31,31 +35,55 @@ public class JButtonConnectListener implements ActionListener {
 					if (stream.getSock() == null) {
 						new Connect(ip, port);
 						jsv.lockFields();
+						log.setGreyMessage(getTimestamp() + "LOCAL> Connected");
+						WindowDataFacade.getJam().getJbt_Connect().setEnabled(false);
+						WindowDataFacade.getJam().getJbt_Disconn().setEnabled(true);
 					} else {
 						new Connect(ip, port);
+						log.setGreyMessage(getTimestamp() + "LOCAL> Connected");
 						jsv.lockFields();
+						WindowDataFacade.getJam().getJbt_Connect().setEnabled(false);
+						WindowDataFacade.getJam().getJbt_Disconn().setEnabled(true);
 					}
 				} catch (ConnectException e5) {
-					log.setErrorMessage("LOCAL> Connection refused on " + jsv.getIpText() + ":" + jsv.getPortNumber());
+					log.setErrorMessage(getTimestamp() + "LOCAL> Connection refused on " + jsv.getIpText() + ":" + jsv.getPortNumber());
 					jsv.unlockFields();
+					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 				} catch (SocketException e6) {
-					log.setErrorMessage("LOCAL> Lost conenction to server. Socket dropped...Try again");
+					log.setErrorMessage(getTimestamp() + "LOCAL> Lost conenction to server. Socket dropped...Try again");
 					jsv.unlockFields();
+					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 				} catch (NumberFormatException e2) {
-					log.setErrorMessage("LOCAL> Wrong or no IP/port informed");
+					log.setErrorMessage(getTimestamp() + "LOCAL> Wrong or no IP/port informed");
 					jsv.unlockFields();
+					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 				} catch (UnknownHostException e3) {
-					log.setErrorMessage("LOCAL> Host could not be resolved");
+					log.setErrorMessage(getTimestamp() + "LOCAL> Host could not be resolved");
 					jsv.unlockFields();
+					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 				} catch (IllegalArgumentException e4) {
-					log.setErrorMessage("LOCAL> Invalid Port value");
+					log.setErrorMessage(getTimestamp() + "LOCAL> Invalid Port value");
 					jsv.unlockFields();
+					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 				} catch (IOException e1) {
-					log.setErrorMessage("LOCAL> I/O Error");
+					log.setErrorMessage(getTimestamp() + "LOCAL> I/O Error");
 					jsv.unlockFields();
+					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 				}
 			}
 		}
+	}
+	
+	private String getTimestamp() {
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateFormatted = formatter.format(new Date());
+		return "["+dateFormatted+"]" + " ";
 	}
 
 	public JButtonConnectListener(JanelaMain jam, ConnectionLogUpdater log) {

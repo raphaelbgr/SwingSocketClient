@@ -6,6 +6,9 @@ import gui.janelas.JanelaSelectServer;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import sendable.Message;
 import sendable.NormalMessage;
@@ -31,11 +34,11 @@ public class Send {
 	}
 	
 	//Monta o objeto mensagem
-	public Message assembleMessage() {
+	private Message assembleMessage() {
 		NormalMessage nm = new NormalMessage();
 		nm.setOwner(WindowDataFacade.getJsv().getNameField());
 		nm.setPcname(stream.getSock().getInetAddress().getCanonicalHostName());
-		nm.setText(WindowDataFacade.getJsv().getIpText());
+		nm.setText(WindowDataFacade.getJam().getTextField().getText());
 		nm.setTimestamp();
 		nm.setDate();
 		return nm;

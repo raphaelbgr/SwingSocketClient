@@ -15,6 +15,8 @@ import clientmain.ClientMain;
 public class ClientStream {
 
 	private Socket sock = null;
+	private ObjectInputStream ois = null;
+	private ObjectOutputStream oos = null;
 
 	public Socket getSock() {
 		return sock;
@@ -35,20 +37,20 @@ public class ClientStream {
 	private ClientStream() {
 	}
 
-	public synchronized void sendMessage(Object o) throws IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(this.sock.getOutputStream());
+	public void sendMessage(Object o) throws IOException {
+		oos = new ObjectOutputStream(this.sock.getOutputStream());
 		oos.writeObject(o);
 		oos.flush();
 	}
 
-	public synchronized Object receiveMessage() throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(this.sock.getInputStream());
+	public Object receiveMessage() throws IOException, ClassNotFoundException {
+		ois = new ObjectInputStream(this.sock.getInputStream());
 		Object o = ois.readObject();
 		return o;
 	}
 	
 	public boolean checkOnlineStatus() {
-		if(this.sock.isConnected()) {
+		if(this.sock != null | this.sock.isConnected()) {
 			ClientMain.CONNECTED = true;
 			return true;
 		} else {

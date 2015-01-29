@@ -9,6 +9,7 @@ import java.net.UnknownHostException;
 
 import sendable.ConnectionMessage;
 import sync.ClientStream;
+import threads.ReceiveFromServerThread;
 
 public class Connect {
 	
@@ -38,6 +39,7 @@ public class Connect {
 		//CONNECTION MESSAGE
 		stream.sendMessage(cm);
 		stream.checkOnlineStatus();
+		
 	}
 
 }

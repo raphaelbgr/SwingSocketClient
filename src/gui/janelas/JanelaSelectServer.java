@@ -63,7 +63,7 @@ public class JanelaSelectServer extends JFrame {
 		//Propiedades default dos campos:
 		this.field_ip.setText("127.0.0.1");
 		this.field_name.setText("Teste");
-		this.field_port.setText("21215");
+		this.field_port.setText("2000");
 
 		//Atribui a keystroke ENTER para o envio da mensagem quando o campo de texto do chat esta em foco.
 		this.field_name.setAutoscrolls(true); 							//Propiedade do botao Send

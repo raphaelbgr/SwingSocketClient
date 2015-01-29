@@ -1,5 +1,6 @@
 package gui.buttonlisteners;
 import exceptions.ServerException;
+import gui.WindowDataFacade;
 import gui.janelas.JanelaMain;
 import gui.janelas.JanelaSelectServer;
 import gui.updatelogs.ConnectionLogUpdater;
@@ -8,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import clientmain.ClientMain;
 
@@ -32,16 +36,20 @@ public class JButtonSendServerListener implements ActionListener {
 	public void sendAndhandleLog(JanelaMain jam) {
 		log = jam.getConnectionLog();
 		try {
-			send.send(assembleNormalMessage());
-			log.setGreenMessage("LOCAL> Sent to server");
+			send.send(assembleMessage());
+			(jam).getTextField().setText("");
+			log.setGreyMessage(getTimestamp() + "LOCAL> Sent to server");
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
-			log.setErrorMessage("LOCAL> Unknown host, or host disconencted.");
+			log.setErrorMessage(getTimestamp() + "LOCAL> Unknown host, or host disconencted.");
+			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 		} catch (IOException e) {
 			e.printStackTrace();
-			log.setErrorMessage("LOCAL> I/O Exception");
+			log.setErrorMessage(getTimestamp() + "LOCAL> I/O Exception");
+			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 		} catch (ServerException e) {
-			log.setErrorMessage("LOCAL> " + e.getMessage());
+			log.setErrorMessage(getTimestamp() + "LOCAL> " + e.getMessage());
+			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 		}
 		
 		/*try {
@@ -66,7 +74,7 @@ public class JButtonSendServerListener implements ActionListener {
 		}*/
 	}
 
-	private Message assembleNormalMessage() throws ServerException {
+	private Message assembleMessage() throws ServerException {
 		if (ClientMain.CONNECTED) {
 			if(jsv.getName() == null) {
 				throw new ServerException("Name cannot be blank.");
@@ -83,6 +91,12 @@ public class JButtonSendServerListener implements ActionListener {
 		} else {
 			throw new ServerException("Not connected.");
 		}
+	}
+	
+	private String getTimestamp() {
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateFormatted = formatter.format(new Date());
+		return "["+dateFormatted+"]" + " ";
 	}
 	
 	public JButtonSendServerListener(JanelaMain jam) {

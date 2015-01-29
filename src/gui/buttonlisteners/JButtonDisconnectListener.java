@@ -1,61 +1,39 @@
 package gui.buttonlisteners;
 
+import gui.WindowDataFacade;
 import gui.janelas.JanelaMain;
-import gui.janelas.JanelaSelectServer;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.UnknownHostException;
 
-import sendable.Message;
-import sync.ClientStream;
+import serverinteraction.Disconnect;
 
 public class JButtonDisconnectListener implements ActionListener {
 
-	private JanelaSelectServer jsv = null;
-	private JanelaMain jam;
-	private Socket sock = ClientStream.getInstance().getSock();
-	private ClientStream stream = ClientStream.getInstance();
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		try {
-			if (sock != null && sock.isConnected()) {
-				Message m = new Message(((JanelaSelectServer) jsv).getField_name().getText(), ((JanelaSelectServer) jsv).getField_name().getText(),sock.getLocalAddress().toString());
-				m = m.buildDisconnectMessage();
-				m.setPcname(sock.getInetAddress().getCanonicalHostName());
-				
-				//SENDS THE DISCONNECTION MESSAGE
-				stream.sendMessage(m);
-
-				jsv.unlockFields();
-				jam.getConnectionLog().setText("Disconencted from host");
-				jam.getConnectionLog().setBackground(Color.LIGHT_GRAY);
-			} else if (sock == null) {
-				jam.getConnectionLog().setText("No connection has been made yet.");
-				jam.getConnectionLog().setBackground(Color.red);
-			} else if (!sock.isConnected()) {
-				sock.close();
-				jam.getConnectionLog().setText("Already disconnected.");
-				jam.getConnectionLog().setBackground(Color.red);
-			}
-		} catch (SocketException e2){ 
-			jam.getConnectionLog().setText("Already disconnected.");
-			jam.getConnectionLog().setBackground(Color.LIGHT_GRAY);
+			new Disconnect();
+			WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+			WindowDataFacade.getJam().getConnectionLog().setGreyMessage("LOCAL> Disconnected succeffuly");
+			WindowDataFacade.getJsv().unlockFields();
+		} catch (UnknownHostException e1) {
+			WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+			WindowDataFacade.getJam().getConnectionLog().setGreyMessage("LOCAL> Disconnected w/o informing server.");
+			WindowDataFacade.getJsv().unlockFields();
 		} catch (IOException e1) {
-			e1.printStackTrace();
-			jam.getConnectionLog().setText("Could not disconnect from host");
-			jam.getConnectionLog().setBackground(Color.RED);
+			WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+			WindowDataFacade.getJam().getConnectionLog().setGreyMessage("LOCAL> Disconnected w/o informing server.");
+			WindowDataFacade.getJsv().unlockFields();
 		}
 	}
 
 	public JButtonDisconnectListener(JanelaMain jam) {
-		this.jsv = jam.getJsv();
-		this.jam = jam;
 	}
 
 }

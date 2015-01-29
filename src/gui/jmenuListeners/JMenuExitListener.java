@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 
+import serverinteraction.Disconnect;
 import sync.ClientStream;
 
 public class JMenuExitListener implements ActionListener {
@@ -14,9 +15,10 @@ public class JMenuExitListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
+			new Disconnect();
 			sock.close();
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		} finally {
 			System.exit(0);
 		}

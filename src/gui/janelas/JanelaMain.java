@@ -38,6 +38,9 @@ public class JanelaMain extends JFrame {
 	//CUSTOM SWING COMPONENTS
 	private ConnectionLogUpdater cnlog 			= new ConnectionLogUpdater(this, 30);
 	private TextLog msg_list					= new TextLog();
+	private JButton jbt_connect;
+	private JButton jbt_selserv;
+	private JButton jbt_disconn;
 
 	public JTextField getTextField() {
 		return this.jtxt_send;
@@ -65,9 +68,9 @@ public class JanelaMain extends JFrame {
 		JLabel jlbl_cnlog		= new JLabel("Connection log");		//
 		jtxt_send				= new JTextField(30);				//TextField do campo Mensagem no escopo da classe. 
 		JButton jbt_send		= new JButton("Send");				//
-		JButton jbt_connect		= new JButton("Connect");			//
-		JButton jbt_selserv 	= new JButton("Select Server");		//
-		JButton jbt_disconn		= new JButton("Disconnect");		//
+		this.jbt_connect		= new JButton("Connect");			//
+		this.jbt_selserv 		= new JButton("Select Server");		//
+		this.jbt_disconn		= new JButton("Disconnect");		//
 		JButton jbt_exit 		= new JButton("Exit");				//
 
 		//Propiedades botao Send
@@ -136,7 +139,7 @@ public class JanelaMain extends JFrame {
 		
 		WindowDataFacade wdf = WindowDataFacade.getInstance();	//Guarda as instancias numa classe estatica
 		wdf.loadInstance(this, this.getJsv());					//Guarda as instancias numa classe estatica
-
+		jbt_disconn.setEnabled(false);
 	}
 
 	public void addMessageToChatLog(Message m) {
@@ -172,5 +175,17 @@ public class JanelaMain extends JFrame {
 	public JanelaSelectServer getJsv() {
 		return jsv;
 	}
-
+	
+	public JButton getJbt_Connect() {
+		return this.jbt_connect;
+	}
+	
+	public JButton getJbt_SelServ() {
+		return this.jbt_selserv;
+	}
+	
+	public JButton getJbt_Disconn() {
+		return this.jbt_disconn;
+	}
+	
 }

@@ -23,6 +23,11 @@ public class TextLog extends JTextArea {
 	public JScrollPane getScrollPane() {
 		return sp;
 	}
+	
+	public void addMessage(String s) {
+		this.append(s + "\n");
+		this.setCaretPosition(this.getDocument().getLength());
+	}
 
 //	//SINGLETON PATTERN BLOCK
 //	private static TextLog tl;
