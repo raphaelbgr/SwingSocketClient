@@ -1,14 +1,12 @@
 package serverinteraction;
 
+import exceptions.LocalException;
 import gui.WindowDataFacade;
 import gui.janelas.JanelaMain;
 import gui.janelas.JanelaSelectServer;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import sendable.Message;
 import sendable.NormalMessage;
@@ -20,19 +18,23 @@ public class Send {
 	ClientStream stream 	= ClientStream.getInstance();
 	JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
 
-	public boolean send(Object o) throws UnknownHostException, IOException {
-		if (o instanceof NormalMessage) {
-			if(stream.checkOnlineStatus()) {
-				stream.sendMessage(assembleMessage());	//SENDS THE MESSAGE
-				return true;
+	public boolean send(Object o) throws UnknownHostException, IOException, LocalException {
+		if (stream.checkOnlineStatus()) {
+			if (o instanceof NormalMessage) {
+				if(stream.checkOnlineStatus()) {
+					stream.sendMessage(assembleMessage());	//SENDS THE MESSAGE
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
 		} else {
-			return false;
+			throw new LocalException("Not connected.");
 		}
 	}
-	
+
 	//Monta o objeto mensagem
 	private Message assembleMessage() {
 		NormalMessage nm = new NormalMessage();

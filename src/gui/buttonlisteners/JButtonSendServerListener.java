@@ -1,4 +1,5 @@
 package gui.buttonlisteners;
+import exceptions.LocalException;
 import exceptions.ServerException;
 import gui.WindowDataFacade;
 import gui.janelas.JanelaMain;
@@ -13,11 +14,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import clientmain.ClientMain;
-
 import sendable.Message;
 import sendable.NormalMessage;
 import serverinteraction.Send;
+import clientmain.ClientMain;
 
 public class JButtonSendServerListener implements ActionListener {
 
@@ -50,6 +50,8 @@ public class JButtonSendServerListener implements ActionListener {
 		} catch (ServerException e) {
 			log.setErrorMessage(getTimestamp() + "LOCAL> " + e.getMessage());
 			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+		} catch (LocalException e) {
+			log.setGreyMessage(getTimestamp() + "LOCAL> " + e.getMessage());
 		}
 		
 		/*try {
