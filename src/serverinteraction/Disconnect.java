@@ -25,9 +25,10 @@ public class Disconnect {
 		dm.setOwner(this.owner);
 		dm.setPcname(this.pcname);
 
-		//DISCONNECTION MESSAGE
+		//SENDS THE DISCONNECTION MESSAGE AND CLOSES SOCKET
 		stream.sendMessage(dm);
 		stream.getSock().close();
+		stream.setSock(null);
 		stream.checkOnlineStatus();
 		
 	}

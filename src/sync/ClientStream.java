@@ -50,7 +50,7 @@ public class ClientStream {
 	}
 	
 	public boolean checkOnlineStatus() {
-		if(this.sock != null | this.sock.isConnected()) {
+		if(this.sock != null && this.sock.isConnected()) {
 			ClientMain.CONNECTED = true;
 			return true;
 		} else {

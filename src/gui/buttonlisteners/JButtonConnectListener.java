@@ -38,43 +38,51 @@ public class JButtonConnectListener implements ActionListener {
 						log.setGreyMessage(getTimestamp() + "LOCAL> Connected");
 						WindowDataFacade.getJam().getJbt_Connect().setEnabled(false);
 						WindowDataFacade.getJam().getJbt_Disconn().setEnabled(true);
+						WindowDataFacade.getJam().getJbt_send().setEnabled(true);
 					} else {
 						new Connect(ip, port);
 						log.setGreyMessage(getTimestamp() + "LOCAL> Connected");
 						jsv.lockFields();
 						WindowDataFacade.getJam().getJbt_Connect().setEnabled(false);
 						WindowDataFacade.getJam().getJbt_Disconn().setEnabled(true);
+						WindowDataFacade.getJam().getJbt_send().setEnabled(true);
 					}
 				} catch (ConnectException e5) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Connection refused on " + jsv.getIpText() + ":" + jsv.getPortNumber());
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 				} catch (SocketException e6) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Lost conenction to server. Socket dropped...Try again");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 				} catch (NumberFormatException e2) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Wrong or no IP/port informed");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 				} catch (UnknownHostException e3) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Host could not be resolved");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 				} catch (IllegalArgumentException e4) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Invalid Port value");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 				} catch (IOException e1) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> I/O Error");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 				}
 			}
 		}

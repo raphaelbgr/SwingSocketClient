@@ -11,9 +11,9 @@ public class ClientMain {
 	
 	public static int port 					= 0;
 
-	public static Thread receiver				= null;
+	public static Thread receiver			= null;
 
-	public static String ip 					= null;		
+	public static String ip 				= null;		
 	public static String your_name 			= null;		
 
 	@SuppressWarnings("unused")
@@ -22,5 +22,7 @@ public class ClientMain {
 		
 		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
 		t1.start();
+		
+		//TODO Broadcast messages.
 	}
 }

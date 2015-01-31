@@ -34,24 +34,26 @@ public class JButtonSendServerListener implements ActionListener {
 	}
 	
 	public void sendAndhandleLog(JanelaMain jam) {
-		log = jam.getConnectionLog();
-		try {
-			send.send(assembleMessage());
-			(jam).getTextField().setText("");
-			log.setGreyMessage(getTimestamp() + "LOCAL> Sent to server");
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			log.setErrorMessage(getTimestamp() + "LOCAL> Unknown host, or host disconencted.");
-			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
-		} catch (IOException e) {
-			e.printStackTrace();
-			log.setErrorMessage(getTimestamp() + "LOCAL> I/O Exception");
-			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
-		} catch (ServerException e) {
-			log.setErrorMessage(getTimestamp() + "LOCAL> " + e.getMessage());
-			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
-		} catch (LocalException e) {
-			log.setGreyMessage(getTimestamp() + "LOCAL> " + e.getMessage());
+		if (ClientMain.CONNECTED) {
+			log = jam.getConnectionLog();
+			try {
+				send.send(assembleMessage());
+				(jam).getTextField().setText("");
+				log.setGreyMessage(getTimestamp() + "LOCAL> Sent to server");
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+				log.setErrorMessage(getTimestamp() + "LOCAL> Unknown host, or host disconencted.");
+				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+			} catch (IOException e) {
+				e.printStackTrace();
+				log.setErrorMessage(getTimestamp() + "LOCAL> I/O Exception");
+				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+			} catch (ServerException e) {
+				log.setErrorMessage(getTimestamp() + "LOCAL> " + e.getMessage());
+//				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+			} catch (LocalException e) {
+				log.setGreyMessage(getTimestamp() + "LOCAL> " + e.getMessage());
+			}
 		}
 		
 		/*try {

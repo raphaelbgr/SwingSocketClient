@@ -41,6 +41,7 @@ public class JanelaMain extends JFrame {
 	private JButton jbt_connect;
 	private JButton jbt_selserv;
 	private JButton jbt_disconn;
+	private JButton jbt_send;
 
 	public JTextField getTextField() {
 		return this.jtxt_send;
@@ -67,7 +68,7 @@ public class JanelaMain extends JFrame {
 		JLabel jlbl_list 		= new JLabel("Chat log");			//
 		JLabel jlbl_cnlog		= new JLabel("Connection log");		//
 		jtxt_send				= new JTextField(30);				//TextField do campo Mensagem no escopo da classe. 
-		JButton jbt_send		= new JButton("Send");				//
+		this.jbt_send			= new JButton("Send");				//
 		this.jbt_connect		= new JButton("Connect");			//
 		this.jbt_selserv 		= new JButton("Select Server");		//
 		this.jbt_disconn		= new JButton("Disconnect");		//
@@ -140,6 +141,7 @@ public class JanelaMain extends JFrame {
 		WindowDataFacade wdf = WindowDataFacade.getInstance();	//Guarda as instancias numa classe estatica
 		wdf.loadInstance(this, this.getJsv());					//Guarda as instancias numa classe estatica
 		jbt_disconn.setEnabled(false);
+		jbt_send.setEnabled(false);
 	}
 
 	public void addMessageToChatLog(Message m) {
@@ -186,6 +188,10 @@ public class JanelaMain extends JFrame {
 	
 	public JButton getJbt_Disconn() {
 		return this.jbt_disconn;
+	}
+
+	public JButton getJbt_send() {
+		return jbt_send;
 	}
 	
 }
