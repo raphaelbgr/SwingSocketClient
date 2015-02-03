@@ -5,3 +5,5 @@ To run it in eclise just download the ZIP and import it as a GIT project, OR jus
 on eclipse.
 
 Start the program on the class clientmain.ClientMain.java
+
+-> //TODO Fix ip and port values not changing from default given ones.
