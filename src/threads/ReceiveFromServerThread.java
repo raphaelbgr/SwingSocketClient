@@ -42,6 +42,8 @@ public class ReceiveFromServerThread implements Runnable {
 								tlog.addMessage(nm.toString());
 							} else if (o instanceof DisconnectionMessage) {
 								// Client receives order to disconnect.
+								stream.checkOnlineStatus();
+								//TODO
 							}
 						} else if (o instanceof ServerException) {
 							ServerException se = (ServerException) o;

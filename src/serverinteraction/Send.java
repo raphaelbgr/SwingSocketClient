@@ -22,7 +22,7 @@ public class Send {
 		if (stream.checkOnlineStatus()) {
 			if (o instanceof NormalMessage) {
 				if(stream.checkOnlineStatus()) {
-					stream.sendMessage(assembleMessage());	//SENDS THE MESSAGE
+					stream.sendObject(assembleMessage());	//SENDS THE MESSAGE
 					return true;
 				} else {
 					return false;

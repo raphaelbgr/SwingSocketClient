@@ -37,7 +37,7 @@ public class ClientStream {
 	private ClientStream() {
 	}
 
-	public void sendMessage(Object o) throws IOException {
+	public void sendObject(Object o) throws IOException {
 		oos = new ObjectOutputStream(this.sock.getOutputStream());
 		oos.writeObject(o);
 		oos.flush();
