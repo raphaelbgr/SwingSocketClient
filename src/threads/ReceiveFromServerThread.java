@@ -7,15 +7,17 @@ import gui.updatelogs.ConnectionLogUpdater;
 import gui.updatelogs.TextLog;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import javax.swing.JTextField;
-
+import sendable.BroadCastMessage;
 import sendable.DisconnectionMessage;
 import sendable.Message;
 import sendable.NormalMessage;
 import sendable.ServerMessage;
+import serverinteraction.Disconnect;
 import sync.ClientStream;
-import clientmain.ClientMain;
 
 public class ReceiveFromServerThread implements Runnable {
 
@@ -42,8 +44,16 @@ public class ReceiveFromServerThread implements Runnable {
 								tlog.addMessage(nm.toString());
 							} else if (o instanceof DisconnectionMessage) {
 								// Client receives order to disconnect.
+								new Disconnect();
+								WindowDataFacade.getJsv().unlockFields();
+								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
+								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 								stream.checkOnlineStatus();
-								//TODO
+							} else if (o instanceof BroadCastMessage) {
+								BroadCastMessage nm = (BroadCastMessage) o;
+								clog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
+								tlog.addMessage(nm.toString());
 							}
 						} else if (o instanceof ServerException) {
 							ServerException se = (ServerException) o;
@@ -56,7 +66,7 @@ public class ReceiveFromServerThread implements Runnable {
 					clog.setErrorMessage("LOCAL> Report this to dev: \"ClassNotFoundException\".");
 				} catch (IOException e) {
 					if (!ClientStream.getInstance().checkOnlineStatus()) {
-						clog.setErrorMessage("LOCAL> I/O Error, operation aborted, please reconnect.");
+//						clog.setErrorMessage("LOCAL> I/O Error, operation aborted, please reconnect.");
 					}
 				} finally {
 					try {
@@ -75,9 +85,15 @@ public class ReceiveFromServerThread implements Runnable {
 		}
 	}
 
-		public ReceiveFromServerThread(JanelaMain jam) {
-			this.jam = jam;
-			this.clog = jam.getConnectionLog();
-		}
+	private String getTimestamp() {
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateFormatted = formatter.format(new Date());
+		return "["+dateFormatted+"]" + " ";
+	}
+	
+	public ReceiveFromServerThread(JanelaMain jam) {
+		this.jam = jam;
+		this.clog = jam.getConnectionLog();
+	}
 
 }

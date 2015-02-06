@@ -45,7 +45,7 @@ public class JButtonSendServerListener implements ActionListener {
 				log.setErrorMessage(getTimestamp() + "LOCAL> Unknown host, or host disconencted.");
 				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 			} catch (IOException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 				log.setErrorMessage(getTimestamp() + "LOCAL> I/O Exception");
 				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 			} catch (ServerException e) {

@@ -9,7 +9,15 @@ public class DisconnectionMessage extends Message {
 
 	@Override
 	public String toString() {
-		return "[" + this.getTimestamp() + "] " + this.getOwner() + " -> " + "Disconnected.";
+		return "[" + this.getTimestamp() + "] " + this.getOwner() + " -> " + "Disconnected";
+	}
+	
+	public DisconnectionMessage(boolean toDisconnect) {
+		setDisconnect(toDisconnect);
+	}
+	
+	public DisconnectionMessage() {
+		
 	}
 	
 }

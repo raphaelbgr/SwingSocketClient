@@ -27,15 +27,8 @@ public class Connect {
 
 		this.sock 		= stream.getSock();
 		this.owner 		= jsv.getNameField();
-		//		this.pcname 	= sock.getInetAddress().getCanonicalHostName();
 
 		stream.setSock(new Socket(ip, port));
-
-		//		ConnectionMessage cm = new ConnectionMessage();
-		//		cm = (ConnectionMessage) cm.buildConnectMessage();
-		//		cm.setOwner(this.owner);
-		//		cm.setIp(ip);
-		//		cm.setPcname(this.pcname);
 
 		Client c = new Client();
 		c.setName(owner);

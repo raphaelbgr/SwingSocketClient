@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import clientmain.ClientMain;
 import serverinteraction.Connect;
 import sync.ClientStream;
 
@@ -39,6 +40,7 @@ public class JButtonConnectListener implements ActionListener {
 						WindowDataFacade.getJam().getJbt_Connect().setEnabled(false);
 						WindowDataFacade.getJam().getJbt_Disconn().setEnabled(true);
 						WindowDataFacade.getJam().getJbt_send().setEnabled(true);
+						ClientMain.CONNECTED = true;
 					} else {
 						new Connect(ip, port);
 						log.setGreyMessage(getTimestamp() + "LOCAL> Connected");
@@ -46,6 +48,7 @@ public class JButtonConnectListener implements ActionListener {
 						WindowDataFacade.getJam().getJbt_Connect().setEnabled(false);
 						WindowDataFacade.getJam().getJbt_Disconn().setEnabled(true);
 						WindowDataFacade.getJam().getJbt_send().setEnabled(true);
+						ClientMain.CONNECTED = true;
 					}
 				} catch (ConnectException e5) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Connection refused on " + jsv.getIpText() + ":" + jsv.getPortNumber());
@@ -53,36 +56,42 @@ public class JButtonConnectListener implements ActionListener {
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
+					ClientMain.CONNECTED = false;
 				} catch (SocketException e6) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Lost conenction to server. Socket dropped...Try again");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
+					ClientMain.CONNECTED = false;
 				} catch (NumberFormatException e2) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Wrong or no IP/port informed");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
+					ClientMain.CONNECTED = false;
 				} catch (UnknownHostException e3) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Host could not be resolved");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
+					ClientMain.CONNECTED = false;
 				} catch (IllegalArgumentException e4) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> Invalid Port value");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
+					ClientMain.CONNECTED = false;
 				} catch (IOException e1) {
 					log.setErrorMessage(getTimestamp() + "LOCAL> I/O Error");
 					jsv.unlockFields();
 					WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 					WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 					WindowDataFacade.getJam().getJbt_send().setEnabled(false);
+					ClientMain.CONNECTED = false;
 				}
 			}
 		}
