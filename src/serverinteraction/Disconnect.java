@@ -25,11 +25,19 @@ public class Disconnect {
 		dm.setOwner(this.owner);
 		dm.setPcname(this.pcname);
 
-		//SENDS THE DISCONNECTION MESSAGE AND CLOSES SOCKET
-		stream.sendObject(dm);
-		stream.getSock().close();
-		stream.setSock(null);
-		stream.checkOnlineStatus();
+		try {
+			//EXPECTS THE SERVER CONFIRMATION
+			stream.sendObject(dm);
+			stream.receiveMessage();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+		} finally {
+			//CLOSES SOCKET
+			stream.getSock().close();
+			stream.setSock(null);
+			stream.checkOnlineStatus();
+		}
 		
 	}
 	
