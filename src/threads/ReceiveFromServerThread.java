@@ -44,6 +44,8 @@ public class ReceiveFromServerThread implements Runnable {
 								tlog.addMessage(nm.toString());
 							} else if (o instanceof DisconnectionMessage) {
 								// Client receives order to disconnect.
+								// TODO AFTER ONE CLIENT DISCONNECTS, THE NEXT MESSAGE WILL BE CONSIDERED AS DISCONNECTIONMESSAGE
+								// THIS SHOULD NOT HAPPEN FIXME
 								new Disconnect();
 								WindowDataFacade.getJsv().unlockFields();
 								WindowDataFacade.getJam().getJbt_send().setEnabled(false);

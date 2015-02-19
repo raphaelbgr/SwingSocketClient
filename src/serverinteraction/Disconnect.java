@@ -5,6 +5,9 @@ import gui.janelas.JanelaSelectServer;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import sendable.DisconnectionMessage;
 import sync.ClientStream;
@@ -28,10 +31,13 @@ public class Disconnect {
 		try {
 			//EXPECTS THE SERVER CONFIRMATION
 			stream.sendObject(dm);
-			stream.receiveMessage();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
+//			Object o = stream.receiveMessage();
+//			if (o instanceof DisconnectionMessage) {
+//				WindowDataFacade.getJam().getConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected succefully");
+//			}
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			// e.printStackTrace();
 		} finally {
 			//CLOSES SOCKET
 			stream.getSock().close();
@@ -39,6 +45,12 @@ public class Disconnect {
 			stream.checkOnlineStatus();
 		}
 		
+	}
+	
+	private String getTimestamp() {
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateFormatted = formatter.format(new Date());
+		return "["+dateFormatted+"]" + " ";
 	}
 	
 }
