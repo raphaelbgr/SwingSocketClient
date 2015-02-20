@@ -37,6 +37,7 @@ public class JanelaMain extends JFrame {
 
 	//CUSTOM SWING COMPONENTS
 	private ConnectionLogUpdater cnlog 			= new ConnectionLogUpdater(this, 30);
+	private ConnectionLogUpdater cnlog2 		= new ConnectionLogUpdater(this, 30);
 	private TextLog msg_list					= new TextLog();
 	private JButton jbt_connect;
 	private JButton jbt_selserv;
@@ -66,7 +67,8 @@ public class JanelaMain extends JFrame {
 		jmi.add(jmexit);											//
 		JLabel jlbl_msg 		= new JLabel("Message");			//
 		JLabel jlbl_list 		= new JLabel("Chat log");			//
-		JLabel jlbl_cnlog		= new JLabel("Connection log");		//
+		JLabel jlbl_cnlog		= new JLabel("Local log");			//
+		JLabel jlbl_cnlog2		= new JLabel("         Server log");//
 		jtxt_send				= new JTextField(30);				//TextField do campo Mensagem no escopo da classe. 
 		this.jbt_send			= new JButton("Send");				//
 		this.jbt_connect		= new JButton("Connect");			//
@@ -111,7 +113,9 @@ public class JanelaMain extends JFrame {
 
 		getConnectionLog().setEditable(false);										//Desabilita o campo para edi��o
 		getConnectionLog().setBackground(Color.LIGHT_GRAY);							//Muda a cor do campo "Connection log" para cinza
-
+		getCnlog2().setEditable(false);												//Desabilita o campo para edi��o
+		getCnlog2().setBackground(Color.LIGHT_GRAY);	
+		
 		//Cria Borda para a JTextArea da Lista de mensagens
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		msg_list.setBorder(BorderFactory.createCompoundBorder(border, 
@@ -129,6 +133,8 @@ public class JanelaMain extends JFrame {
 		this.add(jbt_send);							//
 		this.add(jlbl_cnlog);						//
 		this.add(getConnectionLog());				//
+		this.add(jlbl_cnlog2);						//
+		this.add(getCnlog2());						//
 		this.add(jbt_connect);						//
 		this.add(jbt_selserv);						//
 		this.add(jbt_disconn);						//
@@ -160,6 +166,10 @@ public class JanelaMain extends JFrame {
 
 	public ConnectionLogUpdater getConnectionLog() {
 		return cnlog;
+	}
+
+	public ConnectionLogUpdater getCnlog2() {
+		return cnlog2;
 	}
 
 	public void setCn_log(ConnectionLogUpdater cn_log) {

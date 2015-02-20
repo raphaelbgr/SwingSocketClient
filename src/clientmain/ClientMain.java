@@ -7,7 +7,7 @@ import gui.janelas.JanelaSelectServer;
 
 public class ClientMain {
 
-	public static boolean CONNECTED			= false;
+//	public static boolean CONNECTED			= false;
 	
 	public static int port 					= 0;
 
@@ -25,4 +25,5 @@ public class ClientMain {
 		
 		//TODO Broadcast messages.
 	}
+	
 }

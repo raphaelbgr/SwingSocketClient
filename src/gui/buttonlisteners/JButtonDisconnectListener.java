@@ -11,8 +11,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import clientmain.ClientMain;
 import serverinteraction.Disconnect;
+import clientmain.Status;
 
 public class JButtonDisconnectListener implements ActionListener {
 
@@ -25,21 +25,21 @@ public class JButtonDisconnectListener implements ActionListener {
 			WindowDataFacade.getJam().getConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected succefully");
 			WindowDataFacade.getJsv().unlockFields();
 			WindowDataFacade.getJam().getJbt_send().setEnabled(false);
-			ClientMain.CONNECTED = false;
+			Status.getInstance().setConnected(false);
 		} catch (UnknownHostException e1) {
 			WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 			WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 			WindowDataFacade.getJam().getConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
 			WindowDataFacade.getJsv().unlockFields();
-			ClientMain.CONNECTED = false;
+			Status.getInstance().setConnected(false);
 		} catch (IOException e1) {
 			WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 			WindowDataFacade.getJam().getConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
 			WindowDataFacade.getJsv().unlockFields();
 			WindowDataFacade.getJam().getJbt_send().setEnabled(false);
-			ClientMain.CONNECTED = false;
+			Status.getInstance().setConnected(false);
 		}
 	}
 

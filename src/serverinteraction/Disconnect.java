@@ -27,7 +27,7 @@ public class Disconnect {
 		dm = (DisconnectionMessage) dm.buildDisconnectMessage();
 		dm.setOwner(this.owner);
 		dm.setPcname(this.pcname);
-
+		
 		try {
 			//EXPECTS THE SERVER CONFIRMATION
 			stream.sendObject(dm);
@@ -40,13 +40,13 @@ public class Disconnect {
 //			// e.printStackTrace();
 		} finally {
 			//CLOSES SOCKET
-			stream.getSock().close();
-			stream.setSock(null);
-			stream.checkOnlineStatus();
+//			stream.getSock().close();
+//			stream.setSock(null);
+//			stream.checkOnlineStatus();
 		}
-		
 	}
 	
+	@SuppressWarnings("unused")
 	private String getTimestamp() {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(new Date());

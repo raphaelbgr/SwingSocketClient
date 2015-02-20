@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import clientmain.ClientMain;
+import clientmain.Status;
 import sendable.Client;
 import sync.ClientStream;
 
@@ -35,8 +37,6 @@ public class Connect {
 
 		//CONNECTION MESSAGE
 		stream.sendObject(c);
-		stream.checkOnlineStatus();
-
+//		stream.checkOnlineStatus();
 	}
-
 }

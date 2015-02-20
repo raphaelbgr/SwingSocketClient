@@ -17,7 +17,7 @@ import java.util.Date;
 import sendable.Message;
 import sendable.NormalMessage;
 import serverinteraction.Send;
-import clientmain.ClientMain;
+import clientmain.Status;
 
 public class JButtonSendServerListener implements ActionListener {
 
@@ -32,30 +32,33 @@ public class JButtonSendServerListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		sendAndhandleLog(jam);
 	}
-	
+
 	public void sendAndhandleLog(JanelaMain jam) {
-		if (ClientMain.CONNECTED) {
+		if (Status.getInstance().isConnected() == true) {
 			log = jam.getConnectionLog();
 			try {
 				send.send(assembleMessage());
 				(jam).getTextField().setText("");
 				log.setGreyMessage(getTimestamp() + "LOCAL> Sent to server");
+//				Status.getInstance().setConnected(true);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
+				Status.getInstance().setConnected(false);
 				log.setErrorMessage(getTimestamp() + "LOCAL> Unknown host, or host disconencted.");
 				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 			} catch (IOException e) {
-//				e.printStackTrace();
+				//				e.printStackTrace();
+				Status.getInstance().setConnected(false);
 				log.setErrorMessage(getTimestamp() + "LOCAL> I/O Exception");
 				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 			} catch (ServerException e) {
 				log.setErrorMessage(getTimestamp() + "LOCAL> " + e.getMessage());
-//				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+				//				WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 			} catch (LocalException e) {
 				log.setGreyMessage(getTimestamp() + "LOCAL> " + e.getMessage());
 			}
 		}
-		
+
 		/*try {
 			if (sock == null || sock.isConnected() == false) {
 				jam.getConnectionLog().setText("A connection is needed first");
@@ -79,7 +82,7 @@ public class JButtonSendServerListener implements ActionListener {
 	}
 
 	private Message assembleMessage() throws ServerException {
-		if (ClientMain.CONNECTED) {
+		if (Status.getInstance().isConnected()) {
 			if(jsv.getName() == null) {
 				throw new ServerException("Name cannot be blank.");
 			} else if (jam.getTextField().getText().equalsIgnoreCase("")) {
@@ -96,13 +99,13 @@ public class JButtonSendServerListener implements ActionListener {
 			throw new ServerException("Not connected.");
 		}
 	}
-	
+
 	private String getTimestamp() {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
 	}
-	
+
 	public JButtonSendServerListener(JanelaMain jam) {
 		this.jam = jam;
 		this.jsv = jam.getJsv();

@@ -8,6 +8,8 @@ import gui.janelas.JanelaSelectServer;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+import clientmain.ClientMain;
+import clientmain.Status;
 import sendable.Message;
 import sendable.NormalMessage;
 import sync.ClientStream;
@@ -19,9 +21,25 @@ public class Send {
 	JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
 
 	public boolean send(Object o) throws UnknownHostException, IOException, LocalException {
-		if (stream.checkOnlineStatus()) {
+		/*if (stream.checkOnlineStatus()) {
 			if (o instanceof NormalMessage) {
 				if(stream.checkOnlineStatus()) {
+					stream.sendObject(assembleMessage());	//SENDS THE MESSAGE
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} else {
+			throw new LocalException("Not connected.");
+		}
+	}*/
+		
+		if (Status.getInstance().isConnected()) {
+			if (o instanceof NormalMessage) {
+				if(Status.getInstance().isConnected()) {
 					stream.sendObject(assembleMessage());	//SENDS THE MESSAGE
 					return true;
 				} else {

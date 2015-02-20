@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import clientmain.ClientMain;
+import clientmain.Status;
 
 /**
  * This class is supposed to store the socket of the connection generated with the server.
@@ -51,10 +51,10 @@ public class ClientStream {
 	
 	public boolean checkOnlineStatus() {
 		if(this.sock != null && this.sock.isConnected()) {
-			ClientMain.CONNECTED = true;
+			Status.getInstance().setConnected(true);
 			return true;
 		} else {
-			ClientMain.CONNECTED = false;
+			Status.getInstance().setConnected(false);
 			return false;
 		}
 	}

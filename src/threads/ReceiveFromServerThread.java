@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import clientmain.Status;
 import sendable.BroadCastMessage;
 import sendable.DisconnectionMessage;
 import sendable.Message;
@@ -51,7 +52,10 @@ public class ReceiveFromServerThread implements Runnable {
 								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
-								stream.checkOnlineStatus();
+								Status.getInstance().setConnected(false);
+//								stream.checkOnlineStatus();
+//								stream.getSock().close();
+//								stream.setSock(null);
 							} else if (o instanceof BroadCastMessage) {
 								BroadCastMessage nm = (BroadCastMessage) o;
 								clog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
@@ -67,9 +71,7 @@ public class ReceiveFromServerThread implements Runnable {
 				} catch (ClassNotFoundException e) {
 					clog.setErrorMessage("LOCAL> Report this to dev: \"ClassNotFoundException\".");
 				} catch (IOException e) {
-					if (!ClientStream.getInstance().checkOnlineStatus()) {
-//						clog.setErrorMessage("LOCAL> I/O Error, operation aborted, please reconnect.");
-					}
+					Status.getInstance().setConnected(false);
 				} finally {
 					try {
 						Thread.sleep(1000);

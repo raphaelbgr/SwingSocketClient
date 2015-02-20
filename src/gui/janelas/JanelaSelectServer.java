@@ -72,7 +72,8 @@ public class JanelaSelectServer extends JFrame {
 
 		this.setSize(350, 150);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setLocation(0, 170);
+		this.setLocation(0, 310);
+		this.setAlwaysOnTop(true);
 
 		setResizable(false);
 
