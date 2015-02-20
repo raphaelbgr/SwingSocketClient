@@ -22,7 +22,7 @@ public class JButtonDisconnectListener implements ActionListener {
 			new Disconnect();
 			WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
-			WindowDataFacade.getJam().getConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected succefully");
+			WindowDataFacade.getJam().getLocalConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected succefully");
 			WindowDataFacade.getJsv().unlockFields();
 			WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 			Status.getInstance().setConnected(false);
@@ -30,13 +30,13 @@ public class JButtonDisconnectListener implements ActionListener {
 			WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 			WindowDataFacade.getJam().getJbt_send().setEnabled(false);
-			WindowDataFacade.getJam().getConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
+			WindowDataFacade.getJam().getLocalConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
 			WindowDataFacade.getJsv().unlockFields();
 			Status.getInstance().setConnected(false);
 		} catch (IOException e1) {
 			WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 			WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
-			WindowDataFacade.getJam().getConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
+			WindowDataFacade.getJam().getLocalConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
 			WindowDataFacade.getJsv().unlockFields();
 			WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 			Status.getInstance().setConnected(false);

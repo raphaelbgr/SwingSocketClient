@@ -7,7 +7,8 @@ import gui.buttonlisteners.JButtonExitListener;
 import gui.buttonlisteners.JButtonSelectServerListener;
 import gui.buttonlisteners.JButtonSendServerListener;
 import gui.jmenuListeners.JMenuExitListener;
-import gui.updatelogs.ConnectionLogUpdater;
+import gui.updatelogs.LocalLogUpdater;
+import gui.updatelogs.ServerLogUpdater;
 import gui.updatelogs.TextLog;
 
 import java.awt.Color;
@@ -36,9 +37,9 @@ public class JanelaMain extends JFrame {
 	private JanelaSelectServer jsv 				= null;
 
 	//CUSTOM SWING COMPONENTS
-	private ConnectionLogUpdater cnlog 			= new ConnectionLogUpdater(this, 30);
-	private ConnectionLogUpdater cnlog2 		= new ConnectionLogUpdater(this, 30);
-	private TextLog msg_list					= new TextLog();
+	private LocalLogUpdater cnlog 			= new LocalLogUpdater(this, 30);
+	private ServerLogUpdater cnlog2 		= new ServerLogUpdater(this, 30);
+	private TextLog msg_list				= new TextLog();
 	private JButton jbt_connect;
 	private JButton jbt_selserv;
 	private JButton jbt_disconn;
@@ -111,10 +112,10 @@ public class JanelaMain extends JFrame {
 		jbt_connect.addActionListener(	new JButtonConnectListener(this,cnlog));			//Comportamento para o botao "Connect"
 		jbt_disconn.addActionListener(	new JButtonDisconnectListener(this));		//Comportamento para o botao "Disconnect"
 
-		getConnectionLog().setEditable(false);										//Desabilita o campo para edi��o
-		getConnectionLog().setBackground(Color.LIGHT_GRAY);							//Muda a cor do campo "Connection log" para cinza
-		getCnlog2().setEditable(false);												//Desabilita o campo para edi��o
-		getCnlog2().setBackground(Color.LIGHT_GRAY);	
+		getLocalConnectionLog().setEditable(false);										//Desabilita o campo para edi��o
+		getLocalConnectionLog().setBackground(Color.LIGHT_GRAY);							//Muda a cor do campo "Connection log" para cinza
+		getServerConnectionLog().setEditable(false);												//Desabilita o campo para edi��o
+		getServerConnectionLog().setBackground(Color.LIGHT_GRAY);	
 		
 		//Cria Borda para a JTextArea da Lista de mensagens
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
@@ -132,9 +133,9 @@ public class JanelaMain extends JFrame {
 		this.add(jtxt_send);						//TextField da Mensagem � enviar
 		this.add(jbt_send);							//
 		this.add(jlbl_cnlog);						//
-		this.add(getConnectionLog());				//
+		this.add(getLocalConnectionLog());				//
 		this.add(jlbl_cnlog2);						//
-		this.add(getCnlog2());						//
+		this.add(getServerConnectionLog());						//
 		this.add(jbt_connect);						//
 		this.add(jbt_selserv);						//
 		this.add(jbt_disconn);						//
@@ -164,15 +165,15 @@ public class JanelaMain extends JFrame {
 //		return jam;
 //	}
 
-	public ConnectionLogUpdater getConnectionLog() {
+	public LocalLogUpdater getLocalConnectionLog() {
 		return cnlog;
 	}
 
-	public ConnectionLogUpdater getCnlog2() {
+	public ServerLogUpdater getServerConnectionLog() {
 		return cnlog2;
 	}
 
-	public void setCn_log(ConnectionLogUpdater cn_log) {
+	public void setCn_log(LocalLogUpdater cn_log) {
 		this.cnlog = cn_log;
 	}
 

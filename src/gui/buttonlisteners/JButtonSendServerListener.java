@@ -4,7 +4,7 @@ import exceptions.ServerException;
 import gui.WindowDataFacade;
 import gui.janelas.JanelaMain;
 import gui.janelas.JanelaSelectServer;
-import gui.updatelogs.ConnectionLogUpdater;
+import gui.updatelogs.LocalLogUpdater;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +25,7 @@ public class JButtonSendServerListener implements ActionListener {
 	private JanelaMain jam;
 	private JanelaSelectServer jsv;
 	private Send send = new Send();
-	private ConnectionLogUpdater log;
+	private LocalLogUpdater log;
 
 
 	@Override
@@ -35,7 +35,7 @@ public class JButtonSendServerListener implements ActionListener {
 
 	public void sendAndhandleLog(JanelaMain jam) {
 		if (Status.getInstance().isConnected() == true) {
-			log = jam.getConnectionLog();
+			log = jam.getLocalConnectionLog();
 			try {
 				send.send(assembleMessage());
 				(jam).getTextField().setText("");

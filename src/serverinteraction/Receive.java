@@ -2,7 +2,7 @@ package serverinteraction;
 
 import exceptions.ServerException;
 import gui.WindowDataFacade;
-import gui.updatelogs.ConnectionLogUpdater;
+import gui.updatelogs.LocalLogUpdater;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class Receive {
 
 	public Receive() throws ClassNotFoundException, IOException {
 		ClientStream stream 	= ClientStream.getInstance();
-		ConnectionLogUpdater log = WindowDataFacade.getJam().getConnectionLog();
+		LocalLogUpdater log = WindowDataFacade.getJam().getLocalConnectionLog();
 		
 		Object o = stream.receiveMessage();
 		if (o instanceof Message) {
