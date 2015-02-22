@@ -43,11 +43,11 @@ public class ReceiveFromServerThread implements Runnable {
 								serverLog.setGreenMessage(sm.toString());
 							} else if (o instanceof NormalMessage) {
 								NormalMessage nm = (NormalMessage) o;
-//								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
-								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + "SERVER> " + "Broadcast from " + nm.getOwner());
+								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
+//								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + "SERVER> " + "Broadcast from " + nm.getOwner());
 								tlog.addMessage(nm.toString());
 							} else if (o instanceof DisconnectionMessage) {
-								// Client receives order to disconnect.
+//								Client receives order to disconnect.
 								new Disconnect();
 								WindowDataFacade.getJsv().unlockFields();
 								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
@@ -58,10 +58,13 @@ public class ReceiveFromServerThread implements Runnable {
 //								stream.getSock().close();
 //								stream.setSock(null);
 							} else if (o instanceof BroadCastMessage) {
-								BroadCastMessage nm = (BroadCastMessage) o;
-//								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
-								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + "Broadcast from " + nm.getOwner());
-								tlog.addMessage(nm.toString());
+								BroadCastMessage bm = (BroadCastMessage) o;
+								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
+									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + "SERVER> " + "Broadcast from " + bm.getOwner());
+								} else {
+									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " " + bm.getServresponse());
+								}
+								tlog.addMessage(bm.toString());
 							}
 						} else if (o instanceof ServerException) {
 							ServerException se = (ServerException) o;

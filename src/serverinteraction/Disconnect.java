@@ -21,7 +21,7 @@ public class Disconnect {
 		ClientStream stream 	= ClientStream.getInstance();
 		JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
 		
-		this.owner 		= jsv.getNameField();
+		this.owner 		= jsv.getNameFieldText();
 		
 		DisconnectionMessage dm = new DisconnectionMessage();
 		dm = (DisconnectionMessage) dm.buildDisconnectMessage();

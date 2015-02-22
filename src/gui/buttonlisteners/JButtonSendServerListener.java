@@ -89,7 +89,7 @@ public class JButtonSendServerListener implements ActionListener {
 				throw new ServerException("Blank messages not permitted.");
 			} else {
 				Message m = new NormalMessage();
-				m.addSeen(jsv.getNameField());
+				m.addSeen(jsv.getNameFieldText());
 				m.setOwner(jsv.getName());
 				m.setText(jam.getTextField().getText());
 				m.setTimestamp();

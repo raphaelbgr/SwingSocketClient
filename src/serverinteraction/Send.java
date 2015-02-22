@@ -56,7 +56,7 @@ public class Send {
 	//Monta o objeto mensagem
 	private Message assembleMessage() {
 		NormalMessage nm = new NormalMessage();
-		nm.setOwner(WindowDataFacade.getJsv().getNameField());
+		nm.setOwner(WindowDataFacade.getJsv().getNameFieldText());
 		nm.setPcname(stream.getSock().getInetAddress().getCanonicalHostName());
 		nm.setText(WindowDataFacade.getJam().getTextField().getText());
 		nm.setTimestamp();

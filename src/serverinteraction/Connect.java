@@ -28,7 +28,7 @@ public class Connect {
 		port			= (jsv).getPortNumber();
 
 		this.sock 		= stream.getSock();
-		this.owner 		= jsv.getNameField();
+		this.owner 		= jsv.getNameFieldText();
 
 		stream.setSock(new Socket(ip, port));
 
