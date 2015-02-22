@@ -43,7 +43,11 @@ public class ReceiveFromServerThread implements Runnable {
 								serverLog.setGreenMessage(sm.toString());
 							} else if (o instanceof NormalMessage) {
 								NormalMessage nm = (NormalMessage) o;
-								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
+								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
+									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + "SERVER> " + "Broadcast from " + nm.getOwner());
+								} else {
+									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
+								}
 //								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + "SERVER> " + "Broadcast from " + nm.getOwner());
 								tlog.addMessage(nm.toString());
 							} else if (o instanceof DisconnectionMessage) {

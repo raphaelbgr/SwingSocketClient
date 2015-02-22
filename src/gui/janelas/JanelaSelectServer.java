@@ -61,7 +61,7 @@ public class JanelaSelectServer extends JFrame {
 		btn_OK.setMnemonic('o');
 
 		//Propiedades default dos campos:
-//		this.field_ip.setText("127.0.0.1");
+		this.field_ip.setText("surfael.sytes.net");
 //		this.field_name.setText("Teste");
 		this.field_port.setText("2000");
 
