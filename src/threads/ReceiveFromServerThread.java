@@ -73,6 +73,16 @@ public class ReceiveFromServerThread implements Runnable {
 						} else if (o instanceof ServerException) {
 							ServerException se = (ServerException) o;
 							serverLog.setErrorMessage(se.getMessage());
+							if (se.isToDisconnect()) {
+								stream.getSock().close();
+								stream.setSock(null);
+								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
+								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
+								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
+								WindowDataFacade.getJam().getLocalConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
+								WindowDataFacade.getJsv().unlockFields();
+								Status.getInstance().setConnected(false);
+							}
 						}
 					} else {
 						localLog.setGreyMessage("LOCAL> Connected but cannot confirm.");
