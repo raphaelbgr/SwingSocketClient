@@ -30,7 +30,12 @@ public class JButtonSendServerListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		sendAndhandleLog(jam);
+		if (jam.getTextField().getText().length() < 100) {
+			sendAndhandleLog(jam);
+		} else {
+			log = jam.getLocalConnectionLog();
+			log.setErrorMessage(getTimestamp() + "LOCAL> Message cannot exeed 100 characters");
+		}	
 	}
 
 	public void sendAndhandleLog(JanelaMain jam) {
