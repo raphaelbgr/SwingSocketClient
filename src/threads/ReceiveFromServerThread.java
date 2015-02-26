@@ -7,9 +7,11 @@ import gui.updatelogs.LocalLogUpdater;
 import gui.updatelogs.ServerLogUpdater;
 import gui.updatelogs.TextLog;
 
+import java.awt.Component;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import sendable.BroadCastMessage;
@@ -29,6 +31,12 @@ public class ReceiveFromServerThread implements Runnable {
 	private ServerLogUpdater serverLog = WindowDataFacade.getInstance().getJam().getServerConnectionLog();
 	private TextLog tlog = WindowDataFacade.getInstance().getJam().getMsg_list();
 
+	private void printClientList(ArrayList[] clist) {
+		for (ArrayList client : clist) {
+			System.out.println(client.getName());
+		}
+	}
+
 	@Override
 	public void run() {
 
@@ -41,6 +49,7 @@ public class ReceiveFromServerThread implements Runnable {
 							if (o instanceof ServerMessage) {
 								ServerMessage sm = (ServerMessage) o;
 								serverLog.setGreenMessage(sm.toString());
+								printClientList((ArrayList[]) sm.getClist());
 							} else if (o instanceof NormalMessage) {
 								NormalMessage nm = (NormalMessage) o;
 								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
@@ -48,19 +57,19 @@ public class ReceiveFromServerThread implements Runnable {
 								} else {
 									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
 								}
-//								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + "SERVER> " + "Broadcast from " + nm.getOwner());
+								//								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + "SERVER> " + "Broadcast from " + nm.getOwner());
 								tlog.addMessage(nm.toString());
 							} else if (o instanceof DisconnectionMessage) {
-//								Client receives order to disconnect.
+								//								Client receives order to disconnect.
 								new Disconnect();
 								WindowDataFacade.getJsv().unlockFields();
 								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 								Status.getInstance().setConnected(false);
-//								stream.checkOnlineStatus();
-//								stream.getSock().close();
-//								stream.setSock(null);
+								//								stream.checkOnlineStatus();
+								//								stream.getSock().close();
+								//								stream.setSock(null);
 							} else if (o instanceof BroadCastMessage) {
 								BroadCastMessage bm = (BroadCastMessage) o;
 								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
@@ -83,6 +92,9 @@ public class ReceiveFromServerThread implements Runnable {
 								WindowDataFacade.getJsv().unlockFields();
 								Status.getInstance().setConnected(false);
 							}
+						} else if (o instanceof Object) {
+//							ServerMessage sm = (ServerMessage) o;
+//							printClientList(sm.getClist());
 						}
 					} else {
 						localLog.setGreyMessage("LOCAL> Connected but cannot confirm.");
@@ -113,7 +125,7 @@ public class ReceiveFromServerThread implements Runnable {
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
 	}
-	
+
 	public ReceiveFromServerThread(JanelaMain jam) {
 		this.jam = jam;
 		this.localLog = jam.getLocalConnectionLog();
