@@ -33,6 +33,7 @@ public class Connect {
 		stream.setSock(new Socket(ip, port));
 
 		Client c = new Client();
+		c.setVersion(ClientMain.version);
 		c.setName(owner);
 
 		//CONNECTION MESSAGE
