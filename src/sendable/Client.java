@@ -13,6 +13,8 @@ public class Client implements Serializable {
 	Long id;
 	Long msgCount;
 	
+	private int version;
+	
 	String text 				= null;
 	String name 				= null;
 	String middlename 			= null;
@@ -141,6 +143,12 @@ public class Client implements Serializable {
 	}
 	public void setLastMessageTime(long lastMessageTime) {
 		this.lastMessageTime = lastMessageTime;
+	}
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 }
