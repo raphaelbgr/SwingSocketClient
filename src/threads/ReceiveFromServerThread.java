@@ -7,14 +7,14 @@ import gui.updatelogs.LocalLogUpdater;
 import gui.updatelogs.ServerLogUpdater;
 import gui.updatelogs.TextLog;
 
-import java.awt.Component;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 import sendable.BroadCastMessage;
+import sendable.Client;
 import sendable.DisconnectionMessage;
 import sendable.Message;
 import sendable.NormalMessage;
@@ -31,8 +31,8 @@ public class ReceiveFromServerThread implements Runnable {
 	private ServerLogUpdater serverLog = WindowDataFacade.getInstance().getJam().getServerConnectionLog();
 	private TextLog tlog = WindowDataFacade.getInstance().getJam().getMsg_list();
 
-	private void printClientList(ArrayList[] clist) {
-		for (ArrayList client : clist) {
+	private void printClientList(Set<Client> clist) {
+		for (Client client : clist) {
 			System.out.println(client.getName());
 		}
 	}
@@ -48,32 +48,29 @@ public class ReceiveFromServerThread implements Runnable {
 						if (o instanceof Message) {
 							if (o instanceof ServerMessage) {
 								ServerMessage sm = (ServerMessage) o;
-								serverLog.setGreenMessage(sm.toString());
-								printClientList((ArrayList[]) sm.getClist());
+								if (sm.getServresponse() != null) {
+									serverLog.setGreenMessage(sm.toString());
+								}
+//								printClientList(sm.getClist());
 							} else if (o instanceof NormalMessage) {
 								NormalMessage nm = (NormalMessage) o;
 								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
-									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + "SERVER> " + "Broadcast from " + nm.getOwner());
+									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwner());
 								} else {
 									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
 								}
-								//								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + "SERVER> " + "Broadcast from " + nm.getOwner());
 								tlog.addMessage(nm.toString());
 							} else if (o instanceof DisconnectionMessage) {
-								//								Client receives order to disconnect.
 								new Disconnect();
 								WindowDataFacade.getJsv().unlockFields();
 								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 								Status.getInstance().setConnected(false);
-								//								stream.checkOnlineStatus();
-								//								stream.getSock().close();
-								//								stream.setSock(null);
 							} else if (o instanceof BroadCastMessage) {
 								BroadCastMessage bm = (BroadCastMessage) o;
 								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
-									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + "SERVER> " + "Broadcast from " + bm.getOwner());
+									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + bm.getOwner());
 								} else {
 									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " " + bm.getServresponse());
 								}
@@ -88,13 +85,10 @@ public class ReceiveFromServerThread implements Runnable {
 								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
-								WindowDataFacade.getJam().getLocalConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
+								WindowDataFacade.getJam().getLocalConnectionLog().setGreyMessage(getTimestamp() + " LOCAL> Disconnected");
 								WindowDataFacade.getJsv().unlockFields();
 								Status.getInstance().setConnected(false);
 							}
-						} else if (o instanceof Object) {
-//							ServerMessage sm = (ServerMessage) o;
-//							printClientList(sm.getClist());
 						}
 					} else {
 						localLog.setGreyMessage("LOCAL> Connected but cannot confirm.");

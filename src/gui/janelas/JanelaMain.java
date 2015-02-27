@@ -7,19 +7,23 @@ import gui.buttonlisteners.JButtonExitListener;
 import gui.buttonlisteners.JButtonSelectServerListener;
 import gui.buttonlisteners.JButtonSendServerListener;
 import gui.jmenuListeners.JMenuExitListener;
+import gui.onlinelist.ListExample;
 import gui.updatelogs.LocalLogUpdater;
 import gui.updatelogs.ServerLogUpdater;
 import gui.updatelogs.TextLog;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,6 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
+import sendable.Client;
 import sendable.Message;
 
 @SuppressWarnings("serial")
@@ -125,10 +130,12 @@ public class JanelaMain extends JFrame {
 				BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 		msg_list.setBorder(border);
 
-
+		ListExample le = new ListExample();
+		
 		//Montagem do componente JFrame, em ordem		
 		this.add(jlbl_list);						//
 		this.add(this.msg_list.getScrollPane());	//Adds the ScrolledPane JTextArea
+//		this.add(le);								//LISTA ONLINE USERS
 		this.add(jlbl_msg);							//JLabel da Mensagem
 		this.add(jtxt_send);						//TextField da Mensagem � enviar
 		this.add(jbt_send);							//
