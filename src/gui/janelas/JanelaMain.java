@@ -58,7 +58,7 @@ public class JanelaMain extends JFrame {
 		this.jsv = jsv;
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(490, 290);
+		this.setSize(650, 290);
 		this.setLayout(layout);
 
 		//Bloco de criacao do Menu e seus botoes
@@ -71,8 +71,8 @@ public class JanelaMain extends JFrame {
 		jmi.add(jmexit);											//
 		JLabel jlbl_msg 		= new JLabel("Message");			//
 		JLabel jlbl_list 		= new JLabel("Chat log");			//
-		JLabel jlbl_cnlog		= new JLabel("                  Local log");			//
-		JLabel jlbl_cnlog2		= new JLabel("         Server log");//
+		JLabel jlbl_cnlog		= new JLabel("                                                      Local log");//
+		JLabel jlbl_cnlog2		= new JLabel("                                    Server log");//
 		jtxt_send				= new JTextField(30);				//TextField do campo Mensagem no escopo da classe. 
 		this.jbt_send			= new JButton("Send");				//
 		this.jbt_connect		= new JButton("Connect");			//
@@ -112,12 +112,12 @@ public class JanelaMain extends JFrame {
 		jbt_send.addActionListener(		new JButtonSendServerListener(this));		//Comportamento do botao "Send"
 		jbt_selserv.addActionListener(	new JButtonSelectServerListener(this));		//Comportamento do botao "Select Server"
 		jbt_exit.addActionListener(		new JButtonExitListener(this));				//Comportamento do botao "Exit"
-		jbt_connect.addActionListener(	new JButtonConnectListener(this,cnlog));			//Comportamento para o botao "Connect"
+		jbt_connect.addActionListener(	new JButtonConnectListener(this,cnlog));	//Comportamento para o botao "Connect"
 		jbt_disconn.addActionListener(	new JButtonDisconnectListener(this));		//Comportamento para o botao "Disconnect"
 
 		getLocalConnectionLog().setEditable(false);										//Desabilita o campo para edi��o
-		getLocalConnectionLog().setBackground(Color.LIGHT_GRAY);							//Muda a cor do campo "Connection log" para cinza
-		getServerConnectionLog().setEditable(false);												//Desabilita o campo para edi��o
+		getLocalConnectionLog().setBackground(Color.LIGHT_GRAY);						//Muda a cor do campo "Connection log" para cinza
+		getServerConnectionLog().setEditable(false);									//Desabilita o campo para edi��o
 		getServerConnectionLog().setBackground(Color.LIGHT_GRAY);	
 		
 		//Cria Borda para a JTextArea da Lista de mensagens
@@ -131,22 +131,22 @@ public class JanelaMain extends JFrame {
 		ListExample le = new ListExample();
 		
 		//Montagem do componente JFrame, em ordem		
-		this.add(jlbl_list, BorderLayout.CENTER);						//
-		this.add(this.msg_list.getScrollPane(), BorderLayout.CENTER);	//Adds the ScrolledPane JTextArea
-		this.add(le);													//LISTA ONLINE USERS
-		this.add(jlbl_msg, BorderLayout.CENTER);						//JLabel da Mensagem
-		this.add(jtxt_send, BorderLayout.CENTER);						//TextField da Mensagem � enviar
-		this.add(jbt_send, BorderLayout.CENTER);						//
-		this.add(jlbl_cnlog, BorderLayout.CENTER);						//
-		this.add(getLocalConnectionLog(), BorderLayout.CENTER);			//
-		this.add(jlbl_cnlog2, BorderLayout.CENTER);						//
-		this.add(getServerConnectionLog(), BorderLayout.CENTER);		//
-		this.add(jbt_connect, BorderLayout.CENTER);						//
-		this.add(jbt_selserv, BorderLayout.CENTER);						//
-		this.add(jbt_disconn, BorderLayout.CENTER);						//
-		this.add(jbt_exit, BorderLayout.CENTER);						//
+		this.add(jlbl_list);						//
+		this.add(this.msg_list.getScrollPane());	//Adds the ScrolledPane JTextArea
+		this.add(le.getListExample());									//LISTA ONLINE USERS
+		this.add(jlbl_msg);						//JLabel da Mensagem
+		this.add(jtxt_send);						//TextField da Mensagem � enviar
+		this.add(jbt_send);						//
+		this.add(jlbl_cnlog);						//
+		this.add(getLocalConnectionLog());			//
+		this.add(jlbl_cnlog2);						//
+		this.add(getServerConnectionLog());		//
+		this.add(jbt_connect);						//
+		this.add(jbt_selserv);						//
+		this.add(jbt_disconn);						//
+		this.add(jbt_exit);						//
 
-		this.setResizable(true);					//Desabilita redimensionamento desta janela
+		this.setResizable(false);					//Desabilita redimensionamento desta janela
 		this.setVisible(true);						//Torna essa janela visivel
 		this.setAlwaysOnTop(true);					//Janela se sobrepoe
 		
