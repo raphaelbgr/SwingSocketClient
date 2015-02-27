@@ -12,18 +12,16 @@ import gui.updatelogs.LocalLogUpdater;
 import gui.updatelogs.ServerLogUpdater;
 import gui.updatelogs.TextLog;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,12 +29,12 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
-import sendable.Client;
 import sendable.Message;
 
 @SuppressWarnings("serial")
 public class JanelaMain extends JFrame {
 
+	//private FlowLayout layout 					= new FlowLayout();
 	private FlowLayout layout 					= new FlowLayout();
 	private JTextField jtxt_send 				= null;
 	private JanelaSelectServer jsv 				= null;
@@ -73,7 +71,7 @@ public class JanelaMain extends JFrame {
 		jmi.add(jmexit);											//
 		JLabel jlbl_msg 		= new JLabel("Message");			//
 		JLabel jlbl_list 		= new JLabel("Chat log");			//
-		JLabel jlbl_cnlog		= new JLabel("Local log");			//
+		JLabel jlbl_cnlog		= new JLabel("                  Local log");			//
 		JLabel jlbl_cnlog2		= new JLabel("         Server log");//
 		jtxt_send				= new JTextField(30);				//TextField do campo Mensagem no escopo da classe. 
 		this.jbt_send			= new JButton("Send");				//
@@ -133,22 +131,22 @@ public class JanelaMain extends JFrame {
 		ListExample le = new ListExample();
 		
 		//Montagem do componente JFrame, em ordem		
-		this.add(jlbl_list);						//
-		this.add(this.msg_list.getScrollPane());	//Adds the ScrolledPane JTextArea
-//		this.add(le);								//LISTA ONLINE USERS
-		this.add(jlbl_msg);							//JLabel da Mensagem
-		this.add(jtxt_send);						//TextField da Mensagem � enviar
-		this.add(jbt_send);							//
-		this.add(jlbl_cnlog);						//
-		this.add(getLocalConnectionLog());				//
-		this.add(jlbl_cnlog2);						//
-		this.add(getServerConnectionLog());						//
-		this.add(jbt_connect);						//
-		this.add(jbt_selserv);						//
-		this.add(jbt_disconn);						//
-		this.add(jbt_exit);							//
+		this.add(jlbl_list, BorderLayout.CENTER);						//
+		this.add(this.msg_list.getScrollPane(), BorderLayout.CENTER);	//Adds the ScrolledPane JTextArea
+		this.add(le);													//LISTA ONLINE USERS
+		this.add(jlbl_msg, BorderLayout.CENTER);						//JLabel da Mensagem
+		this.add(jtxt_send, BorderLayout.CENTER);						//TextField da Mensagem � enviar
+		this.add(jbt_send, BorderLayout.CENTER);						//
+		this.add(jlbl_cnlog, BorderLayout.CENTER);						//
+		this.add(getLocalConnectionLog(), BorderLayout.CENTER);			//
+		this.add(jlbl_cnlog2, BorderLayout.CENTER);						//
+		this.add(getServerConnectionLog(), BorderLayout.CENTER);		//
+		this.add(jbt_connect, BorderLayout.CENTER);						//
+		this.add(jbt_selserv, BorderLayout.CENTER);						//
+		this.add(jbt_disconn, BorderLayout.CENTER);						//
+		this.add(jbt_exit, BorderLayout.CENTER);						//
 
-		this.setResizable(false);					//Desabilita redimensionamento desta janela
+		this.setResizable(true);					//Desabilita redimensionamento desta janela
 		this.setVisible(true);						//Torna essa janela visivel
 		this.setAlwaysOnTop(true);					//Janela se sobrepoe
 		
