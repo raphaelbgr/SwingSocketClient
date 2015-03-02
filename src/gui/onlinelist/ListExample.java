@@ -64,11 +64,11 @@ public class ListExample extends JPanel
 	}
 	
 	public void updateOnlineList(Vector<String> vector) {
+		listbox.setListData(vector);
 		String s = "---  ONLINE USERS --- ";
 		if (!vector.contains(s.equals("---  ONLINE USERS --- "))) {
-			vector.addElement("---  ONLINE USERS --- ");
+			vector.insertElementAt("---  ONLINE USERS --- ",0);
 		}
-		listbox.setListData(vector);
 		getListExample().revalidate();
 		getListExample().repaint();
 	}
