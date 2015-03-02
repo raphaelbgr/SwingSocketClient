@@ -11,10 +11,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
 
 import sendable.BroadCastMessage;
-import sendable.Client;
 import sendable.DisconnectionMessage;
 import sendable.Message;
 import sendable.NormalMessage;
@@ -25,17 +23,16 @@ import clientmain.Status;
 
 public class ReceiveFromServerThread implements Runnable {
 
-	private JanelaMain jam = null;;
 	private ClientStream stream = ClientStream.getInstance();
 	private LocalLogUpdater localLog = null;
-	private ServerLogUpdater serverLog = WindowDataFacade.getInstance().getJam().getServerConnectionLog();
-	private TextLog tlog = WindowDataFacade.getInstance().getJam().getMsg_list();
+	private ServerLogUpdater serverLog = WindowDataFacade.getJam().getServerConnectionLog();
+	private TextLog tlog = WindowDataFacade.getJam().getMsg_list();
 
-	private void printClientList(Set<Client> clist) {
-		for (Client client : clist) {
-			System.out.println(client.getName());
-		}
-	}
+	//	private void printClientList(Set<Client> clist) {
+	//		for (Client client : clist) {
+	//			System.out.println(client.getName());
+	//		}
+	//	}
 
 	@Override
 	public void run() {
@@ -51,7 +48,9 @@ public class ReceiveFromServerThread implements Runnable {
 								if (sm.getServresponse() != null) {
 									serverLog.setGreenMessage(sm.toString());
 								}
-//								printClientList(sm.getClist());
+								if (sm.getOnlineUserList() != null) {
+									WindowDataFacade.getJam().getLe().updateOnlineList(sm.getOnlineUserList());
+								}
 							} else if (o instanceof NormalMessage) {
 								NormalMessage nm = (NormalMessage) o;
 								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
@@ -60,6 +59,9 @@ public class ReceiveFromServerThread implements Runnable {
 									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
 								}
 								tlog.addMessage(nm.toString());
+								if (nm.getOnlineUserList() != null) {
+									WindowDataFacade.getJam().getLe().updateOnlineList(nm.getOnlineUserList());
+								}
 							} else if (o instanceof DisconnectionMessage) {
 								new Disconnect();
 								WindowDataFacade.getJsv().unlockFields();
@@ -67,6 +69,9 @@ public class ReceiveFromServerThread implements Runnable {
 								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 								Status.getInstance().setConnected(false);
+								if (((DisconnectionMessage)o).getOnlineUserList() != null) {
+									WindowDataFacade.getJam().getLe().updateOnlineList(((DisconnectionMessage)o).getOnlineUserList());
+								}
 							} else if (o instanceof BroadCastMessage) {
 								BroadCastMessage bm = (BroadCastMessage) o;
 								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
@@ -75,6 +80,9 @@ public class ReceiveFromServerThread implements Runnable {
 									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " " + bm.getServresponse());
 								}
 								tlog.addMessage(bm.toString());
+								if (bm.getOnlineUserList() != null) {
+									WindowDataFacade.getJam().getLe().updateOnlineList(bm.getOnlineUserList());
+								}
 							}
 						} else if (o instanceof ServerException) {
 							ServerException se = (ServerException) o;
@@ -121,7 +129,6 @@ public class ReceiveFromServerThread implements Runnable {
 	}
 
 	public ReceiveFromServerThread(JanelaMain jam) {
-		this.jam = jam;
 		this.localLog = jam.getLocalConnectionLog();
 	}
 

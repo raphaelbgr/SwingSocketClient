@@ -12,7 +12,6 @@ import gui.updatelogs.LocalLogUpdater;
 import gui.updatelogs.ServerLogUpdater;
 import gui.updatelogs.TextLog;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
@@ -34,10 +33,9 @@ import sendable.Message;
 @SuppressWarnings("serial")
 public class JanelaMain extends JFrame {
 
-	//private FlowLayout layout 					= new FlowLayout();
-	private FlowLayout layout 					= new FlowLayout();
-	private JTextField jtxt_send 				= null;
-	private JanelaSelectServer jsv 				= null;
+	private FlowLayout layout 				= new FlowLayout();
+	private JTextField jtxt_send 			= null;
+	private JanelaSelectServer jsv 			= null;
 
 	//CUSTOM SWING COMPONENTS
 	private LocalLogUpdater cnlog 			= new LocalLogUpdater(this, 30);
@@ -47,6 +45,7 @@ public class JanelaMain extends JFrame {
 	private JButton jbt_selserv;
 	private JButton jbt_disconn;
 	private JButton jbt_send;
+	private	ListExample le 					= new ListExample();
 
 	public JTextField getTextField() {
 		return this.jtxt_send;
@@ -115,9 +114,9 @@ public class JanelaMain extends JFrame {
 		jbt_connect.addActionListener(	new JButtonConnectListener(this,cnlog));	//Comportamento para o botao "Connect"
 		jbt_disconn.addActionListener(	new JButtonDisconnectListener(this));		//Comportamento para o botao "Disconnect"
 
-		getLocalConnectionLog().setEditable(false);										//Desabilita o campo para edi��o
-		getLocalConnectionLog().setBackground(Color.LIGHT_GRAY);						//Muda a cor do campo "Connection log" para cinza
-		getServerConnectionLog().setEditable(false);									//Desabilita o campo para edi��o
+		getLocalConnectionLog().setEditable(false);									//Desabilita o campo para edi��o
+		getLocalConnectionLog().setBackground(Color.LIGHT_GRAY);					//Muda a cor do campo "Connection log" para cinza
+		getServerConnectionLog().setEditable(false);								//Desabilita o campo para edi��o
 		getServerConnectionLog().setBackground(Color.LIGHT_GRAY);	
 		
 		//Cria Borda para a JTextArea da Lista de mensagens
@@ -128,23 +127,22 @@ public class JanelaMain extends JFrame {
 				BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 		msg_list.setBorder(border);
 
-		ListExample le = new ListExample();
 		
 		//Montagem do componente JFrame, em ordem		
 		this.add(jlbl_list);						//
 		this.add(this.msg_list.getScrollPane());	//Adds the ScrolledPane JTextArea
-		this.add(le.getListExample());									//LISTA ONLINE USERS
-		this.add(jlbl_msg);						//JLabel da Mensagem
+		this.add(le.getListExample());				//LISTA ONLINE USERS
+		this.add(jlbl_msg);							//JLabel da Mensagem
 		this.add(jtxt_send);						//TextField da Mensagem � enviar
-		this.add(jbt_send);						//
+		this.add(jbt_send);							//
 		this.add(jlbl_cnlog);						//
 		this.add(getLocalConnectionLog());			//
 		this.add(jlbl_cnlog2);						//
-		this.add(getServerConnectionLog());		//
+		this.add(getServerConnectionLog());			//
 		this.add(jbt_connect);						//
 		this.add(jbt_selserv);						//
 		this.add(jbt_disconn);						//
-		this.add(jbt_exit);						//
+		this.add(jbt_exit);							//
 
 		this.setResizable(false);					//Desabilita redimensionamento desta janela
 		this.setVisible(true);						//Torna essa janela visivel
@@ -159,16 +157,6 @@ public class JanelaMain extends JFrame {
 	public void addMessageToChatLog(Message m) {
 		
 	}
-
-
-//	//SINGLETON PATTERN BLOCK
-//	private static JanelaMain jam;
-//	public static JanelaMain getInstance() {
-//		if (JanelaMain.jam == null) {
-//			jam = new JanelaMain(new JanelaSelectServer("Address Input"));
-//		}
-//		return jam;
-//	}
 
 	public LocalLogUpdater getLocalConnectionLog() {
 		return cnlog;
@@ -208,6 +196,10 @@ public class JanelaMain extends JFrame {
 
 	public JButton getJbt_send() {
 		return jbt_send;
+	}
+
+	public ListExample getLe() {
+		return le;
 	}
 	
 }
