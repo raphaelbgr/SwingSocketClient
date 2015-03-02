@@ -72,6 +72,7 @@ public class ReceiveFromServerThread implements Runnable {
 								if (((DisconnectionMessage)o).getOnlineUserList() != null) {
 									WindowDataFacade.getJam().getLe().updateOnlineList(((DisconnectionMessage)o).getOnlineUserList());
 								}
+								break; //NOT SURE IF THIS LINE IS NEEDED
 							} else if (o instanceof BroadCastMessage) {
 								BroadCastMessage bm = (BroadCastMessage) o;
 								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {

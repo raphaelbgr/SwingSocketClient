@@ -70,7 +70,7 @@ public class JanelaMain extends JFrame {
 		jmi.add(jmexit);											//
 		JLabel jlbl_msg 		= new JLabel("Message");			//
 		JLabel jlbl_list 		= new JLabel("Chat log");			//
-		JLabel jlbl_cnlog		= new JLabel("                                                      Local log");//
+		JLabel jlbl_cnlog		= new JLabel("                                           Local log");//
 		JLabel jlbl_cnlog2		= new JLabel("                                    Server log");//
 		jtxt_send				= new JTextField(30);				//TextField do campo Mensagem no escopo da classe. 
 		this.jbt_send			= new JButton("Send");				//
