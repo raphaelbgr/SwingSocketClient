@@ -9,14 +9,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
-public class ListExample extends JPanel
+public class OnlineUserList extends JPanel
 {
 	// Instance attributes used in this example
 	private	JPanel topPanel;
 	private	JList<String> listbox;
 	private JScrollPane sp;
 
-	public ListExample()
+	public OnlineUserList()
 	{
 		// Create a panel to hold all other components
 		topPanel = new JPanel();
