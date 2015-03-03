@@ -23,11 +23,16 @@ import clientmain.Status;
 
 public class ReceiveFromServerThread implements Runnable {
 
-	private JanelaMain jam = null;;
 	private ClientStream stream = ClientStream.getInstance();
 	private LocalLogUpdater localLog = null;
-	private ServerLogUpdater serverLog = WindowDataFacade.getInstance().getJam().getServerConnectionLog();
-	private TextLog tlog = WindowDataFacade.getInstance().getJam().getMsg_list();
+	private ServerLogUpdater serverLog = WindowDataFacade.getJam().getServerConnectionLog();
+	private TextLog tlog = WindowDataFacade.getJam().getMsg_list();
+
+	//	private void printClientList(Set<Client> clist) {
+	//		for (Client client : clist) {
+	//			System.out.println(client.getName());
+	//		}
+	//	}
 
 	@Override
 	public void run() {
@@ -40,35 +45,45 @@ public class ReceiveFromServerThread implements Runnable {
 						if (o instanceof Message) {
 							if (o instanceof ServerMessage) {
 								ServerMessage sm = (ServerMessage) o;
-								serverLog.setGreenMessage(sm.toString());
+								if (sm.getServresponse() != null) {
+									serverLog.setGreenMessage(sm.toString());
+								}
+								if (sm.getOnlineUserList() != null) {
+									WindowDataFacade.getJam().getLe().updateOnlineList(sm.getOnlineUserList());
+								}
 							} else if (o instanceof NormalMessage) {
 								NormalMessage nm = (NormalMessage) o;
 								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
-									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + "SERVER> " + "Broadcast from " + nm.getOwner());
+									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwner());
 								} else {
 									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
 								}
-//								serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + "SERVER> " + "Broadcast from " + nm.getOwner());
 								tlog.addMessage(nm.toString());
+								if (nm.getOnlineUserList() != null) {
+									WindowDataFacade.getJam().getLe().updateOnlineList(nm.getOnlineUserList());
+								}
 							} else if (o instanceof DisconnectionMessage) {
-//								Client receives order to disconnect.
 								new Disconnect();
 								WindowDataFacade.getJsv().unlockFields();
 								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 								Status.getInstance().setConnected(false);
-//								stream.checkOnlineStatus();
-//								stream.getSock().close();
-//								stream.setSock(null);
+								if (((DisconnectionMessage)o).getOnlineUserList() != null) {
+									WindowDataFacade.getJam().getLe().updateOnlineList(((DisconnectionMessage)o).getOnlineUserList());
+								}
+								break; //NOT SURE IF THIS LINE IS NEEDED
 							} else if (o instanceof BroadCastMessage) {
 								BroadCastMessage bm = (BroadCastMessage) o;
 								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
-									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + "SERVER> " + "Broadcast from " + bm.getOwner());
+									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + bm.getOwner());
 								} else {
 									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " " + bm.getServresponse());
 								}
 								tlog.addMessage(bm.toString());
+								if (bm.getOnlineUserList() != null) {
+									WindowDataFacade.getJam().getLe().updateOnlineList(bm.getOnlineUserList());
+								}
 							}
 						} else if (o instanceof ServerException) {
 							ServerException se = (ServerException) o;
@@ -79,7 +94,7 @@ public class ReceiveFromServerThread implements Runnable {
 								WindowDataFacade.getJam().getJbt_Disconn().setEnabled(false);
 								WindowDataFacade.getJam().getJbt_Connect().setEnabled(true);
 								WindowDataFacade.getJam().getJbt_send().setEnabled(false);
-								WindowDataFacade.getJam().getLocalConnectionLog().setGreyMessage(getTimestamp() + "LOCAL> Disconnected w/o informing server.");
+								WindowDataFacade.getJam().getLocalConnectionLog().setGreyMessage(getTimestamp() + " LOCAL> Disconnected");
 								WindowDataFacade.getJsv().unlockFields();
 								Status.getInstance().setConnected(false);
 							}
@@ -113,9 +128,8 @@ public class ReceiveFromServerThread implements Runnable {
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
 	}
-	
+
 	public ReceiveFromServerThread(JanelaMain jam) {
-		this.jam = jam;
 		this.localLog = jam.getLocalConnectionLog();
 	}
 
