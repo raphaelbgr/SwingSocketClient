@@ -10,7 +10,7 @@ public class ClientMain {
 //	public static boolean CONNECTED			= false;
 	
 	public static int port 					= 0;
-	public static int version				= 12;
+	public static int version				= 13;
 
 	public static Thread receiver			= null;
 

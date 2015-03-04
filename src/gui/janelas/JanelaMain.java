@@ -7,7 +7,7 @@ import gui.buttonlisteners.JButtonExitListener;
 import gui.buttonlisteners.JButtonSelectServerListener;
 import gui.buttonlisteners.JButtonSendServerListener;
 import gui.jmenuListeners.JMenuExitListener;
-import gui.onlinelist.ListExample;
+import gui.onlinelist.OnlineUserList;
 import gui.updatelogs.LocalLogUpdater;
 import gui.updatelogs.ServerLogUpdater;
 import gui.updatelogs.TextLog;
@@ -45,7 +45,7 @@ public class JanelaMain extends JFrame {
 	private JButton jbt_selserv;
 	private JButton jbt_disconn;
 	private JButton jbt_send;
-	private	ListExample le 					= new ListExample();
+	private	OnlineUserList le 				= new OnlineUserList();
 
 	public JTextField getTextField() {
 		return this.jtxt_send;
@@ -56,7 +56,7 @@ public class JanelaMain extends JFrame {
 
 		this.jsv = jsv;
 		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setSize(650, 290);
 		this.setLayout(layout);
 
@@ -198,7 +198,7 @@ public class JanelaMain extends JFrame {
 		return jbt_send;
 	}
 
-	public ListExample getLe() {
+	public OnlineUserList getLe() {
 		return le;
 	}
 	
