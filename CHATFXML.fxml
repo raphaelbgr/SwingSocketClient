@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar layoutY="-4.0" prefHeight="24.0" prefWidth="628.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Close" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <TabPane layoutY="21.0" prefHeight="424.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="All Users">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="502.0" prefWidth="628.0">
+                     <children>
+                    <Button layoutX="159.0" layoutY="347.0" mnemonicParsing="false" text="Select Server" />
+                    <Button alignment="TOP_CENTER" layoutX="80.0" layoutY="347.0" mnemonicParsing="false" text="Connect" />
+                      <ScrollPane layoutX="463.0" layoutY="60.0" prefHeight="187.0" prefWidth="122.0">
+                        <content>
+                          <ListView prefHeight="187.0" prefWidth="122.0" />
+                        </content>
+                      </ScrollPane>
+                      <ScrollPane layoutX="23.0" layoutY="60.0" prefHeight="187.0" prefWidth="406.0">
+                           <content>
+                              <TextFlow prefHeight="186.0" prefWidth="393.0" />
+                           </content>
+                      </ScrollPane>
+                      <TextField layoutX="500.0" layoutY="257.0" prefWidth="88.0" />
+                      <Label layoutX="440.0" layoutY="261.0" text="Username" />
+                      <TextField layoutX="94.0" layoutY="257.0" prefHeight="24.0" prefWidth="334.0" />
+                      <Label layoutX="23.0" layoutY="260.0" text="Message" />
+                      <Label layoutX="20.0" layoutY="297.0" text="Server log" />
+                      <Label layoutX="320.0" layoutY="296.0" text="Local log" />
+                      <TextField layoutX="92.0" layoutY="292.0" prefWidth="200.0" />
+                      <TextField layoutX="389.0" layoutY="292.0" prefWidth="200.0" />
+                      <Label layoutX="467.0" layoutY="33.0" text="Online Users" />
+                      <Label layoutX="25.0" layoutY="33.0" text="Chat log" />
+                    <Button layoutX="259.0" layoutY="347.0" mnemonicParsing="false" text="Disconnect" />
+                    <Button layoutX="569.0" layoutY="348.0" mnemonicParsing="false" text="Exit" />
+                        <Button layoutX="21.0" layoutY="347.0" mnemonicParsing="false" text="Send" />
+                        <ProgressBar layoutX="354.0" layoutY="349.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Private Chat">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+  </children>
+</AnchorPane>
