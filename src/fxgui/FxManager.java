@@ -15,8 +15,7 @@ public class FxManager {
 		mainStage = new Stage();
 		Parent root;
 		try {
-//			root = FXMLLoader.load(getClass().getResource("/CHATFXML.fxml"));
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("/fxgui.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/fxgui.fxml"));
 			Scene scene = new Scene(root);  
 	        mainStage.setScene(scene);
 	        mainStage.show();
@@ -28,9 +27,5 @@ public class FxManager {
 	public Stage getMainStage() {
 		return mainStage;
 	}
-	
-/*	public FxManager(Stage mainStage) {
-		this.mainStage = mainStage;
-	}*/
 	
 }

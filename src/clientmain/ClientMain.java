@@ -19,16 +19,13 @@ public class ClientMain extends Application {
 	public static String your_name 			= null;
 
 	public static void main(final String[] args) {	
-		//JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));
-
+//		JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));
 		
 		launch(args);
 		
-
 /*		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
 		t1.start();
 */
-
 	}
 
 	@Override
@@ -42,7 +39,5 @@ public class ClientMain extends Application {
 		    }
 		});
 	}
-	
-	
-	
+
 }

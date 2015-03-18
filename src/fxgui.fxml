@@ -46,7 +46,7 @@
                       </ScrollPane>
                       <ScrollPane layoutX="23.0" layoutY="60.0" prefHeight="187.0" prefWidth="406.0">
                            <content>
-                              <TextFlow prefHeight="186.0" prefWidth="403.0" />
+                              <TextArea prefHeight="186.0" prefWidth="394.0" />
                            </content>
                       </ScrollPane>
                       <TextField layoutX="500.0" layoutY="257.0" prefWidth="88.0" />
