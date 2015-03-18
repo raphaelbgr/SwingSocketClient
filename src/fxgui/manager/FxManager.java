@@ -1,4 +1,4 @@
-package fxgui;
+package fxgui.manager;
 
 import java.io.IOException;
 
@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import fxgui.scenes.MainScene;
 
 public class FxManager {
 
@@ -16,7 +17,7 @@ public class FxManager {
 		Parent root;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/fxgui.fxml"));
-			Scene scene = new Scene(root);  
+			Scene scene = new MainScene(root);  
 	        mainStage.setScene(scene);
 	        mainStage.show();
 		} catch (IOException e) {
