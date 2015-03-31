@@ -13,11 +13,11 @@ public class MainScene extends Scene implements Initializable {
 
 	public MainScene(Parent arg0) {
 		super(arg0);
-		btn_send.onKeyPressedProperty();
+		//btn_send;
 	}
 
-	@FXML
-	private Button btn_send = new Button();
+//	@FXML
+//	private Button btn_send = new Button();
 	@FXML
 	private Button btn_connect;
 	@FXML

@@ -57,7 +57,7 @@
                       <Label layoutX="25.0" layoutY="33.0" text="Chat log" />
                     <Button layoutX="259.0" layoutY="347.0" mnemonicParsing="false" text="Disconnect" />
                     <Button layoutX="569.0" layoutY="348.0" mnemonicParsing="false" text="Exit" />
-                        <Button layoutX="21.0" layoutY="347.0" mnemonicParsing="false" text="Send" />
+                        <Button fx:id="fxgui.scenes.SendListener" layoutX="21.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
                         <ProgressBar layoutX="354.0" layoutY="349.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
                         <Label layoutX="440.0" layoutY="296.0" text="Password" />
                         <PasswordField layoutX="501.0" layoutY="292.0" prefHeight="25.0" prefWidth="87.0" />
