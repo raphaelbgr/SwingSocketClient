@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxgui.FXController">
   <children>
     <MenuBar layoutY="-4.0" prefHeight="24.0" prefWidth="628.0">
       <menus>
@@ -38,7 +38,7 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="502.0" prefWidth="628.0">
                      <children>
                     <Button layoutX="159.0" layoutY="347.0" mnemonicParsing="false" text="Select Server" />
-                    <Button alignment="TOP_CENTER" layoutX="80.0" layoutY="347.0" mnemonicParsing="false" text="Connect" />
+                    <Button fx:id="btn_Connect" alignment="TOP_CENTER" layoutX="80.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect" />
                       <ScrollPane layoutX="463.0" layoutY="60.0" prefHeight="187.0" prefWidth="122.0">
                         <content>
                           <ListView prefHeight="187.0" prefWidth="122.0" />
@@ -57,7 +57,7 @@
                       <Label layoutX="25.0" layoutY="33.0" text="Chat log" />
                     <Button layoutX="259.0" layoutY="347.0" mnemonicParsing="false" text="Disconnect" />
                     <Button layoutX="569.0" layoutY="348.0" mnemonicParsing="false" text="Exit" />
-                        <Button fx:id="fxgui.scenes.SendListener" layoutX="21.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
+                        <Button fx:id="btn_Send" layoutX="21.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
                         <ProgressBar layoutX="354.0" layoutY="349.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
                         <Label layoutX="440.0" layoutY="296.0" text="Password" />
                         <PasswordField layoutX="501.0" layoutY="292.0" prefHeight="25.0" prefWidth="87.0" />
@@ -65,11 +65,6 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Private Chat">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
   </children>
