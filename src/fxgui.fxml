@@ -35,7 +35,7 @@
         <tabs>
           <Tab text="All Users">
             <content>
-              <AnchorPane prefHeight="392.0" prefWidth="623.0">
+              <AnchorPane prefHeight="366.0" prefWidth="628.0">
                      <children>
                       <ScrollPane layoutX="463.0" layoutY="60.0" prefHeight="187.0" prefWidth="122.0">
                         <content>
@@ -55,8 +55,8 @@
                       <Label layoutX="25.0" layoutY="33.0" text="Chat log" />
                         <Label layoutX="440.0" layoutY="296.0" text="Password" />
                         <PasswordField layoutX="501.0" layoutY="292.0" prefHeight="25.0" prefWidth="87.0" />
-                        <PasswordField layoutX="501.0" layoutY="328.0" prefHeight="25.0" prefWidth="87.0" />
                         <Label layoutX="411.0" layoutY="332.0" text="Server Address" />
+                        <TextField fx:id="sv_Address" layoutX="501.0" layoutY="328.0" prefWidth="88.0" />
                      </children>
                   </AnchorPane>
             </content>

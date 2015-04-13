@@ -6,9 +6,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import fxgui.FXController;
 import fxgui.scenes.MainScene;
 
 public class ClientMain extends Application {
@@ -39,8 +37,7 @@ public class ClientMain extends Application {
 		Platform.runLater(new Runnable() {
 			private Stage mainStage;
 			private Parent root;
-			private Scene scene;
-			private FXMLLoader fxmllLoader;
+			private MainScene scene;
 
 			@Override
 			public void run() {
@@ -48,10 +45,8 @@ public class ClientMain extends Application {
 				mainStage = new Stage();
 				try {
 					root = FXMLLoader.load(getClass().getResource("/fxgui.fxml"));
-//					fxmllLoader = new FXMLLoader(getClass().getResource("/fxgui.fxml"));
-//					root = fxmllLoader.load();
-//					fxmllLoader.setController(new FXController(mainStage));
 					scene = new MainScene(root);  
+					scene.initialize(null, null);
 					mainStage.setScene(scene);
 					mainStage.show();
 				} catch (IOException e) {
