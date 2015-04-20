@@ -5,7 +5,11 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import fxgui.scenes.MainScene;
 
@@ -27,7 +31,7 @@ public class ClientMain extends Application {
 		/*		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
 		t1.start();
 		 */
-		
+
 		launch(args);
 	}
 
@@ -48,6 +52,8 @@ public class ClientMain extends Application {
 					scene = new MainScene(root);  
 					scene.initialize(null, null);
 					mainStage.setScene(scene);
+					Button node = (Button) mainStage.getScene().lookup("#btn_disconnect");
+					node.setDisable(true);
 					mainStage.show();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -55,7 +61,7 @@ public class ClientMain extends Application {
 			}
 		});
 		System.out.println("public void start: " + Thread.currentThread());
-		
+
 	}
 
 }

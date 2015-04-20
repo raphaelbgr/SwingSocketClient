@@ -6,7 +6,6 @@ import java.net.UnknownHostException;
 
 import sendable.Client;
 import sync.ClientStream;
-import clientmain.ClientMain;
 
 public class Connect {
 
@@ -27,9 +26,19 @@ public class Connect {
 
 		stream.setSock(new Socket(ip, port));
 
-		Client c = new Client();
-		c.setVersion(ClientMain.version);
+//		Client c = new Client();
+//		c.setVersion(ClientMain.version);
 //		c.setName(owner);
+
+		//CONNECTION MESSAGE
+//		stream.sendObject(c);
+//		stream.checkOnlineStatus();
+	}
+	
+	public Connect(Client c) throws UnknownHostException, IOException {
+		ClientStream stream 	= ClientStream.getInstance();
+
+		stream.setSock(new Socket(c.getTargetIp(), c.getTargetPort()));
 
 		//CONNECTION MESSAGE
 		stream.sendObject(c);
