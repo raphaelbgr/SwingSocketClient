@@ -1,17 +1,17 @@
 package clientmain;
 
+import gui.fx.WindowDataFacade;
+import gui.fx.controllers.FXController;
+import gui.fx.scenes.MainScene;
+
 import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import fxgui.scenes.MainScene;
 
 public class ClientMain extends Application {
 
@@ -40,20 +40,27 @@ public class ClientMain extends Application {
 
 		Platform.runLater(new Runnable() {
 			private Stage mainStage;
-			private Parent root;
 			private MainScene scene;
+			private FXController fxControl = null;
 
 			@Override
 			public void run() {
 				System.out.println("run: " + Thread.currentThread());
 				mainStage = new Stage();
 				try {
-					root = FXMLLoader.load(getClass().getResource("/fxgui.fxml"));
-					scene = new MainScene(root);  
+//					root = FXMLLoader.load(getClass().getResource("/fxgui.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxgui.fxml"));
+					Parent root = (Parent) loader.load();
+					fxControl = loader.getController();
+					scene = new MainScene(root);
 					scene.initialize(null, null);
 					mainStage.setScene(scene);
+					fxControl.setFacade(scene.getFacade());
+					WindowDataFacade wdf = scene.getFacade().loadNodes();
+//					wdf.setDebugMode(true); //DEBUG
 					Button node = (Button) mainStage.getScene().lookup("#btn_disconnect");
 					node.setDisable(true);
+					
 					mainStage.show();
 				} catch (IOException e) {
 					e.printStackTrace();

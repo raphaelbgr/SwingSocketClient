@@ -1,4 +1,4 @@
-package gui.updatelogs;
+package gui.swing.updatelogs;
 
 import java.awt.Dimension;
 

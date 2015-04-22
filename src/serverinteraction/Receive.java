@@ -1,8 +1,8 @@
 package serverinteraction;
 
 import exceptions.ServerException;
-import gui.WindowDataFacade;
-import gui.updatelogs.LocalLogUpdater;
+import gui.swing.WindowDataFacade;
+import gui.swing.updatelogs.LocalLogUpdater;
 
 import java.io.IOException;
 

@@ -1,10 +1,10 @@
-package gui.buttonlisteners;
+package gui.swing.buttonlisteners;
 import exceptions.LocalException;
 import exceptions.ServerException;
-import gui.WindowDataFacade;
-import gui.janelas.JanelaMain;
-import gui.janelas.JanelaSelectServer;
-import gui.updatelogs.LocalLogUpdater;
+import gui.swing.WindowDataFacade;
+import gui.swing.janelas.JanelaMain;
+import gui.swing.janelas.JanelaSelectServer;
+import gui.swing.updatelogs.LocalLogUpdater;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

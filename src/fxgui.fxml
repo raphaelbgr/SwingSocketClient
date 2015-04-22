@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="629.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxgui.scenes.MainScene">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.fx.controllers.FXController">
   <children>
     <MenuBar layoutY="-4.0" prefHeight="24.0" prefWidth="628.0">
       <menus>
@@ -34,7 +34,7 @@
             <Reflection />
          </effect>
     </MenuBar>
-      <TabPane layoutY="21.0" prefHeight="424.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="21.0" prefHeight="424.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE" fx:id="tab_pane">
         <tabs>
           <Tab text="All Users">
             <content>
@@ -62,7 +62,7 @@
                               <Reflection />
                            </effect>
                       </ScrollPane>
-                      <TextField fx:id="fld_userName" layoutX="500.0" layoutY="257.0" prefWidth="88.0">
+                      <TextField fx:id="fld_username" layoutX="500.0" layoutY="257.0" prefWidth="88.0">
                            <effect>
                               <Reflection />
                            </effect></TextField>
@@ -98,11 +98,11 @@
                            <effect>
                               <Reflection />
                            </effect></Label>
-                        <TextField fx:id="sv_Address" layoutX="501.0" layoutY="328.0" prefWidth="88.0">
+                        <TextField fx:id="sv_address" layoutX="501.0" layoutY="328.0" prefWidth="88.0">
                            <effect>
                               <Reflection />
                            </effect></TextField>
-                        <TextField fx:id="sv_Port" layoutX="501.0" layoutY="361.0" prefHeight="25.0" prefWidth="43.0">
+                        <TextField fx:id="sv_port" layoutX="501.0" layoutY="361.0" prefHeight="25.0" prefWidth="43.0">
                            <effect>
                               <Reflection />
                            </effect>
@@ -137,7 +137,7 @@
          <effect>
             <Reflection />
          </effect></Button>
-      <Button fx:id="btn_Send" layoutX="23.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send">
+      <Button fx:id="btn_send" layoutX="23.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send">
          <effect>
             <Reflection />
          </effect></Button>
@@ -151,4 +151,4 @@
          </effect>
       </ProgressIndicator>
   </children>
-</fx:root>
+</AnchorPane>

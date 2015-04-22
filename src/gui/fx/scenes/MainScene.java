@@ -1,12 +1,10 @@
-package fxgui.scenes;
+package gui.fx.scenes;
+
+import gui.fx.WindowDataFacade;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import fxgui.events.WindowData;
-import fxgui.events.buttons.ConnectionPerform;
-import fxgui.events.buttons.DisconnectionPerform;
-import fxgui.events.buttons.SendPerform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +19,7 @@ import javafx.scene.control.TextField;
 public class MainScene extends Scene implements Initializable {
 
 	Parent root = null;
+	WindowDataFacade wdf = null;
 	
 	@FXML
 	private Button btn_connect = new Button();
@@ -29,13 +28,13 @@ public class MainScene extends Scene implements Initializable {
 	@FXML
 	private Button btn_serv_opt = new Button();
 	@FXML
-	private TextField fld_userName = new TextField();
+	private TextField fld_username = new TextField();
 	@FXML
-	private TextField sv_Address = new TextField();
+	private TextField sv_address = new TextField();
 	@FXML
 	private PasswordField passwd_field = new PasswordField();
 	@FXML
-	private TextField sv_Port = new TextField();
+	private TextField sv_port = new TextField();
 	@FXML
 	private ProgressBar progress = new ProgressBar();
 	@FXML
@@ -45,36 +44,6 @@ public class MainScene extends Scene implements Initializable {
 		super(root);
 		this.root = root;
 	}
-	
-	WindowData wd = new WindowData();
-
-	public void handleSendButton() {
-		SendPerform sl = new SendPerform();
-		sl.performAction(null);
-	}
-
-	public void handleDisconnectButton() {
-		DisconnectionPerform dp = new DisconnectionPerform();
-		dp.performAction(wd);
-		
-	}
-
-	public void handleConnectButton() {
-		ConnectionPerform sl = new ConnectionPerform();
-		wd.setUserName(fld_userName.getText());
-		wd.setPassword(passwd_field.getText());
-		wd.setServer(sv_Address.getText());
-		wd.setPort(Integer.valueOf(sv_Port.getText()));
-
-		//Those Nodes will be sent to WindowData Object to be manipulated by the ConnectPerform class.
-		wd.addNode(btn_connect);
-		wd.addNode(btn_disconnect);
-		wd.addNode(fld_userName);
-		wd.addNode(passwd_field);
-		wd.addNode(sv_Address);
-		wd.addNode(sv_Port);
-		sl.performAction(wd);
-	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -82,10 +51,10 @@ public class MainScene extends Scene implements Initializable {
 		//Setting and ID for each node.
 		btn_connect.setId("btn_connect");
 		btn_disconnect.setId("btn_disconnect");
-		fld_userName.setId("fld_username");
+		fld_username.setId("fld_username");
 		passwd_field.setId("passwd_field");
-		sv_Address.setId("sv_address");
-		sv_Port.setId("sv_port");
+		sv_address.setId("sv_address");
+		sv_port.setId("sv_port");
 		progress.setId("progress");
 		indicator.setId("indicator");
 
@@ -109,14 +78,34 @@ public class MainScene extends Scene implements Initializable {
 		th1.start();
 
 		//FOR DEBUG
-		TextField node1 = (TextField) root.lookup("#fld_username");
-		node1.setText("raphaelbgr");
-		TextField node2 = (TextField)  root.lookup("#passwd_field");
-		node2.setText("nopass");
-		TextField node3 = (TextField) root.lookup("#sv_address");
-		node3.setText("localhost");
-		TextField node4 = (TextField) root.lookup("#sv_port");
-		node4.setText("2000");
+//		TextField node1 = (TextField) root.getScene().lookup("#fld_username");
+//		node1.setText("raphaelbgr");
+//		TextField node2 = (TextField)  root.getScene().lookup("#passwd_field");
+//		node2.setText("nopass");
+//		TextField node3 = (TextField) root.getScene().lookup("#sv_address");
+//		node3.setText("localhost");
+//		TextField node4 = (TextField) root.getScene().lookup("#sv_port");
+//		node4.setText("2000");
+		
+//		fld_userName.setText("user");
+//		passwd_field.setText("nopass");
+//		sv_Address.setText("localhost");
+//		sv_Port.setText("2000");
+	}
+	
+	public WindowDataFacade getFacade() {
+		if (wdf == null) {
+			wdf = new WindowDataFacade(root);
+		}
+		wdf.addNode(btn_connect);
+		wdf.addNode(btn_disconnect);
+		wdf.addNode(fld_username);
+		wdf.addNode(passwd_field);
+		wdf.addNode(sv_address);
+		wdf.addNode(sv_port);
+		wdf.addNode(progress);
+		wdf.addNode(indicator);
+		return wdf;
 	}
 
 }

@@ -1,4 +1,4 @@
-package gui.jmenuListeners;
+package gui.swing.jmenuListeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,6 +1,6 @@
-package gui.updatelogs;
+package gui.swing.updatelogs;
 
-import gui.janelas.JanelaMain;
+import gui.swing.janelas.JanelaMain;
 
 import java.awt.Color;
 

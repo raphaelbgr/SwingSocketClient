@@ -1,7 +1,7 @@
 package serverinteraction;
 
-import gui.WindowDataFacade;
-import gui.janelas.JanelaSelectServer;
+import gui.swing.WindowDataFacade;
+import gui.swing.janelas.JanelaSelectServer;
 
 import java.io.IOException;
 import java.net.UnknownHostException;

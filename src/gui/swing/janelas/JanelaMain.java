@@ -1,16 +1,16 @@
-package gui.janelas;
+package gui.swing.janelas;
 
-import gui.WindowDataFacade;
-import gui.buttonlisteners.JButtonConnectListener;
-import gui.buttonlisteners.JButtonDisconnectListener;
-import gui.buttonlisteners.JButtonExitListener;
-import gui.buttonlisteners.JButtonSelectServerListener;
-import gui.buttonlisteners.JButtonSendServerListener;
-import gui.jmenuListeners.JMenuExitListener;
-import gui.onlinelist.OnlineUserList;
-import gui.updatelogs.LocalLogUpdater;
-import gui.updatelogs.ServerLogUpdater;
-import gui.updatelogs.TextLog;
+import gui.swing.WindowDataFacade;
+import gui.swing.buttonlisteners.JButtonConnectListener;
+import gui.swing.buttonlisteners.JButtonDisconnectListener;
+import gui.swing.buttonlisteners.JButtonExitListener;
+import gui.swing.buttonlisteners.JButtonSelectServerListener;
+import gui.swing.buttonlisteners.JButtonSendServerListener;
+import gui.swing.jmenuListeners.JMenuExitListener;
+import gui.swing.onlinelist.OnlineUserList;
+import gui.swing.updatelogs.LocalLogUpdater;
+import gui.swing.updatelogs.ServerLogUpdater;
+import gui.swing.updatelogs.TextLog;
 
 import java.awt.Color;
 import java.awt.FlowLayout;

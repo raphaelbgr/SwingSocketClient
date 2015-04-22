@@ -1,7 +1,7 @@
-package gui;
+package gui.swing;
 
-import gui.janelas.JanelaMain;
-import gui.janelas.JanelaSelectServer;
+import gui.swing.janelas.JanelaMain;
+import gui.swing.janelas.JanelaSelectServer;
 
 public class WindowDataFacade {
 	

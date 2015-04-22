@@ -1,6 +1,6 @@
-package gui.janelas;
+package gui.swing.janelas;
 
-import gui.buttonlisteners.JButtonSelectServerOKListener;
+import gui.swing.buttonlisteners.JButtonSelectServerOKListener;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
