@@ -13,12 +13,8 @@ import clientmain.ClientMain;
 
 public class DisconnectionPerform {
 	
-	private WindowDataFacade wdf;
+	private WindowDataFacade wdf = WindowDataFacade.getInstance();
 
-	public DisconnectionPerform(WindowDataFacade wdf) {
-		this.wdf = wdf;
-	}
-	
 	@FXML
 	public void performAction() {
 		try {

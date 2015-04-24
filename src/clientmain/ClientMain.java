@@ -1,6 +1,5 @@
 package clientmain;
 
-import gui.fx.WindowDataFacade;
 import gui.fx.controllers.FXController;
 import gui.fx.scenes.MainScene;
 
@@ -10,8 +9,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import threads.FXReceiveFromServerThread;
 
 public class ClientMain extends Application {
 
@@ -26,11 +25,12 @@ public class ClientMain extends Application {
 	public static String your_name 			= null;
 
 	public static void main(final String[] args) {	
-		//		JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));
-
-		/*		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
+//		JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));
+		
+//		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
+		Thread t1 = new Thread(new FXReceiveFromServerThread()); //NOT ON FX THREAD, NEEDS TO FIX THIS
 		t1.start();
-		 */
+		 
 
 		launch(args);
 	}
@@ -48,20 +48,15 @@ public class ClientMain extends Application {
 				System.out.println("run: " + Thread.currentThread());
 				mainStage = new Stage();
 				try {
-//					root = FXMLLoader.load(getClass().getResource("/fxgui.fxml"));
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxgui.fxml"));
 					Parent root = (Parent) loader.load();
 					fxControl = loader.getController();
 					scene = new MainScene(root);
-					scene.initialize(null, null);
+					scene.setRoot(root);
 					mainStage.setScene(scene);
-					fxControl.setFacade(scene.getFacade());
-					WindowDataFacade wdf = scene.getFacade().loadNodes();
-//					wdf.setDebugMode(true); //DEBUG
-					Button node = (Button) mainStage.getScene().lookup("#btn_disconnect");
-					node.setDisable(true);
-					
+					mainStage.setTitle("Open Source Chat Client");
 					mainStage.show();
+					fxControl.setDebug(true);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

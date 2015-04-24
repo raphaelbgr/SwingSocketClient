@@ -3,13 +3,15 @@ package gui.fx;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.concurrent.Task;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 
 public class WindowDataFacade {
@@ -23,26 +25,33 @@ public class WindowDataFacade {
 	private TextField sv_port 			= null;
 	private ProgressBar progress 		= null;
 	private ProgressIndicator indicator = null;
+	private TextField fld_status;
+	private Label lbl_status;
+	private Label lbl_time;
+	private Button btn_exit;
+	private Button btn_send;
 	
 	private List<Node> nodes 			= new ArrayList<Node>();
-	
-	private Integer port 				= null;
-	
 	private Parent root = null;
+	protected double toCurrentProgress;
+	protected double fromCurrentProgress;
+	
+	private Task<Void> task = null;
+	
 
-	public WindowDataFacade(Parent root) {
-		
+	public static WindowDataFacade wdf;
+	public static WindowDataFacade getInstance() {
+		if (wdf == null) {
+			wdf =  new WindowDataFacade();
+		}
+		return wdf;
+	}
+	
+	public void setRoot(Parent root) {
 		this.root = root;
-		
-		TabPane tpane =  (TabPane) root.getScene().lookup("#tab_pane");
-		tpane.lookup("#fld_userame");
-		
-//		sv_port = (TextField) root.getScene().lookup("#sv_port");
-//		sv_address = (TextField) root.getScene().lookup("#sv_address");
-//		fld_username = (TextField) tpane.getScene().lookup("#fld_userame");
-//		passwd_field = (PasswordField) root.getScene().lookup("#passwd_field");
-//		sv_port = (TextField) root.getScene().lookup("#sv_port");
-//		sv_address = (TextField) root.getScene().lookup("#sv_address");
+	}
+	
+	private WindowDataFacade() {
 	}
 	
 	public String getUserName() {
@@ -61,46 +70,111 @@ public class WindowDataFacade {
 		return Integer.valueOf(sv_port.getText());
 	}
 	
+	public void setSmallStatusMsg(String s) {
+		lbl_status.setText(s);
+	}
+	
+	public void setBigStatusMsg(String s) {
+		fld_status.setText(s);
+	}
+	
+	public void setTimeLabel(String s) {
+		lbl_time.setText(s);
+	}
+	
 	public void setConnectedLockFields() {
+		btn_send.setDisable(false);
 		btn_connect.setDisable(true);
 		btn_disconnect.setDisable(false);
 		fld_username.setDisable(true);
 		passwd_field.setDisable(true);
+		sv_address.setDisable(true);
 		sv_port.setDisable(true);
 	}
 	
 	public void setDisconnectedLockFields() {
+		btn_send.setDisable(true);
 		btn_connect.setDisable(false);
 		btn_disconnect.setDisable(true);
 		fld_username.setDisable(false);
 		passwd_field.setDisable(false);
+		sv_address.setDisable(false);
 		sv_port.setDisable(false);
 	}
 	
 	public void addNode(Node node) {
+		if (node.getId().equalsIgnoreCase("btn_connect")) {
+			btn_connect = (Button) node;
+		} else if (node.getId().equalsIgnoreCase("btn_disconnect")) {
+			btn_disconnect = (Button) node;
+		} else if (node.getId().equalsIgnoreCase("btn_serv_opt")) {
+			btn_serv_opt = (Button) node;
+		} else if (node.getId().equalsIgnoreCase("fld_username")) {
+			fld_username = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("sv_address")) {
+			sv_address = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("passwd_field")) {
+			passwd_field = (PasswordField) node;
+		} else if (node.getId().equalsIgnoreCase("sv_port")) {
+			sv_port = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("progress")) {
+			progress = (ProgressBar) node;
+		} else if (node.getId().equalsIgnoreCase("indicator")) {
+			indicator = (ProgressIndicator) node;
+		} else if (node.getId().equalsIgnoreCase("fld_status")) {
+			fld_status = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_status")) {
+			lbl_status = (Label) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_time")) {
+			lbl_time = (Label) node;
+		} else if (node.getId().equalsIgnoreCase("btn_exit")) {
+			btn_exit = (Button) node;
+		} else if (node.getId().equalsIgnoreCase("btn_send")) {
+			btn_send = (Button) node;
+		}
 		nodes.add(node);
 	}
 	
 	public Node getNode(String id) {
 		for (Node node : nodes) {
-			if (node.getId().equalsIgnoreCase(id)) {
+			if (node != null && node.getId().equalsIgnoreCase(id)) {
 				return node;
 			} 
 		} return null;
 	}
 	
-	public WindowDataFacade loadNodes() {
-		btn_connect = (Button) root.getScene().lookup("#btn_connect");
-		btn_disconnect = (Button) root.getScene().lookup("#btn_disconnect");
-		fld_username = (TextField) getNode("fld_username");
-		passwd_field = (PasswordField) getNode("passwd_field");
-		sv_port = (TextField) getNode("sv_port");
-		sv_address = (TextField) getNode("sv_address");
-		progress = (ProgressBar) root.getScene().lookup("#progress");
-		indicator = (ProgressIndicator) root.getScene().lookup("#indicator");
-		return this;
+	public double getToCurrentProgress() {
+		return toCurrentProgress;
+	}
+
+	public double getFromCurrentProgress() {
+		return fromCurrentProgress;
+	}
+
+	public void setToCurrentProgress(double toCurrentProgress) {
+		this.toCurrentProgress = toCurrentProgress;
 	}
 	
+	public Task<Void> getTask() {
+		return task;
+	}
+
+	public void setTask(Task<Void> task) {
+		this.task = task;
+	}
+
+	public TextField getFld_status() {
+		return fld_status;
+	}
+
+	public Label getLbl_status() {
+		return lbl_status;
+	}
+
+	public ProgressBar getProgress() {
+		return progress;
+	}
+
 	public void setDebugMode(boolean go) {
 		if (go) {
 			fld_username.setText("raphaelbgr");
