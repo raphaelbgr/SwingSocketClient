@@ -11,12 +11,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
@@ -54,6 +53,8 @@ public class FXController implements Initializable {
 	private Button btn_exit;
 	@FXML
 	private Button btn_send;
+	@FXML
+	private CheckBox chkbox_autocon;
 
 	List<Node> nodes = new ArrayList<Node>();
 
@@ -130,6 +131,7 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(fld_status);
 		WindowDataFacade.getInstance().addNode(lbl_status);
 		WindowDataFacade.getInstance().addNode(btn_send);
+		WindowDataFacade.getInstance().addNode(chkbox_autocon);
 
 		//		WindowDataFacade.getInstance().setTask(WindowDataFacade.getInstance().startProgressBar());
 		//		progress.INDETERMINATE_PROGRESS;

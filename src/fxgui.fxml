@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.fx.controllers.FXController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.fx.controllers.FXController">
   <children>
     <MenuBar layoutY="-4.0" prefHeight="24.0" prefWidth="628.0">
       <menus>
@@ -38,7 +38,7 @@
         <tabs>
           <Tab text="All Users">
             <content>
-              <AnchorPane>
+              <AnchorPane prefHeight="438.0" prefWidth="630.0">
                      <children>
                         <Pane layoutX="31.0" layoutY="14.0">
                            <children>
@@ -122,6 +122,7 @@
                                  </effect>
                               </TextField>
                               <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
+                              <Label fx:id="lbl_time" layoutX="245.0" prefHeight="17.0" prefWidth="161.0" />
                            </children>
                         </Pane>
                         <ProgressIndicator fx:id="indicator" layoutX="587.0" layoutY="3.0" prefHeight="25.0" prefWidth="43.0" progress="0.0" visible="false">
@@ -138,14 +139,14 @@
             <Reflection />
          </effect>
       </TabPane>
-      <Pane layoutX="23.0" layoutY="470.0">
+      <Pane layoutX="23.0" layoutY="470.0" prefHeight="77.0" prefWidth="596.0">
          <children>
         <Button fx:id="btn_sv_opt" layoutX="120.0" mnemonicParsing="false" text="Server Options">
                <effect>
                   <Reflection />
                </effect>
             </Button>
-            <ProgressBar fx:id="progress" layoutX="322.0" layoutY="6.0" prefHeight="18.0" prefWidth="142.0" progress="0.0">
+            <ProgressBar fx:id="progress" layoutX="322.0" layoutY="6.0" prefHeight="18.0" prefWidth="203.0" progress="0.0">
                <effect>
                   <Reflection />
                </effect>
@@ -171,14 +172,14 @@
                </effect>
             </Button>
             <Label fx:id="lbl_status" layoutX="480.0" layoutY="6.0" prefHeight="17.0" prefWidth="53.0" />
+            <TextField fx:id="fld_status" disable="true" layoutX="2.0" layoutY="37.0" prefHeight="25.0" prefWidth="472.0" text="LOCAL&gt; Offline">
+               <effect>
+                  <Reflection />
+               </effect>
+            </TextField>
+            <CheckBox fx:id="chkbox_autocon" layoutX="480.0" layoutY="41.0" mnemonicParsing="false" text="Auto Reconnect" />
          </children>
       </Pane>
       <Separator layoutX="14.0" layoutY="455.0" prefHeight="10.0" prefWidth="596.0" />
-      <TextField fx:id="fld_status" disable="true" layoutX="14.0" layoutY="512.0" prefHeight="25.0" prefWidth="424.0" text="Offline">
-         <effect>
-            <Reflection />
-         </effect>
-      </TextField>
-      <Label fx:id="lbl_time" layoutX="447.0" layoutY="516.0" prefHeight="17.0" prefWidth="168.0" />
   </children>
 </AnchorPane>

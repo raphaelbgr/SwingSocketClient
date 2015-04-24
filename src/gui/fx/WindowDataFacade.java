@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.concurrent.Task;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
@@ -37,6 +37,7 @@ public class WindowDataFacade {
 	protected double fromCurrentProgress;
 	
 	private Task<Void> task = null;
+	private CheckBox chkbox_autocon;
 	
 
 	public static WindowDataFacade wdf;
@@ -131,6 +132,8 @@ public class WindowDataFacade {
 			btn_exit = (Button) node;
 		} else if (node.getId().equalsIgnoreCase("btn_send")) {
 			btn_send = (Button) node;
+		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
+			chkbox_autocon = (CheckBox) node;
 		}
 		nodes.add(node);
 	}
@@ -173,6 +176,14 @@ public class WindowDataFacade {
 
 	public ProgressBar getProgress() {
 		return progress;
+	}
+
+	public boolean isAutoReconnChecked() {
+		return chkbox_autocon.isSelected();
+	}
+	
+	public CheckBox getChkbox_autocon() {
+		return chkbox_autocon;
 	}
 
 	public void setDebugMode(boolean go) {
