@@ -45,7 +45,7 @@ public class WindowDataFacade<E> {
 	private Parent root 				= null;
 	private Task<Void> task 			= null;
 	
-	public ObservableList onlineList	= new ObservableList<E>();
+//	public ObservableList onlineList	= new ObservableList<E>();
 	
 
 
@@ -197,15 +197,6 @@ public class WindowDataFacade<E> {
 		return chkbox_autocon;
 	}
 
-	public void setDebugMode(boolean go) {
-		if (go) {
-			fld_username.setText("raphaelbgr");
-			passwd_field.setText("nopass");
-			sv_address.setText("localhost");
-			sv_port.setText("2000");		
-		}
-	}
-
 	public void createConnectedWorker() {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -250,12 +241,12 @@ public class WindowDataFacade<E> {
 		});
 	}
 
-	public void addOnlineClient(String s) {
-		
-		list_view.setItems(new ObservableList<String>() {
-			
-		});
-	}
+//	public void addOnlineClient(String s) {
+//		
+//		list_view.setItems(new ObservableList<String>() {
+//			
+//		});
+//	}
 	
 	public void startClockController() {
 		Task task = new Task<Void>() {

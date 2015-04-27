@@ -129,7 +129,7 @@ public class FXController implements Initializable {
 		if (go) {
 			fld_username.setText("raphaelbgr");
 			passwd_field.setText("nopass");
-			sv_address.setText("localhost");
+			sv_address.setText("surfael.sytes.net");
 			sv_port.setText("2000");	
 		}
 	}

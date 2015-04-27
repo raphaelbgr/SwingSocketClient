@@ -19,6 +19,7 @@ public class DisconnectionPerform {
 	public void performAction() {
 		try {
 			wdf.setDisconnectedLockFields();
+			wdf.createCanceledWorker();
 			new Disconnect(buildClient());
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -34,7 +35,7 @@ public class DisconnectionPerform {
 	private Client buildClient() {
 		Client c = new Client();
 		c.setName(wdf.getUserName());
-		c.setPort(wdf.getPort());
+		c.setTargetPort(wdf.getPort());
 		c.setVersion(ClientMain.version);
 		c.setPassword(wdf.getPassword());
 		return c;

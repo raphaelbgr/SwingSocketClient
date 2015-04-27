@@ -138,13 +138,13 @@ public class Client implements Serializable {
 	public String getTargetIp() {
 		return ip;
 	}
-	public void setIp(String ip) {
+	public void setTargetIp(String ip) {
 		this.ip = ip;
 	}
 	public Integer getTargetPort() {
 		return port;
 	}
-	public void setPort(Integer port) {
+	public void setTargetPort(Integer port) {
 		this.port = port;
 	}
 	public Long getOnlinetime() {
