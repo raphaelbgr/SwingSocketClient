@@ -1,18 +1,17 @@
 package serverinteraction;
 
 import exceptions.LocalException;
-import gui.WindowDataFacade;
-import gui.janelas.JanelaMain;
-import gui.janelas.JanelaSelectServer;
+import gui.swing.WindowDataFacade;
+import gui.swing.janelas.JanelaMain;
+import gui.swing.janelas.JanelaSelectServer;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import clientmain.ClientMain;
-import clientmain.Status;
 import sendable.Message;
 import sendable.NormalMessage;
 import sync.ClientStream;
+import clientmain.Status;
 
 public class Send {
 

@@ -1,11 +1,11 @@
 package threads;
 
 import exceptions.ServerException;
-import gui.WindowDataFacade;
-import gui.janelas.JanelaMain;
-import gui.updatelogs.LocalLogUpdater;
-import gui.updatelogs.ServerLogUpdater;
-import gui.updatelogs.TextLog;
+import gui.swing.WindowDataFacade;
+import gui.swing.janelas.JanelaMain;
+import gui.swing.updatelogs.LocalLogUpdater;
+import gui.swing.updatelogs.ServerLogUpdater;
+import gui.swing.updatelogs.TextLog;
 
 import java.io.IOException;
 import java.text.DateFormat;
