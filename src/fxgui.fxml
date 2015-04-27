@@ -40,7 +40,7 @@
             <content>
               <AnchorPane prefHeight="438.0" prefWidth="630.0">
                      <children>
-                        <Pane layoutX="31.0" layoutY="14.0">
+                        <Pane layoutX="31.0" layoutY="14.0" prefHeight="393.0" prefWidth="582.0">
                            <children>
                               <Label layoutX="430.0" layoutY="299.0" text="Server IP">
                                  <effect>
@@ -49,7 +49,7 @@
                               </Label>
                             <ScrollPane layoutY="27.0" prefHeight="299.0" prefWidth="406.0">
                                  <content>
-                                    <TextArea editable="false" prefHeight="298.0" prefWidth="394.0">
+                                    <TextArea fx:id="txt_chatlog" editable="false" prefHeight="298.0" prefWidth="394.0">
                                        <effect>
                                           <Shadow color="#9fe5ff" />
                                        </effect>
@@ -81,7 +81,7 @@
                               </TextField>
                             <ScrollPane layoutX="440.0" layoutY="27.0" prefHeight="187.0" prefWidth="142.0">
                               <content>
-                                <ListView prefHeight="187.0" prefWidth="141.0">
+                                <ListView fx:id="list_view" prefHeight="187.0" prefWidth="141.0">
                                        <effect>
                                           <Shadow color="#d7a8a8" />
                                        </effect>
@@ -122,7 +122,7 @@
                                  </effect>
                               </TextField>
                               <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
-                              <Label fx:id="lbl_time" layoutX="245.0" prefHeight="17.0" prefWidth="161.0" />
+                              <Label fx:id="lbl_time" layoutX="222.0" prefHeight="17.0" prefWidth="184.0" />
                            </children>
                         </Pane>
                         <ProgressIndicator fx:id="indicator" layoutX="587.0" layoutY="3.0" prefHeight="25.0" prefWidth="43.0" progress="0.0" visible="false">

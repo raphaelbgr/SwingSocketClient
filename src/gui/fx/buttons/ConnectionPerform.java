@@ -9,8 +9,6 @@ import java.net.UnknownHostException;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
@@ -30,111 +28,65 @@ public class ConnectionPerform implements EventInterface {
 
 	@FXML
 	public void performAction() {
-
 		try {
-			createWorker();
-			Client c = buildClient(wdf);
-			new Connect(c);
+			WindowDataFacade.getInstance().createConnectingWorker();
+			new Connect(buildClient(wdf));
 			wdf.setConnectedLockFields();
-			worker.cancel(true);
-			progress.progressProperty().unbind();
-			createSlowWorker();
+			WindowDataFacade.getInstance().createConnectedWorker();
 		} catch (ConnectException e){
 			WindowDataFacade.getInstance().setBigStatusMsg("LOCAL> " + e.getLocalizedMessage());
-			worker.cancel(true);
-			progress.progressProperty().unbind();
-			WindowDataFacade.getInstance().getChkbox_autocon().setOnMouseClicked(new EventHandler<Event>() {
-				@Override
-				public void handle(Event arg0) {
-					//THREAD PRINCIPAL ESTÁ EXECUTANDO ISSO, TEM QUE DAR O NEW THREAD START
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							while(!Status.getInstance().isConnected() && WindowDataFacade.getInstance().getChkbox_autocon().isSelected()) {
-								System.out.println("Code running trying to reconnect - To implement.");
+
+			Thread t1 = new Thread() {
+				public void run() {
+					if (!Status.getInstance().isConnected() && WindowDataFacade.getInstance().getChkbox_autocon().isSelected()) {
+						WindowDataFacade.getInstance().createConnectingWorker();
+						while(!Status.getInstance().isConnected() && WindowDataFacade.getInstance().getChkbox_autocon().isSelected()) {
+							try {
+								new Connect(buildClient(wdf));
+								WindowDataFacade.getInstance().createConnectedWorker();
+								Status.getInstance().setConnected(true);
+							} catch (ConnectException e) {
+								Status.getInstance().setConnected(false);
+								WindowDataFacade.getInstance().createConnectingWorker();
+							} catch (UnknownHostException e) {
+								Status.getInstance().setConnected(false);
+								WindowDataFacade.getInstance().createConnectingWorker();
+								e.printStackTrace();
+							} catch (IOException e) {
+								Status.getInstance().setConnected(false);
+								WindowDataFacade.getInstance().createConnectingWorker();
+								e.printStackTrace();
+							} finally {
 								try {
-									Thread.sleep(3000);
+									Thread.sleep(1000);
 								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							}
 						}
-					});
+						if (Status.getInstance().isConnected()) {
+							WindowDataFacade.getInstance().createConnectedWorker();
+							wdf.setConnectedLockFields();
+						} else {
+							WindowDataFacade.getInstance().createCanceledWorker();
+						}			
+					} else {
+						WindowDataFacade.getInstance().createCanceledWorker();
+					}
 				}
-				
-			});
-			createCanceledWorker();
+			};
+			t1.setDaemon(true);
+			t1.start();
 		} catch (UnknownHostException e) {
-			//			cancelProgress();
+			WindowDataFacade.getInstance().createCanceledWorker();
 			e.printStackTrace();
 		} catch (IOException e) {
-			//			cancelProgress();
+			WindowDataFacade.getInstance().createCanceledWorker();
 			e.printStackTrace();
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
+			WindowDataFacade.getInstance().createCanceledWorker();
 			e.printStackTrace();
 		}
-	}
-
-	private void createWorker() {
-		worker = createConnectWorkerTask();
-		progress.progressProperty().unbind();
-		indicator.progressProperty().unbind();
-		progress.progressProperty().bind(worker.progressProperty());
-		indicator.progressProperty().bind(worker.progressProperty());
-		new Thread(worker).start();
-	}
-
-	private void createSlowWorker() {
-		worker = createSlowtWorkerTask();
-		progress.progressProperty().unbind();
-		indicator.progressProperty().unbind();
-		progress.progressProperty().bind(worker.progressProperty());
-		indicator.progressProperty().bind(worker.progressProperty());
-		new Thread(worker).start();
-	}
-
-	private void createCanceledWorker() {
-		worker = createCanceltWorkerTask();
-		progress.progressProperty().unbind();
-		indicator.progressProperty().unbind();
-		progress.progressProperty().bind(worker.progressProperty());
-		indicator.progressProperty().bind(worker.progressProperty());
-		new Thread(worker).start();
-	}
-
-	private Task createSlowtWorkerTask() {
-		return new Task() {
-			@Override
-			protected Object call() throws Exception {
-				for (int i = 0; i <= 100; i++) {
-					updateProgress(i, 100);
-					Thread.sleep(1);
-				}
-				return true;
-			}
-		};
-	}
-
-	private Task createConnectWorkerTask() {
-		return new Task() {
-			@Override
-			protected Object call() throws Exception {
-				updateProgress(0, -1);
-				return true;
-			}
-		};
-	}
-
-	private Task createCanceltWorkerTask() {
-		return new Task() {
-			@Override
-			protected Object call() throws Exception {
-				updateProgress(0, 0);
-				return true;
-			}
-		};
 	}
 
 	private Client buildClient(WindowDataFacade wdf) {

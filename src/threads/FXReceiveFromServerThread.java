@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javafx.application.Platform;
 import sendable.BroadCastMessage;
 import sendable.DisconnectionMessage;
 import sendable.Message;
@@ -33,19 +34,34 @@ public class FXReceiveFromServerThread implements Runnable {
 					if (o != null) {
 						if (o instanceof Message) {
 							if (o instanceof ServerMessage) {
-								ServerMessage sm = (ServerMessage) o;
+								final ServerMessage sm = (ServerMessage) o;
 								if (sm.getServresponse() != null) {
-									WindowDataFacade.getInstance().getFld_status().setText(sm.toString());
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											WindowDataFacade.getInstance().getFld_status().setText(sm.toString());
+										}	
+									});
 								}
 								if (sm.getOnlineUserList() != null) {
 //									WindowDataFacade.getJam().getLe().updateOnlineList(sm.getOnlineUserList());
 								}
 							} else if (o instanceof NormalMessage) {
-								NormalMessage nm = (NormalMessage) o;
+								final NormalMessage nm = (NormalMessage) o;
 								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getInstance().getUserName())) {
-									WindowDataFacade.getInstance().getFld_status().setText("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwner());
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											WindowDataFacade.getInstance().getFld_status().setText("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwner());
+										}	
+									});
 								} else {
-									WindowDataFacade.getInstance().getFld_status().setText("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											WindowDataFacade.getInstance().getFld_status().setText("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
+										}	
+									});
 								}
 //								tlog.addMessage(nm.toString());
 								if (nm.getOnlineUserList() != null) {
@@ -53,18 +69,33 @@ public class FXReceiveFromServerThread implements Runnable {
 								}
 							} else if (o instanceof DisconnectionMessage) {
 //								new Disconnect();
-								WindowDataFacade.getInstance().setDisconnectedLockFields();
+								Platform.runLater(new Runnable() {
+									@Override
+									public void run() {
+										WindowDataFacade.getInstance().setDisconnectedLockFields();
+									}	
+								});
 								Status.getInstance().setConnected(false);
 								if (((DisconnectionMessage)o).getOnlineUserList() != null) {
 //									WindowDataFacade.getJam().getLe().updateOnlineList(((DisconnectionMessage)o).getOnlineUserList());
 								}
 //								break; //NOT SURE IF THIS LINE IS NEEDED
 							} else if (o instanceof BroadCastMessage) {
-								BroadCastMessage bm = (BroadCastMessage) o;
+								final BroadCastMessage bm = (BroadCastMessage) o;
 								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getInstance().getUserName())) {
-									WindowDataFacade.getInstance().getFld_status().setText("[" + bm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + bm.getOwner());
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											WindowDataFacade.getInstance().getFld_status().setText("[" + bm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + bm.getOwner());
+										}	
+									});
 								} else {
-									WindowDataFacade.getInstance().getFld_status().setText("[" + bm.getTimestamp() + "]" + " " + bm.getServresponse());
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											WindowDataFacade.getInstance().getFld_status().setText("[" + bm.getTimestamp() + "]" + " " + bm.getServresponse());
+										}	
+									});
 								}
 //								tlog.addMessage(bm.toString());
 								if (bm.getOnlineUserList() != null) {
@@ -72,21 +103,41 @@ public class FXReceiveFromServerThread implements Runnable {
 								}
 							}
 						} else if (o instanceof ServerException) {
-							ServerException se = (ServerException) o;
-							WindowDataFacade.getInstance().getFld_status().setText(se.getMessage()); //ERROR MSG
+							final ServerException se = (ServerException) o;
+							Platform.runLater(new Runnable() {
+								@Override
+								public void run() {
+									WindowDataFacade.getInstance().getFld_status().setText(se.getMessage()); //ERROR MSG
+								}	
+							});
 							if (se.isToDisconnect()) {
 								stream.getSock().close();
 								stream.setSock(null);
-								WindowDataFacade.getInstance().setDisconnectedLockFields();
-								WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + " LOCAL> Disconnected");
+								Platform.runLater(new Runnable() {
+									@Override
+									public void run() {
+										WindowDataFacade.getInstance().setDisconnectedLockFields();
+										WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + " LOCAL> Disconnected");
+									}	
+								});
 								Status.getInstance().setConnected(false);
 							}
 						}
 					} else {
-						WindowDataFacade.getInstance().getFld_status().setText("LOCAL> Connected but cannot confirm.");
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								WindowDataFacade.getInstance().getFld_status().setText("LOCAL> Connected but cannot confirm.");
+							}	
+						});
 					}
 				} catch (ClassNotFoundException e) {
-					WindowDataFacade.getInstance().getFld_status().setText("LOCAL> Report this to dev: \"ClassNotFoundException\".");
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							WindowDataFacade.getInstance().getFld_status().setText("LOCAL> Report this to dev: \"ClassNotFoundException\".");
+						}	
+					});
 				} catch (IOException e) {
 					Status.getInstance().setConnected(false);
 				} finally {
@@ -111,9 +162,4 @@ public class FXReceiveFromServerThread implements Runnable {
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
 	}
-
-	public FXReceiveFromServerThread() {
-
-	}
-
 }

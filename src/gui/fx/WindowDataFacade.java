@@ -1,20 +1,27 @@
 package gui.fx;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import sendable.Client;
+import javafx.application.Platform;
+import javafx.beans.value.ObservableListValue;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class WindowDataFacade {
+public class WindowDataFacade<E> {
 
 	private Button btn_connect 			= null;
 	private Button btn_disconnect 		= null;
@@ -25,20 +32,22 @@ public class WindowDataFacade {
 	private TextField sv_port 			= null;
 	private ProgressBar progress 		= null;
 	private ProgressIndicator indicator = null;
-	private TextField fld_status;
-	private Label lbl_status;
-	private Label lbl_time;
-	private Button btn_exit;
-	private Button btn_send;
-	
+	private TextField fld_status  		= null;
+	private Label lbl_status  			= null;
+	private Label lbl_time 				= null;
+	private Button btn_exit 			= null;
+	private Button btn_send 			= null;
+	private CheckBox chkbox_autocon 	= null;
+	private ListView list_view 			= null;
+	private TextArea txt_chatlog 		= null;
+
 	private List<Node> nodes 			= new ArrayList<Node>();
-	private Parent root = null;
-	protected double toCurrentProgress;
-	protected double fromCurrentProgress;
+	private Parent root 				= null;
+	private Task<Void> task 			= null;
 	
-	private Task<Void> task = null;
-	private CheckBox chkbox_autocon;
+	public ObservableList onlineList	= new ObservableList<E>();
 	
+
 
 	public static WindowDataFacade wdf;
 	public static WindowDataFacade getInstance() {
@@ -47,42 +56,52 @@ public class WindowDataFacade {
 		}
 		return wdf;
 	}
-	
+
 	public void setRoot(Parent root) {
 		this.root = root;
 	}
-	
+
 	private WindowDataFacade() {
 	}
-	
+
 	public String getUserName() {
 		return fld_username.getText();
 	}
-	
+
 	public String getPassword() {
 		return passwd_field.getText();
 	}
-	
+
 	public String getAddress() {
 		return sv_address.getText();
 	}
-	
+
 	public Integer getPort() {
 		return Integer.valueOf(sv_port.getText());
 	}
-	
+
 	public void setSmallStatusMsg(String s) {
 		lbl_status.setText(s);
 	}
-	
+
 	public void setBigStatusMsg(String s) {
 		fld_status.setText(s);
 	}
-	
+
 	public void setTimeLabel(String s) {
 		lbl_time.setText(s);
 	}
-	
+
+	public void setConnectingLockFields() {
+		btn_send.setDisable(true);
+		btn_connect.setDisable(true);
+		btn_disconnect.setDisable(true);
+		fld_username.setDisable(true);
+		passwd_field.setDisable(true);
+		sv_address.setDisable(true);
+		sv_port.setDisable(true);
+	}
+
 	public void setConnectedLockFields() {
 		btn_send.setDisable(false);
 		btn_connect.setDisable(true);
@@ -92,7 +111,7 @@ public class WindowDataFacade {
 		sv_address.setDisable(true);
 		sv_port.setDisable(true);
 	}
-	
+
 	public void setDisconnectedLockFields() {
 		btn_send.setDisable(true);
 		btn_connect.setDisable(false);
@@ -102,7 +121,7 @@ public class WindowDataFacade {
 		sv_address.setDisable(false);
 		sv_port.setDisable(false);
 	}
-	
+
 	public void addNode(Node node) {
 		if (node.getId().equalsIgnoreCase("btn_connect")) {
 			btn_connect = (Button) node;
@@ -134,10 +153,14 @@ public class WindowDataFacade {
 			btn_send = (Button) node;
 		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
 			chkbox_autocon = (CheckBox) node;
+		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
+			list_view = (ListView) node;
+		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
+			txt_chatlog = (TextArea) node;
 		}
 		nodes.add(node);
 	}
-	
+
 	public Node getNode(String id) {
 		for (Node node : nodes) {
 			if (node != null && node.getId().equalsIgnoreCase(id)) {
@@ -145,19 +168,7 @@ public class WindowDataFacade {
 			} 
 		} return null;
 	}
-	
-	public double getToCurrentProgress() {
-		return toCurrentProgress;
-	}
 
-	public double getFromCurrentProgress() {
-		return fromCurrentProgress;
-	}
-
-	public void setToCurrentProgress(double toCurrentProgress) {
-		this.toCurrentProgress = toCurrentProgress;
-	}
-	
 	public Task<Void> getTask() {
 		return task;
 	}
@@ -181,7 +192,7 @@ public class WindowDataFacade {
 	public boolean isAutoReconnChecked() {
 		return chkbox_autocon.isSelected();
 	}
-	
+
 	public CheckBox getChkbox_autocon() {
 		return chkbox_autocon;
 	}
@@ -193,5 +204,108 @@ public class WindowDataFacade {
 			sv_address.setText("localhost");
 			sv_port.setText("2000");		
 		}
+	}
+
+	public void createConnectedWorker() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				for (double i = 0; i <= 100; i = i + 0.01) {
+					progress.setProgress(i);
+					wdf.setConnectedLockFields();
+					//					try {
+					//						Thread.sleep(1);
+					//					} catch (InterruptedException e) {
+					//					}
+				}
+			}	
+		});
+	}
+
+	public void createConnectingWorker() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				progress.setProgress(-1);
+				wdf.setConnectingLockFields();
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+				}
+			}	
+		});
+	}
+
+	public void createCanceledWorker() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				progress.setProgress(0);
+				wdf.setDisconnectedLockFields();
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+				}
+			}
+		});
+	}
+
+	public void addOnlineClient(String s) {
+		
+		list_view.setItems(new ObservableList<String>() {
+			
+		});
+	}
+	
+	public void startClockController() {
+		Task task = new Task<Void>() {
+			@Override 
+			
+			public void run() {
+//				while(true) {
+//					Platform.runLater(new Runnable() {
+//						@Override
+//						public void run() {
+//							lbl_time.setText(Calendar.getInstance().getTime().toString());
+//							try {
+//								Thread.sleep(1000);
+//							} catch (InterruptedException e) {
+//
+//							}
+//						}
+//					});
+//				}
+				
+			}
+
+			@Override
+			protected Void call() throws Exception {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						lbl_time.setText(Calendar.getInstance().getTime().toString());
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+
+						}
+					}
+				});
+				return null;
+			}
+		};
+
+		//		Platform.runLater(new Runnable() {
+		//			@Override
+		//			public void run() {
+		//				while(true) {
+		//					lbl_time.setText(Calendar.getInstance().getTime().toString());
+		//					try {
+		//						Thread.sleep(1000);
+		//					} catch (InterruptedException e) {
+		//					}
+		//				}
+		//			}
+		//		});
 	}
 }

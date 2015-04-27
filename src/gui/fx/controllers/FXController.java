@@ -17,44 +17,50 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
 public class FXController implements Initializable {
 
 	@FXML
-	private Button btn_connect = null;
+	private Button btn_connect 				= null;
 	@FXML
-	private Button btn_disconnect = null;
+	private Button btn_disconnect 			= null;
 	@FXML
-	private Button btn_sv_opt = null;
+	private Button btn_sv_opt 				= null;
 	@FXML
-	private TextField fld_username = null;
+	private TextField fld_username 			= null;
 	@FXML
-	private TextField sv_address = null;
+	private TextField sv_address 			= null;
 	@FXML
-	private PasswordField passwd_field = null;
+	private PasswordField passwd_field 		= null;
 	@FXML
-	private TextField sv_port = null;
+	private TextField sv_port 				= null;
 	@FXML
-	private ProgressBar progress = null;
+	private ProgressBar progress 			= null;
 	@FXML
-	private ProgressIndicator indicator = null;
+	private ProgressIndicator indicator 	= null;
 	@FXML
-	private TextField fld_status = null;
+	private TextField fld_status 			= null;
 	@FXML
-	private Label lbl_status = null;
+	private Label lbl_status			 	= null;
 	@FXML
-	private Label lbl_time;
+	private Label lbl_time 					= null;
 	@FXML
-	private Button btn_exit;
+	private Button btn_exit 				= null;
 	@FXML
-	private Button btn_send;
+	private Button btn_send 				= null;
 	@FXML
-	private CheckBox chkbox_autocon;
+	private CheckBox chkbox_autocon 		= null;
+	@FXML
+	private TextArea txt_chatlog	 		= null;
+	@FXML
+	private ListView list_view		 		= null;
 
 	List<Node> nodes = new ArrayList<Node>();
 
@@ -76,46 +82,11 @@ public class FXController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 		btn_disconnect.setDisable(true);
 		btn_send.setDisable(true);
-
-		//		Platform.setImplicitExit(false);
-		//		Task<Void> task = new Task<Void>() {
-		//			@Override
-		//			protected Void call() throws Exception {
-		//				while (true) {
-		//					lbl_time.setText(Calendar.getInstance().getTime().toString());
-		//					try {Thread.sleep(700);} catch (InterruptedException e) {}
-		//				}
-		//			}
-		//		};
-		//		Thread th1 = new Thread(task);
-		//		th1.start();
-
-//		Task task = new Task<Void>() {
-//			@Override
-//			public Void call() throws Exception {
-//				while (true) {
-//					Platform.runLater(new Runnable() {
-//						@Override
-//						public void run() {
-//							lbl_time.setText(Calendar.getInstance().getTime().toString());
-//							try {Thread.sleep(7700);} catch (InterruptedException e) {}
-//						}
-//					});
-//				}
-//			}
-//		};
-//		Thread th = new Thread(task);
-//		th.setDaemon(true);
-//		th.start();
-
 		lbl_time.setText(Calendar.getInstance().getTime().toString());
-		
 		loadFacade();
 		indicator.setVisible(false);
-
 	}
 
 	private void loadFacade() {
@@ -132,12 +103,26 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(lbl_status);
 		WindowDataFacade.getInstance().addNode(btn_send);
 		WindowDataFacade.getInstance().addNode(chkbox_autocon);
-
-		//		WindowDataFacade.getInstance().setTask(WindowDataFacade.getInstance().startProgressBar());
-		//		progress.INDETERMINATE_PROGRESS;
-		//		WindowDataFacade.getInstance().getTask().setOnFailed(new EventHandler<T>() {
-		//			
-		//		});
+		WindowDataFacade.getInstance().addNode(lbl_time);
+		WindowDataFacade.getInstance().addNode(txt_chatlog);
+		WindowDataFacade.getInstance().addNode(list_view);
+		
+//		WindowDataFacade.getInstance().startClockController();
+//		Thread time = new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+////				while(true) {
+//					WindowDataFacade.getInstance().startClockController();
+////					try {
+////						Thread.sleep(1000);
+////					} catch (InterruptedException e) {
+////						// TODO Auto-generated catch block
+////						e.printStackTrace();
+////					}
+////				}
+//			}
+//		});
+//		time.start();
 	}
 
 	public void setDebug(boolean go) {

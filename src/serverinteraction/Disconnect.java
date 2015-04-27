@@ -52,11 +52,11 @@ public class Disconnect {
 
 		DisconnectionMessage dm = new DisconnectionMessage();
 		dm = (DisconnectionMessage) dm.buildDisconnectMessage();
-		dm.setOwner(this.owner);
+		dm.setOwner(c.getName());
 
-		//EXPECTS THE SERVER CONFIRMATION
 		stream.sendObject(dm);
-
+//		stream.getSock().close();
+//		stream.setSock(null);
 	}
 
 	@SuppressWarnings("unused")
