@@ -30,97 +30,44 @@
           </items>
         </Menu>
       </menus>
-         <effect>
-            <Reflection />
-         </effect>
     </MenuBar>
       <TabPane fx:id="tab_pane" layoutY="21.0" prefHeight="424.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="All Users">
+          <Tab closable="false" text="All Users">
             <content>
               <AnchorPane prefHeight="438.0" prefWidth="630.0">
                      <children>
                         <Pane layoutX="31.0" layoutY="14.0" prefHeight="393.0" prefWidth="582.0">
                            <children>
-                              <Label layoutX="430.0" layoutY="299.0" text="Server IP">
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
-                              </Label>
+                              <Label layoutX="430.0" layoutY="299.0" text="Server IP" />
                             <ScrollPane layoutY="27.0" prefHeight="299.0" prefWidth="406.0">
                                  <content>
                                     <TextArea fx:id="txt_chatlog" editable="false" prefHeight="298.0" prefWidth="394.0">
                                        <effect>
-                                          <Shadow color="#9fe5ff" />
+                                          <Shadow color="#c8e3ff" />
                                        </effect>
                                     </TextArea>
                                  </content>
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
                             </ScrollPane>
-                              <Label layoutX="423.0" layoutY="333.0" text="Server Port">
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
-                              </Label>
-                            <Label layoutX="426.0" layoutY="228.0" text="Username">
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
-                              </Label>
-                            <Label layoutX="1.0" layoutY="341.0" text="Message">
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
-                              </Label>
-                            <TextField layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="344.0">
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
-                              </TextField>
+                              <Label layoutX="423.0" layoutY="333.0" text="Server Port" />
+                            <Label layoutX="426.0" layoutY="228.0" text="Username" />
+                            <Label layoutX="1.0" layoutY="341.0" text="Message" />
+                            <TextField layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="344.0" />
                             <ScrollPane layoutX="440.0" layoutY="27.0" prefHeight="187.0" prefWidth="142.0">
                               <content>
                                 <ListView fx:id="list_view" prefHeight="187.0" prefWidth="141.0">
                                        <effect>
-                                          <Shadow color="#d7a8a8" />
+                                          <Shadow color="#f2c7c7" />
                                        </effect>
                                     </ListView>
                               </content>
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
                             </ScrollPane>
-                            <Label layoutX="2.0" text="Chat log">
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
-                              </Label>
-                              <Label layoutX="428.0" layoutY="263.0" text="Password">
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
-                              </Label>
-                            <Label layoutX="444.0" text="Online Users">
-                                 <effect>
-                                    <Reflection />
-                                 </effect>
-                              </Label>
-                              <TextField fx:id="fld_username" layoutX="488.0" layoutY="224.0" prefHeight="25.0" prefWidth="94.0">
-                                 <effect>
-                                    <Reflection bottomOpacity="0.17" fraction="0.87" topOpacity="0.49" />
-                                 </effect>
-                              </TextField>
-                              <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0">
-                                 <effect>
-                                    <Reflection bottomOpacity="0.17" fraction="0.87" topOpacity="0.49" />
-                                 </effect>
-                              </TextField>
-                              <TextField fx:id="sv_port" layoutX="488.0" layoutY="329.0" prefHeight="25.0" prefWidth="51.0">
-                                 <effect>
-                                    <Reflection bottomOpacity="0.17" fraction="0.87" topOpacity="0.49" />
-                                 </effect>
-                              </TextField>
+                            <Label layoutX="2.0" text="Chat log" />
+                              <Label layoutX="428.0" layoutY="263.0" text="Password" />
+                            <Label layoutX="444.0" text="Online Users" />
+                              <TextField fx:id="fld_username" layoutX="488.0" layoutY="224.0" prefHeight="25.0" prefWidth="94.0" />
+                              <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0" />
+                              <TextField fx:id="sv_port" layoutX="488.0" layoutY="329.0" prefHeight="25.0" prefWidth="51.0" />
                               <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
                               <Label fx:id="lbl_time" layoutX="222.0" prefHeight="17.0" prefWidth="184.0" />
                            </children>
@@ -141,42 +88,14 @@
       </TabPane>
       <Pane layoutX="23.0" layoutY="470.0" prefHeight="77.0" prefWidth="596.0">
          <children>
-        <Button fx:id="btn_sv_opt" layoutX="120.0" mnemonicParsing="false" text="Server Options">
-               <effect>
-                  <Reflection />
-               </effect>
-            </Button>
-            <ProgressBar fx:id="progress" layoutX="322.0" layoutY="6.0" prefHeight="18.0" prefWidth="203.0" progress="0.0">
-               <effect>
-                  <Reflection />
-               </effect>
-            </ProgressBar>
-        <Button fx:id="btn_disconnect" layoutX="225.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleDisconnectButton" text="Disconnect">
-               <effect>
-                  <Reflection />
-               </effect>
-            </Button>
-        <Button fx:id="btn_exit" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" text="Exit">
-               <effect>
-                  <Reflection />
-               </effect>
-            </Button>
-        <Button fx:id="btn_connect" alignment="TOP_CENTER" layoutX="51.0" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect">
-               <effect>
-                  <Reflection />
-               </effect>
-            </Button>
-            <Button fx:id="btn_send" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send">
-               <effect>
-                  <Reflection />
-               </effect>
-            </Button>
+        <Button fx:id="btn_sv_opt" layoutX="120.0" mnemonicParsing="false" text="Server Options" />
+            <ProgressBar fx:id="progress" layoutX="322.0" layoutY="6.0" prefHeight="18.0" prefWidth="203.0" progress="0.0" />
+        <Button fx:id="btn_disconnect" layoutX="225.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleDisconnectButton" text="Disconnect" />
+        <Button fx:id="btn_exit" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" text="Exit" />
+        <Button fx:id="btn_connect" alignment="TOP_CENTER" layoutX="51.0" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect" />
+            <Button fx:id="btn_send" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
             <Label fx:id="lbl_status" layoutX="480.0" layoutY="6.0" prefHeight="17.0" prefWidth="53.0" />
-            <TextField fx:id="fld_status" disable="true" layoutX="2.0" layoutY="37.0" prefHeight="25.0" prefWidth="472.0" text="LOCAL&gt; Offline">
-               <effect>
-                  <Reflection />
-               </effect>
-            </TextField>
+            <TextField fx:id="fld_status" editable="false" layoutX="2.0" layoutY="37.0" prefHeight="25.0" prefWidth="472.0" text="LOCAL&gt; Offline" />
             <CheckBox fx:id="chkbox_autocon" layoutX="480.0" layoutY="41.0" mnemonicParsing="false" text="Auto Reconnect" />
          </children>
       </Pane>
