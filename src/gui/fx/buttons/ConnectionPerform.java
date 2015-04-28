@@ -33,7 +33,7 @@ public class ConnectionPerform implements EventInterface {
 			new Connect(buildClient(wdf));
 			wdf.setConnectedLockFields();
 			WindowDataFacade.getInstance().createConnectedWorker();
-		} catch (ConnectException e){
+		} catch (ConnectException | UnknownHostException e){
 			WindowDataFacade.getInstance().setBigStatusMsg("LOCAL> " + e.getLocalizedMessage());
 
 			Thread t1 = new Thread() {
@@ -51,11 +51,11 @@ public class ConnectionPerform implements EventInterface {
 							} catch (UnknownHostException e) {
 								Status.getInstance().setConnected(false);
 								WindowDataFacade.getInstance().createConnectingWorker();
-								e.printStackTrace();
+//								e.printStackTrace();
 							} catch (IOException e) {
 								Status.getInstance().setConnected(false);
 								WindowDataFacade.getInstance().createConnectingWorker();
-								e.printStackTrace();
+//								e.printStackTrace();
 							} finally {
 								try {
 									Thread.sleep(1000);
@@ -77,9 +77,10 @@ public class ConnectionPerform implements EventInterface {
 			};
 			t1.setDaemon(true);
 			t1.start();
-		} catch (UnknownHostException e) {
-			WindowDataFacade.getInstance().createCanceledWorker();
-			e.printStackTrace();
+//		} 
+//		catch (UnknownHostException e) {
+//			WindowDataFacade.getInstance().createCanceledWorker();
+//			e.printStackTrace();
 		} catch (IOException e) {
 			WindowDataFacade.getInstance().createCanceledWorker();
 			e.printStackTrace();
