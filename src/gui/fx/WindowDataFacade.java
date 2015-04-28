@@ -1,14 +1,17 @@
 package gui.fx;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import sendable.Client;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableListValue;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -20,6 +23,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 public class WindowDataFacade<E> {
 
@@ -44,9 +48,9 @@ public class WindowDataFacade<E> {
 	private List<Node> nodes 			= new ArrayList<Node>();
 	private Parent root 				= null;
 	private Task<Void> task 			= null;
-	
-//	public ObservableList onlineList	= new ObservableList<E>();
-	
+
+	//	public ObservableList onlineList	= new ObservableList<E>();
+
 
 
 	public static WindowDataFacade wdf;
@@ -241,62 +245,29 @@ public class WindowDataFacade<E> {
 		});
 	}
 
-//	public void addOnlineClient(String s) {
-//		
-//		list_view.setItems(new ObservableList<String>() {
-//			
-//		});
-//	}
-	
-	public void startClockController() {
-		Task task = new Task<Void>() {
-			@Override 
-			
-			public void run() {
-//				while(true) {
-//					Platform.runLater(new Runnable() {
-//						@Override
-//						public void run() {
-//							lbl_time.setText(Calendar.getInstance().getTime().toString());
-//							try {
-//								Thread.sleep(1000);
-//							} catch (InterruptedException e) {
-//
-//							}
-//						}
-//					});
-//				}
-				
-			}
+	//	public void addOnlineClient(String s) {
+	//		
+	//		list_view.setItems(new ObservableList<String>() {
+	//			
+	//		});
+	//	}
 
-			@Override
-			protected Void call() throws Exception {
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						lbl_time.setText(Calendar.getInstance().getTime().toString());
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-
-						}
+	public void startClock() {
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.seconds(0),
+						new EventHandler<ActionEvent>() {
+					@Override public void handle(ActionEvent actionEvent) {
+						Calendar time = Calendar.getInstance();
+						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+						lbl_time.setText(simpleDateFormat.format(time.getTime()));
 					}
-				});
-				return null;
-			}
-		};
-
-		//		Platform.runLater(new Runnable() {
-		//			@Override
-		//			public void run() {
-		//				while(true) {
-		//					lbl_time.setText(Calendar.getInstance().getTime().toString());
-		//					try {
-		//						Thread.sleep(1000);
-		//					} catch (InterruptedException e) {
-		//					}
-		//				}
-		//			}
-		//		});
+				}
+						),
+						new KeyFrame(Duration.seconds(1))
+				);
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
 	}
 }
+
+
