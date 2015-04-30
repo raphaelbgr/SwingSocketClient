@@ -49,9 +49,6 @@ public class WindowDataFacade<E> {
 	private Parent root 				= null;
 	private Task<Void> task 			= null;
 
-	//	public ObservableList onlineList	= new ObservableList<E>();
-
-
 
 	public static WindowDataFacade wdf;
 	public static WindowDataFacade getInstance() {
@@ -208,10 +205,6 @@ public class WindowDataFacade<E> {
 				for (double i = 0; i <= 100; i = i + 0.01) {
 					progress.setProgress(i);
 					wdf.setConnectedLockFields();
-					//					try {
-					//						Thread.sleep(1);
-					//					} catch (InterruptedException e) {
-					//					}
 				}
 			}	
 		});
@@ -245,18 +238,12 @@ public class WindowDataFacade<E> {
 		});
 	}
 
-	//	public void addOnlineClient(String s) {
-	//		
-	//		list_view.setItems(new ObservableList<String>() {
-	//			
-	//		});
-	//	}
-
 	public void startClock() {
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.seconds(0),
 						new EventHandler<ActionEvent>() {
-					@Override public void handle(ActionEvent actionEvent) {
+					@Override 
+					public void handle(ActionEvent actionEvent) {
 						Calendar time = Calendar.getInstance();
 						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
 						lbl_time.setText(simpleDateFormat.format(time.getTime()));

@@ -6,8 +6,11 @@ import gui.fx.buttons.DisconnectionPerform;
 import gui.fx.buttons.SendPerform;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -87,6 +90,7 @@ public class FXController implements Initializable {
 		lbl_time.setText(Calendar.getInstance().getTime().toString());
 		loadFacade();
 		indicator.setVisible(false);
+		fld_status.setText(getTimestamp() + "LOCAL> Offline");
 	}
 
 	private void loadFacade() {
@@ -107,25 +111,14 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(txt_chatlog);
 		WindowDataFacade.getInstance().addNode(list_view);
 		WindowDataFacade.getInstance().startClock();
-		
-//		WindowDataFacade.getInstance().startClockController();
-//		Thread time = new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-////				while(true) {
-//					WindowDataFacade.getInstance().startClockController();
-////					try {
-////						Thread.sleep(1000);
-////					} catch (InterruptedException e) {
-////						// TODO Auto-generated catch block
-////						e.printStackTrace();
-////					}
-////				}
-//			}
-//		});
-//		time.start();
 	}
 
+	private String getTimestamp() {
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateFormatted = formatter.format(new Date());
+		return "["+dateFormatted+"]" + " ";
+	}
+	
 	public void setDebug(boolean go) {
 		if (go) {
 			fld_username.setText("raphaelbgr");

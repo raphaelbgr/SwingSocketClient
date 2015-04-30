@@ -95,7 +95,7 @@
         <Button fx:id="btn_connect" alignment="TOP_CENTER" layoutX="51.0" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect" />
             <Button fx:id="btn_send" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
             <Label fx:id="lbl_status" layoutX="480.0" layoutY="6.0" prefHeight="17.0" prefWidth="53.0" />
-            <TextField fx:id="fld_status" editable="false" layoutX="2.0" layoutY="37.0" prefHeight="25.0" prefWidth="472.0" text="LOCAL&gt; Offline" />
+            <TextField fx:id="fld_status" editable="false" layoutX="2.0" layoutY="37.0" prefHeight="25.0" prefWidth="463.0" />
             <CheckBox fx:id="chkbox_autocon" layoutX="480.0" layoutY="41.0" mnemonicParsing="false" text="Auto Reconnect" />
          </children>
       </Pane>
