@@ -113,8 +113,8 @@ public class ConnectionPerform implements EventInterface {
 						WindowDataFacade.getInstance().setDisconnectedLockFields();
 					}			
 				} else {
-					WindowDataFacade.getInstance().createCanceledWorker();
-					WindowDataFacade.getInstance().setDisconnectedLockFields();
+//					WindowDataFacade.getInstance().createCanceledWorker();
+//					WindowDataFacade.getInstance().setDisconnectedLockFields();
 				}
 			}
 		};

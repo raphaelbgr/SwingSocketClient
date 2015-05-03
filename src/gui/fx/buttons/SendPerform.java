@@ -106,8 +106,6 @@ public class SendPerform implements EventInterface {
 				WindowDataFacade.getInstance().setDisconnectedLockFields();
 			}			
 		} else {
-			WindowDataFacade.getInstance().createCanceledWorker();
-			WindowDataFacade.getInstance().setDisconnectedLockFields();
 		}
 	}
 }

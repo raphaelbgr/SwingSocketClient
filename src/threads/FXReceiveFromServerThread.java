@@ -3,6 +3,7 @@ package threads;
 import exceptions.ServerException;
 import gui.fx.WindowDataFacade;
 
+import java.awt.event.WindowFocusListener;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,6 @@ import sendable.DisconnectionMessage;
 import sendable.Message;
 import sendable.NormalMessage;
 import sendable.ServerMessage;
-import serverinteraction.Disconnect;
 import sync.ClientStream;
 import clientmain.Status;
 
@@ -46,6 +46,7 @@ public class FXReceiveFromServerThread implements Runnable {
 								}
 							} else if (o instanceof NormalMessage) {
 								final NormalMessage nm = (NormalMessage) o;
+								WindowDataFacade.getInstance().addChatMessage(nm);
 								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getInstance().getUserName())) {
 									Platform.runLater(new Runnable() {
 										@Override
@@ -71,8 +72,9 @@ public class FXReceiveFromServerThread implements Runnable {
 										@Override
 										public void run() {
 											WindowDataFacade.getInstance().setDisconnectedLockFields();
-										}	
+										}
 									});
+									break;
 								} else {
 									Platform.runLater(new Runnable() {
 										@Override
@@ -94,6 +96,7 @@ public class FXReceiveFromServerThread implements Runnable {
 //								break; //NOT SURE IF THIS LINE IS NEEDED
 							} else if (o instanceof BroadCastMessage) {
 								final BroadCastMessage bm = (BroadCastMessage) o;
+								WindowDataFacade.getInstance().addChatMessage(bm);
 								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getInstance().getUserName())) {
 									Platform.runLater(new Runnable() {
 										@Override
@@ -109,6 +112,7 @@ public class FXReceiveFromServerThread implements Runnable {
 										}	
 									});
 								}
+//								WindowDataFacade.getInstance().addChatMessage(bm);
 //								tlog.addMessage(bm.toString());
 								if (bm.getOnlineUserList() != null) {
 //									WindowDataFacade.getJam().getLe().updateOnlineList(bm.getOnlineUserList());

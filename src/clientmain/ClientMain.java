@@ -4,10 +4,6 @@ import gui.fx.WindowDataFacade;
 import gui.fx.controllers.FXController;
 import gui.fx.scenes.MainScene;
 
-import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -17,11 +13,10 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sendable.Client;
 import serverinteraction.Disconnect;
-import threads.FXReceiveFromServerThread;
+import threads.ConnectionCheckerThread;
 
 public class ClientMain extends Application {
 
@@ -41,6 +36,9 @@ public class ClientMain extends Application {
 		//		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
 		
 		launch(args);
+		
+		Thread t2 = new Thread(new ConnectionCheckerThread());
+		t2.start();
 	}
 
 	@Override

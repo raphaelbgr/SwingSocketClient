@@ -1,8 +1,10 @@
 package gui.fx;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javafx.animation.Animation;
@@ -180,7 +182,7 @@ public class WindowDataFacade<E> {
 			chkbox_autocon = (CheckBox) node;
 		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
 			list_view = (ListView) node;
-		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
+		} else if (node.getId().equalsIgnoreCase("txt_chatlog")) {
 			txt_chatlog = (TextArea) node;
 		} else if (node.getId().equalsIgnoreCase("message_box")) {
 			message_box = (TextField) node;
@@ -368,6 +370,16 @@ public class WindowDataFacade<E> {
 	public void clearMessageBox() {
 		this.message_box.setText("");
 	}
+	
+	public void addChatMessage(final Message m) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				txt_chatlog.appendText(getTimestamp() + m.getOwner()+ " -> " + m.getText() + "\n");
+			}
+		});
+		
+	}
 
 	public void startClock() {
 		Timeline timeline = new Timeline(
@@ -385,5 +397,11 @@ public class WindowDataFacade<E> {
 				);
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
+	}
+	
+	private String getTimestamp() {
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateFormatted = formatter.format(new Date());
+		return "["+dateFormatted+"]" + " ";
 	}
 }
