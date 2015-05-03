@@ -14,3 +14,5 @@ Link for the binary:
 -> https://github.com/raphaelbgr/SwingSocketClient/raw/f88005a538668ed12ad1b66960c464adef993eff/ClientMain.jar
 
 ![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage.png)
+
+![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage2.png)
