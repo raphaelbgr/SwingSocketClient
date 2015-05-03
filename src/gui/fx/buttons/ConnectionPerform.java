@@ -1,6 +1,5 @@
 package gui.fx.buttons;
 
-import exceptions.ServerException;
 import gui.fx.WindowDataFacade;
 import gui.fx.events.EventInterface;
 
@@ -11,10 +10,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import sendable.Client;
 import serverinteraction.Connect;
 import sync.ClientStream;
@@ -27,33 +24,46 @@ public class ConnectionPerform implements EventInterface {
 	ClientStream stream = ClientStream.getInstance();
 	WindowDataFacade wdf = WindowDataFacade.getInstance();
 	ProgressBar progress = ((ProgressBar)wdf.getNode("progress"));
-	ProgressIndicator indicator = ((ProgressIndicator)wdf.getNode("indicator"));
-	Task worker = null;
 
 	@FXML
 	public void performAction() {
-		try {
-			WindowDataFacade.getInstance().createConnectingWorker();
-			new Connect(buildClient(wdf));
-			Status.getInstance().setConnected(true);
-			Thread t1 = new Thread(new FXReceiveFromServerThread());
-			t1.start();
-//			wdf.setConnectedLockFields();
-			WindowDataFacade.getInstance().createConnectedWorker();
-		} catch (ConnectException | UnknownHostException e) {
-			wdf.createCanceledWorker();
-			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + e.getLocalizedMessage());
-			reconnect();
-		} catch (IOException e) {
-			wdf.createCanceledWorker();
-			WindowDataFacade.getInstance().createCanceledWorker();
-			e.printStackTrace();
-			reconnect();
-		} catch (Throwable e) {
-			wdf.createCanceledWorker();
-			WindowDataFacade.getInstance().createCanceledWorker();
-			e.printStackTrace();
-			reconnect();
+		if (wdf.validateName()) {
+			if (wdf.validadePassword()) {
+				if (wdf.validadeIP()) {
+					if (wdf.validadePort()) {
+						try {
+							WindowDataFacade.getInstance().createConnectingWorker();
+							new Connect(buildClient(wdf));
+							Status.getInstance().setConnected(true);
+							Thread t1 = new Thread(new FXReceiveFromServerThread());
+							t1.start();
+							WindowDataFacade.getInstance().createConnectedWorker();
+						} catch (ConnectException | UnknownHostException e) {
+							wdf.createCanceledWorker();
+							WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + "Host not found or offline. Is port correct?");
+							reconnect();
+						} catch (IOException e) {
+							wdf.createCanceledWorker();
+							WindowDataFacade.getInstance().createCanceledWorker();
+//							e.printStackTrace();
+							reconnect();
+						} catch (Throwable e) {
+							wdf.createCanceledWorker();
+							WindowDataFacade.getInstance().createCanceledWorker();
+							e.printStackTrace();
+							reconnect();
+						}
+					} else {
+						wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid port range.");
+					}
+				} else {
+					wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid IP lenght.");
+				}
+			} else {
+				wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid password lenght.");
+			}
+		} else {
+			wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid name lenght.");
 		}
 	}
 
@@ -94,12 +104,12 @@ public class ConnectionPerform implements EventInterface {
 							Status.getInstance().setConnected(false);
 							WindowDataFacade.getInstance().createConnectingWorker();
 							WindowDataFacade.getInstance().setConnectingLockFields();
-							e.printStackTrace();
+//							e.printStackTrace();
 						} catch (IOException e) {
 							Status.getInstance().setConnected(false);
 							WindowDataFacade.getInstance().createConnectingWorker();
 							WindowDataFacade.getInstance().setConnectingLockFields();
-							e.printStackTrace();
+//							e.printStackTrace();
 						} finally {
 							try {
 								Thread.sleep(1000);
@@ -116,9 +126,6 @@ public class ConnectionPerform implements EventInterface {
 						WindowDataFacade.getInstance().createCanceledWorker();
 						WindowDataFacade.getInstance().setDisconnectedLockFields();
 					}			
-				} else {
-//					WindowDataFacade.getInstance().createCanceledWorker();
-//					WindowDataFacade.getInstance().setDisconnectedLockFields();
 				}
 			}
 		};

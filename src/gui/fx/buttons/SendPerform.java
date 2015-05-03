@@ -22,26 +22,30 @@ public class SendPerform implements EventInterface {
 
 	@Override
 	public void performAction() {
-		try {
-			WindowDataFacade.getInstance().createConnectingWorker();
-			new Send(WindowDataFacade.getInstance().getMessage());
-			WindowDataFacade.getInstance().clearMessageBox();
-			WindowDataFacade.getInstance().createSendWorker();
-		} catch (IOException e) {
-			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + e.getLocalizedMessage());
-			WindowDataFacade.getInstance().createCanceledWorker();
-			e.printStackTrace();
-			reconenct();
-		} catch (LocalException e) {
-			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + e.getLocalizedMessage());
-			WindowDataFacade.getInstance().createCanceledWorker();
-			e.printStackTrace();
-			reconenct();
-		} finally {
-			reconenct();
+		if (WindowDataFacade.getInstance().validadeMessage()) {
+			try {
+				WindowDataFacade.getInstance().createConnectingWorker();
+				new Send(WindowDataFacade.getInstance().getMessage());
+				WindowDataFacade.getInstance().clearMessageBox();
+				WindowDataFacade.getInstance().createSendWorker();
+			} catch (IOException e) {
+				WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + e.getLocalizedMessage());
+				WindowDataFacade.getInstance().createCanceledWorker();
+				e.printStackTrace();
+				reconenct();
+			} catch (LocalException e) {
+				WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + e.getLocalizedMessage());
+				WindowDataFacade.getInstance().createCanceledWorker();
+				e.printStackTrace();
+				reconenct();
+			} finally {
+				reconenct();
+			}
+		} else {
+			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + "Blank messages not allowed.");
 		}
 	}
-	
+
 	private Client buildClient(WindowDataFacade wdf) {
 		Client c = new Client();
 		c.setName(wdf.getUserName());
@@ -51,13 +55,13 @@ public class SendPerform implements EventInterface {
 		c.setTargetIp(WindowDataFacade.getInstance().getAddress());
 		return c;
 	}
-	
+
 	private String getTimestamp() {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
 	}
-	
+
 	private void reconenct() {
 		if (!Status.getInstance().isConnected() && WindowDataFacade.getInstance().getChkbox_autocon().isSelected()) {
 			WindowDataFacade.getInstance().createConnectingWorker();
@@ -77,7 +81,7 @@ public class SendPerform implements EventInterface {
 					Status.getInstance().setConnected(false);
 					WindowDataFacade.getInstance().createConnectingWorker();
 					WindowDataFacade.getInstance().setConnectingLockFields();
-//					e.printStackTrace();
+					//					e.printStackTrace();
 				} catch (IOException e2) {
 					Status.getInstance().setConnected(false);
 					WindowDataFacade.getInstance().createConnectingWorker();

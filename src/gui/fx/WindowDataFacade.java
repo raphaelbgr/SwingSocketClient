@@ -427,6 +427,36 @@ public class WindowDataFacade<E> {
 		});
 	}
 	
+	public boolean validateName() {
+		if (fld_username.lengthProperty().get() < 21 && fld_username.lengthProperty().get() > 4) {
+			return true;
+		} else return false;
+	}
+	
+	public boolean validadePort() {
+		if (Integer.valueOf(sv_port.getText()) < 65536 && Integer.valueOf(sv_port.getText()) > 0) {
+			return true;
+		} else return false;
+	}
+	
+	public boolean validadePassword() {
+		if (passwd_field.lengthProperty().get() > 4 && passwd_field.lengthProperty().get() < 21) {
+			return true;
+		} else return false;
+	}
+	
+	public boolean validadeIP() {
+		if (sv_address.lengthProperty().get() > 0) {
+			return true;
+		} else return false;
+	}
+	
+	public boolean validadeMessage() {
+		if (message_box.getText().length() > 0) {
+			return true;
+		} else return false;
+	}
+	
 	private String getTimestamp() {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(new Date());
