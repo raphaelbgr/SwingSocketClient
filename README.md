@@ -13,4 +13,4 @@ Actually on the version 1.0 RC
 Link for the binary:
 -> https://github.com/raphaelbgr/SwingSocketClient/raw/f88005a538668ed12ad1b66960c464adef993eff/ClientMain.jar
 
-
+![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage.png)
