@@ -3,13 +3,14 @@ package threads;
 import exceptions.ServerException;
 import gui.fx.WindowDataFacade;
 
-import java.awt.event.WindowFocusListener;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import sendable.BroadCastMessage;
 import sendable.DisconnectionMessage;
 import sendable.Message;
@@ -46,7 +47,11 @@ public class FXReceiveFromServerThread implements Runnable {
 									});
 								}
 								if (sm.getOnlineUserList() != null) {
-//									WindowDataFacade.getJam().getLe().updateOnlineList(sm.getOnlineUserList());
+									ObservableList<String> items = FXCollections.observableArrayList();;
+									for (String s : sm.getOnlineUserList()) {
+										items.add(s);
+									}
+									WindowDataFacade.getInstance().setOnlineUserList(items); 
 								}
 							} else if (o instanceof NormalMessage) {
 								final NormalMessage nm = (NormalMessage) o;
@@ -66,9 +71,12 @@ public class FXReceiveFromServerThread implements Runnable {
 										}	
 									});
 								}
-								//								tlog.addMessage(nm.toString());
 								if (nm.getOnlineUserList() != null) {
-									//									WindowDataFacade.getJam().getLe().updateOnlineList(nm.getOnlineUserList());
+									ObservableList<String> items = FXCollections.observableArrayList();;
+									for (String s : nm.getOnlineUserList()) {
+										items.add(s);
+									}
+									WindowDataFacade.getInstance().setOnlineUserList(items);
 								}
 							} else if (o instanceof DisconnectionMessage) {
 								if (((Message) o).isDisconnect()) {
@@ -95,9 +103,15 @@ public class FXReceiveFromServerThread implements Runnable {
 									});
 								}
 								if (((DisconnectionMessage)o).getOnlineUserList() != null) {
-									//									WindowDataFacade.getJam().getLe().updateOnlineList(((DisconnectionMessage)o).getOnlineUserList());
+									if (((DisconnectionMessage)o).getOnlineUserList() != null) {
+										ObservableList<String> items = FXCollections.observableArrayList();;
+										for (String s : ((DisconnectionMessage)o).getOnlineUserList()) {
+											items.add(s);
+										}
+										WindowDataFacade.getInstance().setOnlineUserList(items); 
+									}
 								}
-								//								break; //NOT SURE IF THIS LINE IS NEEDED
+//								break; //NOT SURE IF THIS LINE IS NEEDED
 							} else if (o instanceof BroadCastMessage) {
 								final BroadCastMessage bm = (BroadCastMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(bm);
@@ -118,10 +132,16 @@ public class FXReceiveFromServerThread implements Runnable {
 										});
 									}
 								}
-								//								WindowDataFacade.getInstance().addChatMessage(bm);
-								//								tlog.addMessage(bm.toString());
+//								WindowDataFacade.getInstance().addChatMessage(bm);
+//								tlog.addMessage(bm.toString());
 								if (bm.getOnlineUserList() != null) {
-									//									WindowDataFacade.getJam().getLe().updateOnlineList(bm.getOnlineUserList());
+									if (bm.getOnlineUserList() != null) {
+										ObservableList<String> items = FXCollections.observableArrayList();;
+										for (String s : bm.getOnlineUserList()) {
+											items.add(s);
+										}
+										WindowDataFacade.getInstance().setOnlineUserList(items); 
+									}
 								}
 							}
 						} else if (o instanceof ServerException) {
@@ -139,7 +159,7 @@ public class FXReceiveFromServerThread implements Runnable {
 									@Override
 									public void run() {
 										WindowDataFacade.getInstance().setDisconnectedLockFields();
-										//										WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + " LOCAL> Disconnected");	
+//										WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + " LOCAL> Disconnected");	
 										Status.getInstance().setConnected(false);
 									}	
 								});

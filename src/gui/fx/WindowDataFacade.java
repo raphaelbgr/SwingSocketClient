@@ -11,6 +11,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -46,13 +48,15 @@ public class WindowDataFacade<E> {
 	private Button btn_exit 			= null;
 	private Button btn_send 			= null;
 	private CheckBox chkbox_autocon 	= null;
-	private ListView list_view 			= null;
+	private ListView<String> list_view 	= null;
 	private TextArea txt_chatlog 		= null;
 
 	private List<Node> nodes 			= new ArrayList<Node>();
 	private Parent root 				= null;
 	private Task<Void> task 			= null;
-	private TextField message_box;
+	private TextField message_box		= null;
+	
+	ObservableList<String> items 		= null;
 
 
 	public static WindowDataFacade wdf;
@@ -180,7 +184,7 @@ public class WindowDataFacade<E> {
 			btn_send = (Button) node;
 		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
 			chkbox_autocon = (CheckBox) node;
-		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
+		} else if (node.getId().equalsIgnoreCase("list_view")) {
 			list_view = (ListView) node;
 		} else if (node.getId().equalsIgnoreCase("txt_chatlog")) {
 			txt_chatlog = (TextArea) node;
@@ -397,6 +401,30 @@ public class WindowDataFacade<E> {
 				);
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
+	}
+	
+	public void startOnlineUserList() {
+		items = FXCollections.observableArrayList();
+		list_view.setItems(items);
+	}
+	
+	public void addOnlineUser(final String s) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				items.add(s);
+			}	
+		});
+		
+	}
+	
+	public void setOnlineUserList(final ObservableList<String> items) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				list_view.setItems(items);
+			}	
+		});
 	}
 	
 	private String getTimestamp() {

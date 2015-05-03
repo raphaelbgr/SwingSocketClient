@@ -51,11 +51,7 @@
                             <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="344.0" />
                             <ScrollPane layoutX="440.0" layoutY="27.0" prefHeight="187.0" prefWidth="142.0">
                               <content>
-                                <ListView fx:id="list_view" prefHeight="185.0" prefWidth="139.0">
-                                       <effect>
-                                          <Shadow color="#f2c7c7" />
-                                       </effect>
-                                    </ListView>
+                                <ListView fx:id="list_view" prefHeight="185.0" prefWidth="139.0" />
                               </content>
                             </ScrollPane>
                             <Label layoutX="2.0" text="Chat log" />

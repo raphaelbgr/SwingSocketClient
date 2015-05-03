@@ -63,7 +63,7 @@ public class FXController implements Initializable {
 	@FXML
 	private TextArea txt_chatlog	 		= null;
 	@FXML
-	private ListView list_view		 		= null;
+	private ListView<String> list_view		 = null;
 	@FXML
 	private TextField message_box		 	= null;
 	
@@ -116,6 +116,7 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(list_view);
 		WindowDataFacade.getInstance().addNode(message_box);		
 		WindowDataFacade.getInstance().startClock();
+		WindowDataFacade.getInstance().startOnlineUserList();
 	}
 
 	private String getTimestamp() {
