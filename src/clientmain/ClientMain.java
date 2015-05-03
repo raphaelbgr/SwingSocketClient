@@ -81,7 +81,7 @@ public class ClientMain extends Application {
 									e.printStackTrace();
 								} catch (IOException e) {
 									System.out.println("Onclose1");
-									e.printStackTrace();
+//									e.printStackTrace();
 								}
 								System.exit(0);
 								} else {

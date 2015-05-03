@@ -1,5 +1,6 @@
 package gui.fx.buttons;
 
+import exceptions.ServerException;
 import gui.fx.WindowDataFacade;
 import gui.fx.events.EventInterface;
 
@@ -37,7 +38,7 @@ public class ConnectionPerform implements EventInterface {
 			Status.getInstance().setConnected(true);
 			Thread t1 = new Thread(new FXReceiveFromServerThread());
 			t1.start();
-			wdf.setConnectedLockFields();
+//			wdf.setConnectedLockFields();
 			WindowDataFacade.getInstance().createConnectedWorker();
 		} catch (ConnectException | UnknownHostException e) {
 			wdf.createCanceledWorker();

@@ -25,7 +25,6 @@ public class ClientStream {
 		this.sock = sock;
 	}
 
-
 	//SINGLETON PATTERN BLOCK
 	private static ClientStream instance;
 	public static ClientStream getInstance() {
@@ -38,9 +37,13 @@ public class ClientStream {
 	}
 
 	public void sendObject(Object o) throws IOException {
-		oos = new ObjectOutputStream(this.sock.getOutputStream());
-		oos.writeObject(o);
-		oos.flush();
+		if (sock != null) {
+			if (this.sock.getOutputStream() != null) {
+				oos = new ObjectOutputStream(this.sock.getOutputStream());
+				oos.writeObject(o);
+				oos.flush();
+			}
+		}
 	}
 
 	public Object receiveMessage() throws IOException, ClassNotFoundException {
@@ -48,7 +51,7 @@ public class ClientStream {
 		Object o = ois.readObject();
 		return o;
 	}
-	
+
 	public boolean checkOnlineStatus() {
 		if(this.sock != null && this.sock.isConnected()) {
 			Status.getInstance().setConnected(true);
