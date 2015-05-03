@@ -10,6 +10,7 @@ import sendable.Client;
 import serverinteraction.Disconnect;
 import sync.ClientStream;
 import clientmain.ClientMain;
+import clientmain.Status;
 
 public class DisconnectionPerform {
 	
@@ -21,14 +22,15 @@ public class DisconnectionPerform {
 			wdf.setDisconnectedLockFields();
 			wdf.createCanceledWorker();
 			new Disconnect(buildClient());
+//			Status.getInstance().setConnected(false);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			ClientStream.getInstance().setSock(null);
-//			e.printStackTrace();
+			Status.getInstance().setConnected(false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			ClientStream.getInstance().setSock(null);
-//			e.printStackTrace();
+			Status.getInstance().setConnected(false);
 		}
 	}
 	

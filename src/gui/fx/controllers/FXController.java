@@ -64,6 +64,8 @@ public class FXController implements Initializable {
 	private TextArea txt_chatlog	 		= null;
 	@FXML
 	private ListView list_view		 		= null;
+	@FXML
+	private TextField message_box		 	= null;
 
 	List<Node> nodes = new ArrayList<Node>();
 
@@ -87,6 +89,7 @@ public class FXController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		btn_disconnect.setDisable(true);
 		btn_send.setDisable(true);
+		btn_send.setDefaultButton(true);
 		lbl_time.setText(Calendar.getInstance().getTime().toString());
 		loadFacade();
 		indicator.setVisible(false);
@@ -110,6 +113,7 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(lbl_time);
 		WindowDataFacade.getInstance().addNode(txt_chatlog);
 		WindowDataFacade.getInstance().addNode(list_view);
+		WindowDataFacade.getInstance().addNode(message_box);		
 		WindowDataFacade.getInstance().startClock();
 	}
 

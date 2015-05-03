@@ -24,6 +24,8 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
+import sendable.Message;
+import sendable.NormalMessage;
 
 public class WindowDataFacade<E> {
 
@@ -48,6 +50,7 @@ public class WindowDataFacade<E> {
 	private List<Node> nodes 			= new ArrayList<Node>();
 	private Parent root 				= null;
 	private Task<Void> task 			= null;
+	private TextField message_box;
 
 
 	public static WindowDataFacade wdf;
@@ -85,42 +88,63 @@ public class WindowDataFacade<E> {
 		lbl_status.setText(s);
 	}
 
-	public void setBigStatusMsg(String s) {
-		fld_status.setText(s);
+	public void setBigStatusMsg(final String s) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				fld_status.setText(s);
+			}
+		});
+
 	}
 
 	public void setTimeLabel(String s) {
 		lbl_time.setText(s);
 	}
 
-	public void setConnectingLockFields() {
-		btn_send.setDisable(true);
-		btn_connect.setDisable(true);
-		btn_disconnect.setDisable(true);
-		fld_username.setDisable(true);
-		passwd_field.setDisable(true);
-		sv_address.setDisable(true);
-		sv_port.setDisable(true);
+	public void setConnectingLockFields() {	
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				btn_send.setDisable(true);
+				btn_connect.setDisable(true);
+				btn_disconnect.setDisable(true);
+				fld_username.setDisable(true);
+				passwd_field.setDisable(true);
+				sv_address.setDisable(true);
+				sv_port.setDisable(true);
+			}
+		});
 	}
 
 	public void setConnectedLockFields() {
-		btn_send.setDisable(false);
-		btn_connect.setDisable(true);
-		btn_disconnect.setDisable(false);
-		fld_username.setDisable(true);
-		passwd_field.setDisable(true);
-		sv_address.setDisable(true);
-		sv_port.setDisable(true);
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				btn_send.setDisable(false);
+				btn_connect.setDisable(true);
+				btn_disconnect.setDisable(false);
+				fld_username.setDisable(true);
+				passwd_field.setDisable(true);
+				sv_address.setDisable(true);
+				sv_port.setDisable(true);
+			}
+		});
 	}
 
 	public void setDisconnectedLockFields() {
-		btn_send.setDisable(true);
-		btn_connect.setDisable(false);
-		btn_disconnect.setDisable(true);
-		fld_username.setDisable(false);
-		passwd_field.setDisable(false);
-		sv_address.setDisable(false);
-		sv_port.setDisable(false);
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				btn_send.setDisable(true);
+				btn_connect.setDisable(false);
+				btn_disconnect.setDisable(true);
+				fld_username.setDisable(false);
+				passwd_field.setDisable(false);
+				sv_address.setDisable(false);
+				sv_port.setDisable(false);
+			}
+		});
 	}
 
 	public void addNode(Node node) {
@@ -158,6 +182,8 @@ public class WindowDataFacade<E> {
 			list_view = (ListView) node;
 		} else if (node.getId().equalsIgnoreCase("chkbox_autocon")) {
 			txt_chatlog = (TextArea) node;
+		} else if (node.getId().equalsIgnoreCase("message_box")) {
+			message_box = (TextField) node;
 		}
 		nodes.add(node);
 	}
@@ -198,44 +224,149 @@ public class WindowDataFacade<E> {
 		return chkbox_autocon;
 	}
 
+	public Object getMessage() {
+		NormalMessage m = new NormalMessage();
+		m.setText(this.message_box.getText());
+		m.setOwner(this.getUserName());
+		m.setTimestamp();
+		m.setDate();
+		return m;
+	}
+
 	public void createConnectedWorker() {
+		//		Platform.runLater(new Runnable() {
+		//			@Override
+		//			public void run() {
+		//				for (double i = 0; i <= 100; i = i + 0.01) {
+		//					progress.setProgress(i);
+		//					wdf.setConnectedLockFields();
+		//				}
+		//			}	
+		//		});
+
+		final Task<Void> task = new Task<Void>() {
+			@Override 
+			public Void call() {
+				final int max = 100;
+				for (int i=1; i<=max; i++) {
+					if (isCancelled()) {
+						break;
+					}
+					updateProgress(i, max);
+					try {
+						Thread.sleep(3);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				progress.progressProperty().unbind();
+				return null;
+			}
+		};
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				for (double i = 0; i <= 100; i = i + 0.01) {
-					progress.setProgress(i);
-					wdf.setConnectedLockFields();
-				}
-			}	
+				progress.progressProperty().unbind();
+				progress.progressProperty().bind(task.progressProperty());		
+				new Thread(task).start();
+			}
 		});
+		
 	}
 
 	public void createConnectingWorker() {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				progress.setProgress(-1);
-				wdf.setConnectingLockFields();
-				try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-				}
-			}	
-		});
+		//		Platform.runLater(new Runnable() {
+		//			@Override
+		//			public void run() {
+		//				progress.setProgress(-1);
+		//				wdf.setConnectingLockFields();
+		//				try {
+		//					Thread.sleep(1);
+		//				} catch (InterruptedException e) {
+		//				}
+		//			}	
+		//		});
+
+		Task<Void> task = new Task<Void>() {
+			@Override 
+			public Void call() {
+				updateProgress(-1, 100);
+				progress.progressProperty().unbind();
+				return null;
+			};		
+		};
+		progress.progressProperty().unbind();
+		progress.progressProperty().bind(task.progressProperty());		
+		new Thread(task).start();
 	}
 
 	public void createCanceledWorker() {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				progress.setProgress(0);
-				wdf.setDisconnectedLockFields();
-				try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
+		//		Platform.runLater(new Runnable() {
+		//			@Override
+		//			public void run() {
+		//				progress.setProgress(0);
+		//				wdf.setDisconnectedLockFields();
+		//				try {
+		//					Thread.sleep(1);
+		//				} catch (InterruptedException e) {
+		//				}
+		//			}
+		//		});
+
+		Task<Void> task = new Task<Void>() {
+			@Override 
+			public Void call() {
+				for (int i=100; i>0; i--) {
+					if (isCancelled()) {
+						break;
+					}
+					updateProgress(i, 100);
+					try {
+						Thread.sleep(3);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				progress.progressProperty().unbind();
+				return null;
 			}
-		});
+		};
+		progress.progressProperty().unbind();
+		progress.progressProperty().bind(task.progressProperty());		
+		new Thread(task).start();
+	}
+
+	public void createSendWorker() {
+		Task<Void> task = new Task<Void>() {
+			@Override 
+			public Void call() {
+				final int max = 100;
+				for (int i=1; i<=max; i++) {
+					if (isCancelled()) {
+						break;
+					}
+					updateProgress(i, max);
+					try {
+						Thread.sleep(3);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				progress.progressProperty().unbind();
+				return null;
+			}
+		};
+		progress.progressProperty().unbind();
+		progress.setProgress(0);
+		progress.progressProperty().bind(task.progressProperty());		
+		new Thread(task).start();
+	}
+
+	public void clearMessageBox() {
+		this.message_box.setText("");
 	}
 
 	public void startClock() {
@@ -256,5 +387,3 @@ public class WindowDataFacade<E> {
 		timeline.play();
 	}
 }
-
-

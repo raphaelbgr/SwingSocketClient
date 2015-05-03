@@ -39,10 +39,7 @@ public class ClientMain extends Application {
 		//		JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));
 
 		//		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
-		Thread t1 = new Thread(new FXReceiveFromServerThread()); //NOT ON FX THREAD, NEEDS TO FIX THIS
-		t1.start();
-
-
+		
 		launch(args);
 	}
 
@@ -75,7 +72,7 @@ public class ClientMain extends Application {
 							if (Status.getInstance().isConnected()) {
 								try {
 									new Disconnect(new Client() {
-										private static final long serialVersionUID = 296589332172289191L;
+										private static final long serialVersionUID = 5000337873561587678L;
 										@Override
 										public void setName(String name) {
 											super.setName(WindowDataFacade.getInstance().getUserName());

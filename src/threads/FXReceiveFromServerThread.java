@@ -14,15 +14,13 @@ import sendable.DisconnectionMessage;
 import sendable.Message;
 import sendable.NormalMessage;
 import sendable.ServerMessage;
+import serverinteraction.Disconnect;
 import sync.ClientStream;
 import clientmain.Status;
 
 public class FXReceiveFromServerThread implements Runnable {
 
 	private ClientStream stream = ClientStream.getInstance();
-//	private LocalLogUpdater localLog = null;
-//	private ServerLogUpdater serverLog = WindowDataFacade.getJam().getServerConnectionLog();
-//	private TextLog tlog = WindowDataFacade.getJam().getMsg_list();
 
 	@Override
 	public void run() {
@@ -30,7 +28,7 @@ public class FXReceiveFromServerThread implements Runnable {
 		while (true) {
 			if ((stream.getSock() != null) && (stream.getSock().isConnected() == true)) {
 				try {
-					Object o = stream.receiveMessage();
+					final Object o = stream.receiveMessage();
 					if (o != null) {
 						if (o instanceof Message) {
 							if (o instanceof ServerMessage) {
@@ -68,14 +66,28 @@ public class FXReceiveFromServerThread implements Runnable {
 //									WindowDataFacade.getJam().getLe().updateOnlineList(nm.getOnlineUserList());
 								}
 							} else if (o instanceof DisconnectionMessage) {
-//								new Disconnect();
-								Platform.runLater(new Runnable() {
-									@Override
-									public void run() {
-										WindowDataFacade.getInstance().setDisconnectedLockFields();
-									}	
-								});
-								Status.getInstance().setConnected(false);
+								if (((Message) o).isDisconnect()) {
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											WindowDataFacade.getInstance().setDisconnectedLockFields();
+										}	
+									});
+								} else {
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											if (((Message) o).isError()) {
+												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + ((Message) o).getOwner() + "Had a connection problem.");
+											} else if (((Message) o).getOwner().equalsIgnoreCase(WindowDataFacade.getInstance().getUserName())) {
+												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + "Disconnected.");
+											} else {
+												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + ((Message) o).getOwner() + "Disconnected.");
+											}
+											
+										}	
+									});
+								}
 								if (((DisconnectionMessage)o).getOnlineUserList() != null) {
 //									WindowDataFacade.getJam().getLe().updateOnlineList(((DisconnectionMessage)o).getOnlineUserList());
 								}
@@ -117,10 +129,9 @@ public class FXReceiveFromServerThread implements Runnable {
 									@Override
 									public void run() {
 										WindowDataFacade.getInstance().setDisconnectedLockFields();
-										WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + " LOCAL> Disconnected");
+										WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + " LOCAL> Disconnected");									
 									}	
 								});
-								Status.getInstance().setConnected(false);
 							}
 						}
 					} else {
@@ -135,16 +146,29 @@ public class FXReceiveFromServerThread implements Runnable {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							WindowDataFacade.getInstance().getFld_status().setText("LOCAL> Report this to dev: \"ClassNotFoundException\".");
+							WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + "LOCAL> Report this to dev: \"ClassNotFoundException\".");
 						}	
 					});
 				} catch (IOException e) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							if (Status.getInstance().isConnected()) {
+								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> The server broke the connection.");
+							}
+							WindowDataFacade.getInstance().setDisconnectedLockFields();								
+						}	
+					});
 					Status.getInstance().setConnected(false);
+					break;
 				} finally {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					}
+					if (!Status.getInstance().isConnected()) {
+						break;
 					}
 				}
 			} else {
@@ -152,6 +176,9 @@ public class FXReceiveFromServerThread implements Runnable {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+				}
+				if (!Status.getInstance().isConnected()) {
+					break;
 				}
 			}
 		}

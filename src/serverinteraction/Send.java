@@ -19,27 +19,26 @@ public class Send {
 	ClientStream stream 	= ClientStream.getInstance();
 	JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
 
-	public boolean send(Object o) throws UnknownHostException, IOException, LocalException {
-		/*if (stream.checkOnlineStatus()) {
-			if (o instanceof NormalMessage) {
-				if(stream.checkOnlineStatus()) {
-					stream.sendObject(assembleMessage());	//SENDS THE MESSAGE
-					return true;
-				} else {
-					return false;
+	public Send(Object o) throws IOException, LocalException {
+		if (Status.getInstance().isConnected()) {
+			if (o instanceof Message) {
+				if(Status.getInstance().isConnected()) {
+					stream.sendObject((NormalMessage)o);	//SENDS THE MESSAGE
 				}
-			} else {
-				return false;
 			}
 		} else {
 			throw new LocalException("Not connected.");
 		}
-	}*/
+	}
+	public Send() {
 		
+	}
+
+	public boolean send(Object o) throws UnknownHostException, IOException, LocalException {	
 		if (Status.getInstance().isConnected()) {
 			if (o instanceof NormalMessage) {
 				if(Status.getInstance().isConnected()) {
-					stream.sendObject(assembleMessage());	//SENDS THE MESSAGE
+					stream.sendObject((NormalMessage)o);	//SENDS THE MESSAGE
 					return true;
 				} else {
 					return false;
@@ -53,14 +52,14 @@ public class Send {
 	}
 
 	//Monta o objeto mensagem
-	private Message assembleMessage() {
-		NormalMessage nm = new NormalMessage();
-		nm.setOwner(WindowDataFacade.getJsv().getNameFieldText());
-		nm.setPcname(stream.getSock().getInetAddress().getCanonicalHostName());
-		nm.setText(WindowDataFacade.getJam().getTextField().getText());
-		nm.setTimestamp();
-		nm.setDate();
-		return nm;
-	}
+//	private Message assembleMessage() {
+//		NormalMessage nm = new NormalMessage();
+//		nm.setOwner(WindowDataFacade.getJsv().getNameFieldText());
+//		nm.setPcname(stream.getSock().getInetAddress().getCanonicalHostName());
+//		nm.setText(WindowDataFacade.getJam().getTextField().getText());
+//		nm.setTimestamp();
+//		nm.setDate();
+//		return nm;
+//	}
 
 }

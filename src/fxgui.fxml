@@ -52,7 +52,7 @@
                               <Label layoutX="423.0" layoutY="333.0" text="Server Port" />
                             <Label layoutX="426.0" layoutY="228.0" text="Username" />
                             <Label layoutX="1.0" layoutY="341.0" text="Message" />
-                            <TextField layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="344.0" />
+                            <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="344.0" />
                             <ScrollPane layoutX="440.0" layoutY="27.0" prefHeight="187.0" prefWidth="142.0">
                               <content>
                                 <ListView fx:id="list_view" prefHeight="187.0" prefWidth="141.0">
