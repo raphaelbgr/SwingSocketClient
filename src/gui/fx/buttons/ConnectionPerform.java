@@ -40,13 +40,16 @@ public class ConnectionPerform implements EventInterface {
 			wdf.setConnectedLockFields();
 			WindowDataFacade.getInstance().createConnectedWorker();
 		} catch (ConnectException | UnknownHostException e) {
+			wdf.createCanceledWorker();
 			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + e.getLocalizedMessage());
 			reconnect();
 		} catch (IOException e) {
+			wdf.createCanceledWorker();
 			WindowDataFacade.getInstance().createCanceledWorker();
 			e.printStackTrace();
 			reconnect();
 		} catch (Throwable e) {
+			wdf.createCanceledWorker();
 			WindowDataFacade.getInstance().createCanceledWorker();
 			e.printStackTrace();
 			reconnect();

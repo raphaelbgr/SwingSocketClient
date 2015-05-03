@@ -38,13 +38,7 @@ public class SendPerform implements EventInterface {
 			e.printStackTrace();
 			reconenct();
 		} finally {
-			try {
-				Thread.sleep(300);
-				reconenct();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			reconenct();
 		}
 	}
 	

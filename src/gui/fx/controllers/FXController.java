@@ -115,7 +115,7 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(txt_chatlog);
 		WindowDataFacade.getInstance().addNode(list_view);
 		WindowDataFacade.getInstance().addNode(message_box);		
-		WindowDataFacade.getInstance().startClock();	
+		WindowDataFacade.getInstance().startClock();
 	}
 
 	private String getTimestamp() {

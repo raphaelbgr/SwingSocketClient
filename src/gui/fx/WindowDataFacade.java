@@ -362,7 +362,7 @@ public class WindowDataFacade<E> {
 			}
 		};
 		progress.progressProperty().unbind();
-		progress.setProgress(0);
+//		progress.setProgress(0);
 		progress.progressProperty().bind(task.progressProperty());		
 		new Thread(task).start();
 	}

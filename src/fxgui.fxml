@@ -42,11 +42,7 @@
                               <Label layoutX="430.0" layoutY="299.0" text="Server IP" />
                             <ScrollPane layoutY="27.0" prefHeight="299.0" prefWidth="406.0">
                                  <content>
-                                    <TextArea fx:id="txt_chatlog" editable="false" prefHeight="298.0" prefWidth="394.0">
-                                       <effect>
-                                          <Shadow color="#c8e3ff" />
-                                       </effect>
-                                    </TextArea>
+                                    <TextArea fx:id="txt_chatlog" editable="false" prefHeight="297.0" prefWidth="404.0" />
                                  </content>
                             </ScrollPane>
                               <Label layoutX="423.0" layoutY="333.0" text="Server Port" />
@@ -55,7 +51,7 @@
                             <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="344.0" />
                             <ScrollPane layoutX="440.0" layoutY="27.0" prefHeight="187.0" prefWidth="142.0">
                               <content>
-                                <ListView fx:id="list_view" prefHeight="187.0" prefWidth="141.0">
+                                <ListView fx:id="list_view" prefHeight="185.0" prefWidth="139.0">
                                        <effect>
                                           <Shadow color="#f2c7c7" />
                                        </effect>
