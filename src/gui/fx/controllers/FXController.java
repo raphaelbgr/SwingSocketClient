@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
@@ -63,9 +64,31 @@ public class FXController implements Initializable {
 	@FXML
 	private TextArea txt_chatlog	 		= null;
 	@FXML
-	private ListView<String> list_view		 = null;
+	private ListView<String> list_view		= null;
 	@FXML
-	private TextField message_box		 	= null;
+	private TextField message_box		 	= null;	
+	@FXML
+	private TextField fld_login_reg		 	= null;
+	@FXML
+	private TextField fld_name_reg		 	= null;
+	@FXML
+	private TextField fld_password_reg		= null;
+	@FXML
+	private TextField fld_password2_reg		= null;
+	@FXML
+	private ComboBox<String> combo_sex_reg	= null;
+	@FXML
+	private ComboBox<String> combo_college_reg	 	= null;
+	@FXML
+	private ComboBox<String> combo_course_reg		= null;
+	@FXML
+	private ComboBox<String> combo_courseStTr_reg	= null;
+	@FXML
+	private TextField fld_infnetmail_reg	= null;
+	@FXML
+	private TextField fld_otherCol_reg		= null;
+	@FXML
+	private TextField fld_email_reg			= null;
 	
 
 	List<Node> nodes = new ArrayList<Node>();
@@ -114,7 +137,18 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(lbl_time);
 		WindowDataFacade.getInstance().addNode(txt_chatlog);
 		WindowDataFacade.getInstance().addNode(list_view);
-		WindowDataFacade.getInstance().addNode(message_box);		
+		WindowDataFacade.getInstance().addNode(message_box);
+		WindowDataFacade.getInstance().addNode(fld_login_reg);
+		WindowDataFacade.getInstance().addNode(fld_name_reg);
+		WindowDataFacade.getInstance().addNode(fld_password_reg);
+		WindowDataFacade.getInstance().addNode(fld_password2_reg);
+		WindowDataFacade.getInstance().addNode(combo_sex_reg);
+		WindowDataFacade.getInstance().addNode(combo_college_reg);
+		WindowDataFacade.getInstance().addNode(combo_course_reg);
+		WindowDataFacade.getInstance().addNode(combo_courseStTr_reg);
+		WindowDataFacade.getInstance().addNode(fld_infnetmail_reg);
+		WindowDataFacade.getInstance().addNode(fld_otherCol_reg);
+		WindowDataFacade.getInstance().addNode(fld_email_reg);
 		WindowDataFacade.getInstance().startClock();
 		WindowDataFacade.getInstance().startOnlineUserList();
 	}

@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
@@ -33,30 +34,41 @@ import sendable.NormalMessage;
 
 public class WindowDataFacade<E> {
 
-	private Button btn_connect 			= null;
-	private Button btn_disconnect 		= null;
-	private Button btn_serv_opt 		= null;
-	private TextField fld_username		= null;
-	private TextField sv_address 		= null;
-	private PasswordField passwd_field 	= null;
-	private TextField sv_port 			= null;
-	private ProgressBar progress 		= null;
-	private ProgressIndicator indicator = null;
-	private TextField fld_status  		= null;
-	private Label lbl_status  			= null;
-	private Label lbl_time 				= null;
-	private Button btn_exit 			= null;
-	private Button btn_send 			= null;
-	private CheckBox chkbox_autocon 	= null;
-	private ListView<String> list_view 	= null;
-	private TextArea txt_chatlog 		= null;
+	private Button btn_connect 						= null;
+	private Button btn_disconnect 					= null;
+	private Button btn_serv_opt 					= null;
+	private TextField fld_username					= null;
+	private TextField sv_address 					= null;
+	private PasswordField passwd_field 				= null;
+	private TextField sv_port 						= null;
+	private ProgressBar progress 					= null;
+	private ProgressIndicator indicator				= null;
+	private TextField fld_status  					= null;
+	private Label lbl_status  						= null;
+	private Label lbl_time 							= null;
+	private Button btn_exit 						= null;
+	private Button btn_send 						= null;
+	private CheckBox chkbox_autocon 				= null;
+	private ListView<String> list_view 				= null;
+	private TextArea txt_chatlog 					= null;
 
-	private List<Node> nodes 			= new ArrayList<Node>();
-	private Parent root 				= null;
-	private Task<Void> task 			= null;
-	private TextField message_box		= null;
+	private List<Node> nodes 						= new ArrayList<Node>();
+	private Parent root 							= null;
+	private Task<Void> task 						= null;
+	private TextField message_box					= null;
 	
-	ObservableList<String> items 		= null;
+	ObservableList<String> items 					= null;
+	private TextField fld_login_reg					= null;
+	private TextField fld_name_reg					= null;
+	private TextField fld_password_reg				= null;
+	private TextField fld_password2_reg				= null;
+	private ComboBox<String> combo_sex_reg			= null;
+	private ComboBox<String> combo_college_reg		= null;
+	private ComboBox<String> combo_course_reg		= null;
+	private ComboBox<String> combo_courseStTr_reg	= null;
+	private TextField fld_infnetmail_reg			= null;
+	private TextField fld_otherCol_reg				= null;
+	private TextField fld_email_reg					= null;
 
 
 	public static WindowDataFacade wdf;
@@ -190,6 +202,28 @@ public class WindowDataFacade<E> {
 			txt_chatlog = (TextArea) node;
 		} else if (node.getId().equalsIgnoreCase("message_box")) {
 			message_box = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_login_reg")) {
+			fld_login_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_name_reg")) {
+			fld_name_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_password_reg")) {
+			fld_password_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_password2_reg")) {
+			fld_password2_reg = (PasswordField) node;
+		} else if (node.getId().equalsIgnoreCase("combo_sex_reg")) {
+			combo_sex_reg = (ComboBox<String>) node;
+		} else if (node.getId().equalsIgnoreCase("combo_college_reg")) {
+			combo_college_reg = (ComboBox<String>) node;
+		} else if (node.getId().equalsIgnoreCase("combo_course_reg")) {
+			combo_course_reg = (ComboBox<String>) node;
+		} else if (node.getId().equalsIgnoreCase("combo_courseStTr_reg")) {
+			combo_courseStTr_reg = (ComboBox<String>) node;
+		} else if (node.getId().equalsIgnoreCase("fld_infnetmail_reg")) {
+			fld_infnetmail_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_otherCol_reg")) {
+			fld_otherCol_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_email_reg")) {
+			fld_email_reg = (TextField) node;
 		}
 		nodes.add(node);
 	}

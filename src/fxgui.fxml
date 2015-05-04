@@ -33,7 +33,7 @@
     </MenuBar>
       <TabPane fx:id="tab_pane" layoutY="21.0" prefHeight="424.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab closable="false" text="Chat">
+          <Tab fx:id="tab_chat" closable="false" text="Chat">
             <content>
               <AnchorPane prefHeight="438.0" prefWidth="630.0">
                      <children>
@@ -73,32 +73,34 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Registration">
+            <Tab fx:id="tab_reg" text="Registration">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Pane prefHeight="397.0" prefWidth="628.0">
                            <children>
-                              <TextField layoutX="27.0" layoutY="24.0" />
-                              <TextField layoutX="27.0" layoutY="64.0" />
-                              <ComboBox layoutX="26.0" layoutY="220.0" prefWidth="150.0" promptText="Choose College" />
+                              <TextField fx:id="fld_login_reg" layoutX="27.0" layoutY="24.0" />
+                              <TextField fx:id="fld_name_reg" layoutX="27.0" layoutY="64.0" />
+                              <ComboBox fx:id="combo_college_reg" layoutX="26.0" layoutY="220.0" prefWidth="150.0" promptText="Choose College" />
                               <Label layoutX="195.0" layoutY="28.0" text="Login" />
                               <Label layoutX="194.0" layoutY="68.0" text="Name" />
                               <Label layoutX="194.0" layoutY="108.0" text="Password" />
                               <Label layoutX="194.0" layoutY="145.0" text="Confirm Password" />
                               <Label layoutX="195.0" layoutY="184.0" text="Sex" />
-                              <ComboBox layoutX="27.0" layoutY="180.0" prefWidth="150.0" promptText="Choose Gender" />
-                              <PasswordField layoutX="27.0" layoutY="104.0" />
-                              <PasswordField layoutX="27.0" layoutY="141.0" />
+                              <ComboBox fx:id="combo_sex_reg" layoutX="27.0" layoutY="180.0" prefWidth="150.0" promptText="Choose Gender" />
+                              <PasswordField fx:id="fld_password_reg" layoutX="27.0" layoutY="104.0" />
+                              <PasswordField fx:id="fld_password2_reg" layoutX="27.0" layoutY="141.0" />
                               <Label layoutX="194.0" layoutY="224.0" text="College" />
-                              <TextField disable="true" layoutX="27.0" layoutY="371.0" />
+                              <TextField fx:id="fld_otherCol_reg" disable="true" layoutX="27.0" layoutY="371.0" />
                               <Label disable="true" layoutX="195.0" layoutY="375.0" text="Other College" />
-                              <ComboBox disable="true" layoutX="26.0" layoutY="258.0" prefWidth="150.0" promptText="Choose Course" />
+                              <ComboBox fx:id="combo_course_reg" disable="true" layoutX="26.0" layoutY="258.0" prefWidth="150.0" promptText="Choose Course" />
                               <Label disable="true" layoutX="195.0" layoutY="262.0" text="Course" />
-                              <TextField disable="true" layoutX="27.0" layoutY="330.0" />
+                              <TextField fx:id="fld_infnetmail_reg" disable="true" layoutX="27.0" layoutY="330.0" />
                               <Label disable="true" layoutX="193.0" layoutY="334.0" text="Infnet email ID" />
                               <Label disable="true" layoutX="193.0" layoutY="299.0" text="Course Start Trimester" />
-                              <ComboBox disable="true" layoutX="26.0" layoutY="295.0" prefWidth="150.0" promptText="Choose Course" />
+                              <ComboBox fx:id="combo_courseStTr_reg" disable="true" layoutX="26.0" layoutY="295.0" prefWidth="150.0" promptText="Choose Course" />
+                              <TextField fx:id="fld_email_reg" layoutX="454.0" layoutY="24.0" />
+                              <Label layoutX="408.0" layoutY="28.0" text="Email" />
                            </children>
                         </Pane>
                      </children>
