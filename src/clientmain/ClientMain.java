@@ -90,7 +90,8 @@ public class ClientMain extends Application {
 							}	
 					});
 					mainStage.show();
-					fxControl.setDebug(true);
+					fxControl.setPublicDebug(true);
+					fxControl.setLockDebugReg();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

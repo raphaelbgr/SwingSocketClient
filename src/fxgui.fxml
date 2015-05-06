@@ -39,14 +39,14 @@
                      <children>
                         <Pane layoutX="31.0" layoutY="14.0" prefHeight="393.0" prefWidth="582.0">
                            <children>
-                              <Label layoutX="430.0" layoutY="299.0" text="Server IP" />
+                              <Label layoutX="430.0" layoutY="299.0" text="server IP" />
                             <ScrollPane layoutY="27.0" prefHeight="299.0" prefWidth="406.0">
                                  <content>
                                     <TextArea fx:id="txt_chatlog" editable="false" prefHeight="297.0" prefWidth="404.0" />
                                  </content>
                             </ScrollPane>
-                              <Label layoutX="423.0" layoutY="333.0" text="Server Port" />
-                            <Label layoutX="426.0" layoutY="228.0" text="Username" />
+                              <Label layoutX="423.0" layoutY="333.0" text="server Port" />
+                            <Label layoutX="452.0" layoutY="228.0" text="login" />
                             <Label layoutX="1.0" layoutY="341.0" text="Message" />
                             <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="344.0" />
                             <ScrollPane layoutX="440.0" layoutY="27.0" prefHeight="187.0" prefWidth="142.0">
@@ -55,7 +55,7 @@
                               </content>
                             </ScrollPane>
                             <Label layoutX="2.0" text="Chat log" />
-                              <Label layoutX="428.0" layoutY="263.0" text="Password" />
+                              <Label layoutX="428.0" layoutY="263.0" text="password" />
                             <Label layoutX="444.0" text="Online Users" />
                               <TextField fx:id="fld_username" layoutX="488.0" layoutY="224.0" prefHeight="25.0" prefWidth="94.0" />
                               <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0" />
@@ -82,29 +82,43 @@
                               <TextField fx:id="fld_login_reg" layoutX="27.0" layoutY="24.0" />
                               <TextField fx:id="fld_name_reg" layoutX="27.0" layoutY="64.0" />
                               <ComboBox fx:id="combo_college_reg" layoutX="26.0" layoutY="220.0" prefWidth="150.0" promptText="Choose College" />
-                              <Label layoutX="195.0" layoutY="28.0" text="Login" />
-                              <Label layoutX="194.0" layoutY="68.0" text="Name" />
-                              <Label layoutX="194.0" layoutY="108.0" text="Password" />
-                              <Label layoutX="194.0" layoutY="145.0" text="Confirm Password" />
-                              <Label layoutX="195.0" layoutY="184.0" text="Sex" />
+                              <Label layoutX="194.0" layoutY="28.0" text="*Login" />
+                              <Label layoutX="195.0" layoutY="68.0" text="*Name (Screen name)" />
+                              <Label layoutX="194.0" layoutY="108.0" text="*Password" />
+                              <Label layoutX="190.0" layoutY="145.0" text="*Confirm Password" />
+                              <Label layoutX="191.0" layoutY="184.0" text="*Sex" />
                               <ComboBox fx:id="combo_sex_reg" layoutX="27.0" layoutY="180.0" prefWidth="150.0" promptText="Choose Gender" />
                               <PasswordField fx:id="fld_password_reg" layoutX="27.0" layoutY="104.0" />
                               <PasswordField fx:id="fld_password2_reg" layoutX="27.0" layoutY="141.0" />
-                              <Label layoutX="194.0" layoutY="224.0" text="College" />
-                              <TextField fx:id="fld_otherCol_reg" disable="true" layoutX="27.0" layoutY="371.0" />
-                              <Label disable="true" layoutX="195.0" layoutY="375.0" text="Other College" />
-                              <ComboBox fx:id="combo_course_reg" disable="true" layoutX="26.0" layoutY="258.0" prefWidth="150.0" promptText="Choose Course" />
-                              <Label disable="true" layoutX="195.0" layoutY="262.0" text="Course" />
-                              <TextField fx:id="fld_infnetmail_reg" disable="true" layoutX="27.0" layoutY="330.0" />
-                              <Label disable="true" layoutX="193.0" layoutY="334.0" text="Infnet email ID" />
-                              <Label disable="true" layoutX="193.0" layoutY="299.0" text="Course Start Trimester" />
-                              <ComboBox fx:id="combo_courseStTr_reg" disable="true" layoutX="26.0" layoutY="295.0" prefWidth="150.0" promptText="Choose Course" />
-                              <TextField fx:id="fld_email_reg" layoutX="454.0" layoutY="24.0" />
-                              <Label layoutX="408.0" layoutY="28.0" text="Email" />
-                              <Label layoutX="375.0" layoutY="68.0" text="WhatsApp #" />
-                              <TextField fx:id="fld_whatsapp_reg" layoutX="454.0" layoutY="64.0" />
-                              <TextField fx:id="fld_facebook_reg" layoutX="454.0" layoutY="104.0" />
-                              <Label layoutX="327.0" layoutY="108.0" text="Facebook Link Profile" />
+                              <Label layoutX="189.0" layoutY="224.0" text="*College" />
+                              <TextField fx:id="fld_othercol_reg" disable="true" layoutX="27.0" layoutY="263.0" />
+                              <Label fx:id="lbl_addcol_reg" layoutX="191.0" layoutY="267.0" text="Other College" />
+                              <ComboBox fx:id="combo_course_reg" disable="true" layoutX="26.0" layoutY="302.0" prefWidth="150.0" promptText="Choose Course" />
+                              <Label layoutX="191.0" layoutY="306.0" text="*Course" />
+                              <TextField fx:id="fld_infnetmail_reg" disable="true" layoutX="451.0" layoutY="24.0" />
+                              <Label fx:id="lbl_infnetid_reg" layoutX="358.0" layoutY="28.0" text="Infnet email ID" />
+                              <Label fx:id="lbl_coursestart_reg" layoutX="190.0" layoutY="377.0" text="Course Start Trimester" />
+                              <ComboBox fx:id="combo_courseStTr_reg" disable="true" layoutX="26.0" layoutY="373.0" prefWidth="150.0" promptText="Choose Course" />
+                              <TextField fx:id="fld_email_reg" layoutX="452.0" layoutY="67.0" />
+                              <Label layoutX="406.0" layoutY="71.0" text="*Email" />
+                              <Label layoutX="373.0" layoutY="111.0" text="WhatsApp #" />
+                              <TextField fx:id="fld_whatsapp_reg" layoutX="452.0" layoutY="107.0" />
+                              <TextField fx:id="fld_facebook_reg" layoutX="452.0" layoutY="147.0" />
+                              <Label layoutX="325.0" layoutY="151.0" text="Facebook Link Profile" />
+                              <ComboBox fx:id="combo_state_reg" layoutX="453.0" layoutY="263.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose State" />
+                              <ComboBox fx:id="combo_city_reg" layoutX="453.0" layoutY="338.0" prefHeight="25.0" prefWidth="148.0" promptText="Choose City" />
+                              <Label layoutX="413.0" layoutY="267.0" text="*State" />
+                              <Label layoutX="416.0" layoutY="342.0" text="*City" />
+                              <Label fx:id="lbl_addstate_reg" layoutX="317.0" layoutY="305.0" text="Add new state/province" />
+                              <TextField fx:id="fld_new_state_reg" disable="true" layoutX="451.0" layoutY="301.0" />
+                              <Label fx:id="lbl_addcity_reg" layoutX="373.0" layoutY="377.0" text="Add new City" />
+                              <TextField fx:id="fld_new_city_reg" disable="true" layoutX="451.0" layoutY="373.0" />
+                              <TextField fx:id="fld_new_country_reg" disable="true" layoutX="452.0" layoutY="224.0" />
+                              <Label fx:id="lbl_addcountry_reg" layoutX="304.0" layoutY="228.0" text="Add new country/republic" />
+                              <Label layoutX="397.0" layoutY="188.0" text="*Country" />
+                              <ComboBox fx:id="combo_country_reg" layoutX="451.0" layoutY="184.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose Country" />
+                              <Label fx:id="lbl_addcourse_reg" layoutX="190.0" layoutY="342.0" text="Add new course" />
+                              <TextField fx:id="fld_addcourse_reg" disable="true" layoutX="26.0" layoutY="338.0" />
                            </children>
                         </Pane>
                      </children>

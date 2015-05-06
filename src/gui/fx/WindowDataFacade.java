@@ -36,7 +36,7 @@ public class WindowDataFacade<E> {
 
 	private Button btn_connect 						= null;
 	private Button btn_disconnect 					= null;
-	private Button btn_serv_opt 					= null;
+	private Button btn_sv_opt 					= null;
 	private TextField fld_username					= null;
 	private TextField sv_address 					= null;
 	private PasswordField passwd_field 				= null;
@@ -69,6 +69,21 @@ public class WindowDataFacade<E> {
 	private TextField fld_infnetmail_reg			= null;
 	private TextField fld_otherCol_reg				= null;
 	private TextField fld_email_reg					= null;
+	private TextField fld_whatsapp_reg				= null;
+	private TextField fld_facebook_reg				= null;
+	
+	private TextField fld_othercol_reg				= null;
+	private Label lbl_addcol_reg					= null;
+	private TextField fld_addcourse_reg				= null;
+	private Label lbl_addcourse_reg					= null;
+	private Label lbl_infnetid_reg					= null;
+	private Label lbl_addcountry_reg				= null;
+	private TextField fld_new_country_reg			= null;
+	private Label lbl_addstate_reg					= null;
+	private TextField fld_new_state_reg				= null;
+	private Label lbl_addcity_reg					= null;
+	private TextField fld_new_city_reg					= null;
+	private Label lbl_coursestart_reg;
 
 
 	public static WindowDataFacade wdf;
@@ -170,8 +185,8 @@ public class WindowDataFacade<E> {
 			btn_connect = (Button) node;
 		} else if (node.getId().equalsIgnoreCase("btn_disconnect")) {
 			btn_disconnect = (Button) node;
-		} else if (node.getId().equalsIgnoreCase("btn_serv_opt")) {
-			btn_serv_opt = (Button) node;
+		} else if (node.getId().equalsIgnoreCase("btn_sv_opt")) {
+			btn_sv_opt = (Button) node;
 		} else if (node.getId().equalsIgnoreCase("fld_username")) {
 			fld_username = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("sv_address")) {
@@ -224,6 +239,34 @@ public class WindowDataFacade<E> {
 			fld_otherCol_reg = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("fld_email_reg")) {
 			fld_email_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_whatsapp_reg")) {
+			fld_whatsapp_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_facebook_reg")) {
+			fld_facebook_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("fld_othercol_reg")) {
+			 fld_othercol_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_addcol_reg")) {
+			 lbl_addcol_reg = (Label) node;
+		} else if (node.getId().equalsIgnoreCase("fld_addcourse_reg")) {
+			 fld_addcourse_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_addcourse_reg")) {
+			 lbl_addcourse_reg = (Label) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_infnetid_reg")) {
+			 lbl_infnetid_reg = (Label) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_addcountry_reg")) {
+			 lbl_addcountry_reg = (Label) node;
+		} else if (node.getId().equalsIgnoreCase("fld_new_country_reg")) {
+			fld_new_country_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_addstate_reg")) {
+			lbl_addstate_reg = (Label) node;
+		} else if (node.getId().equalsIgnoreCase("fld_new_state_reg")) {
+			fld_new_state_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_addcity_reg")) {
+			lbl_addcity_reg = (Label) node;
+		} else if (node.getId().equalsIgnoreCase("fld_new_city_reg")) {
+			fld_new_city_reg = (TextField) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_coursestart_reg")) {
+			lbl_coursestart_reg = (Label) node;
 		}
 		nodes.add(node);
 	}
@@ -495,5 +538,28 @@ public class WindowDataFacade<E> {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
+	}
+	
+	public void lockRegForDebugFields() {
+		fld_login_reg.setDisable(true);
+		fld_name_reg.setDisable(true);
+		fld_password_reg.setDisable(true);
+		fld_password2_reg.setDisable(true);
+		combo_sex_reg.setDisable(true);
+		combo_college_reg.setDisable(true);
+		combo_course_reg.setDisable(true);
+		combo_courseStTr_reg.setDisable(true);
+		fld_infnetmail_reg.setDisable(true);
+		fld_otherCol_reg.setDisable(true);
+		fld_email_reg.setDisable(true);
+		btn_sv_opt.setDisable(true);
+		fld_whatsapp_reg.setDisable(true);
+		fld_facebook_reg.setDisable(true);
+		lbl_addcountry_reg.setDisable(true);
+		lbl_addstate_reg.setDisable(true);
+		lbl_addcity_reg.setDisable(true);
+		lbl_addcourse_reg.setDisable(true);
+		lbl_addcol_reg.setDisable(true);
+		lbl_coursestart_reg.setDisable(true);
 	}
 }
