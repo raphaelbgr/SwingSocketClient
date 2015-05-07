@@ -1,6 +1,7 @@
 package gui.fx.buttons;
 
 import gui.fx.WindowDataFacade;
+import gui.fx.events.EventInterface;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -12,7 +13,7 @@ import sync.ClientStream;
 import clientmain.ClientMain;
 import clientmain.Status;
 
-public class DisconnectionPerform {
+public class DisconnectionPerform implements EventInterface {
 	
 	private WindowDataFacade wdf = WindowDataFacade.getInstance();
 

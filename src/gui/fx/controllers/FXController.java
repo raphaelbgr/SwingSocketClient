@@ -3,7 +3,9 @@ package gui.fx.controllers;
 import gui.fx.WindowDataFacade;
 import gui.fx.buttons.ConnectionPerform;
 import gui.fx.buttons.DisconnectionPerform;
+import gui.fx.buttons.RegisterPerform;
 import gui.fx.buttons.SendPerform;
+import gui.fx.events.EventInterface;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -39,7 +41,8 @@ public class FXController implements Initializable {
 	@FXML
 	private Button btn_sv_opt 				= null;
 	@FXML
-	private TextField fld_username 			= null;
+	private ComboBox<String> combo_login	= null;
+//	private TextField fld_username 			= null;
 	@FXML
 	private TextField sv_address 			= null;
 	@FXML
@@ -94,7 +97,6 @@ public class FXController implements Initializable {
 	private TextField fld_facebook_reg		= null;
 	@FXML
 	private Tab tab_reg						= null;
-	
 	@FXML
 	private TextField fld_othercol_reg		= null;
 	@FXML
@@ -119,24 +121,34 @@ public class FXController implements Initializable {
 	private TextField fld_new_city_reg		= null;
 	@FXML
 	private Label lbl_coursestart_reg		= null;
-	
+	@FXML
+	private ComboBox<String> combo_country_reg			= null;
+	@FXML
+	private ComboBox<String> combo_state_reg			= null;
+	@FXML
+	private ComboBox<String> combo_city_reg			= null;
 
 	List<Node> nodes = new ArrayList<Node>();
 
 	public void handleSendButton() {
-		SendPerform sl = new SendPerform();
-		sl.performAction();
+		EventInterface ei = new SendPerform();
+		ei.performAction();
 	}
 
 	public void handleDisconnectButton() {
-		DisconnectionPerform dp = new DisconnectionPerform();
-		dp.performAction();
+		EventInterface ei = new DisconnectionPerform();
+		ei.performAction();
 
 	}
 
 	public void handleConnectButton() {
-		ConnectionPerform cp = new ConnectionPerform();
-		cp.performAction();
+		EventInterface ei = new ConnectionPerform();
+		ei.performAction();
+	}
+	
+	public void handleRegisterButton() {
+		EventInterface ei = new RegisterPerform();
+		ei.performAction();
 	}
 
 	@Override
@@ -153,7 +165,7 @@ public class FXController implements Initializable {
 	private void loadFacade() {
 		WindowDataFacade.getInstance().addNode(btn_connect);
 		WindowDataFacade.getInstance().addNode(btn_disconnect);
-		WindowDataFacade.getInstance().addNode(fld_username);
+//		WindowDataFacade.getInstance().addNode(fld_username);
 		WindowDataFacade.getInstance().addNode(passwd_field);
 		WindowDataFacade.getInstance().addNode(sv_address);
 		WindowDataFacade.getInstance().addNode(sv_port);
@@ -182,9 +194,6 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(fld_whatsapp_reg);
 		WindowDataFacade.getInstance().addNode(fld_facebook_reg);
 		
-		WindowDataFacade.getInstance().startClock();
-		WindowDataFacade.getInstance().startOnlineUserList();
-		
 		WindowDataFacade.getInstance().addNode(fld_othercol_reg);
 		WindowDataFacade.getInstance().addNode(lbl_addcol_reg);
 		WindowDataFacade.getInstance().addNode(fld_addcourse_reg);
@@ -197,6 +206,17 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(lbl_addcity_reg);
 		WindowDataFacade.getInstance().addNode(fld_new_city_reg);
 		WindowDataFacade.getInstance().addNode(lbl_coursestart_reg);
+		WindowDataFacade.getInstance().addTab(tab_reg);
+		
+		
+		WindowDataFacade.getInstance().addNode(combo_country_reg);
+		WindowDataFacade.getInstance().addNode(combo_state_reg);
+		WindowDataFacade.getInstance().addNode(combo_city_reg);
+		WindowDataFacade.getInstance().addNode(combo_login);
+		
+		WindowDataFacade.getInstance().startClock();
+		WindowDataFacade.getInstance().startOnlineUserList();
+		WindowDataFacade.getInstance().initialize();
 	}
 
 	private String getTimestamp() {
@@ -207,24 +227,24 @@ public class FXController implements Initializable {
 	
 	public void setDebug(boolean go) {
 		if (go) {
-			fld_username.setText("raphaelbgr");
+//			fld_username.setText("raphaelbgr");
 			passwd_field.setText("nopass");
 			sv_address.setText("surfael.sytes.net");
 			sv_port.setText("2000");	
 		}
 	}
 	
-	public void setPublicDebug(boolean go) {
+	public void setPublicDefaultValues(boolean go) {
 		if (go) {
-			passwd_field.setText("nopass");
-			passwd_field.setDisable(true);
+//			passwd_field.setText("nopass");
+//			passwd_field.setDisable(true);
 			sv_address.setText("surfael.sytes.net");
 			sv_port.setText("2000");	
 		}
 	}
 	
-	public void setLockDebugReg() {
-		WindowDataFacade.getInstance().lockRegForDebugFields();
-	}
+//	public void setLockDebugReg() {
+//		WindowDataFacade.getInstance().lockRegForDebugFields();
+//	}
 
 }

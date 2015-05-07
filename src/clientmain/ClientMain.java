@@ -23,7 +23,7 @@ public class ClientMain extends Application {
 	//	public static boolean CONNECTED			= false;
 
 	public static int port 					= 0;
-	public static int version				= 13;
+	public static int version				= 14;
 
 	public static Thread receiver			= null;
 
@@ -90,8 +90,9 @@ public class ClientMain extends Application {
 							}	
 					});
 					mainStage.show();
-					fxControl.setPublicDebug(true);
-					fxControl.setLockDebugReg();
+					fxControl.setDebug(true);
+					fxControl.setPublicDefaultValues(true);
+//					fxControl.setLockDebugReg();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
