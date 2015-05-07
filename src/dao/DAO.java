@@ -10,7 +10,7 @@ public class DAO {
 	
 	public void connect() {
 		try{
-			Connection c = DriverManager.getConnection(DATABASE_URL, "raphaelbgr", "tjq5uxt3");
+			Connection c = DriverManager.getConnection(DATABASE_URL, "raphaelbgr", "nopass");
 			System.out.println("funcionou");
 		} catch (SQLException e){
 			e.printStackTrace();
