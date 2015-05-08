@@ -1,10 +1,13 @@
 package gui.fx.controllers;
 
 import gui.fx.WindowDataFacade;
+import gui.fx.buttons.CollegeUpdatePerform;
 import gui.fx.buttons.ConnectionPerform;
 import gui.fx.buttons.DisconnectionPerform;
+import gui.fx.buttons.LoginPerform;
 import gui.fx.buttons.RegisterPerform;
 import gui.fx.buttons.SendPerform;
+import gui.fx.buttons.UpdateCourseCombo;
 import gui.fx.events.EventInterface;
 
 import java.net.URL;
@@ -26,7 +29,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -51,8 +53,6 @@ public class FXController implements Initializable {
 	private TextField sv_port 				= null;
 	@FXML
 	private ProgressBar progress 			= null;
-	@FXML
-	private ProgressIndicator indicator 	= null;
 	@FXML
 	private TextField fld_status 			= null;
 	@FXML
@@ -122,14 +122,33 @@ public class FXController implements Initializable {
 	@FXML
 	private Label lbl_coursestart_reg		= null;
 	@FXML
-	private ComboBox<String> combo_country_reg			= null;
+	private ComboBox<String> combo_country_reg	= null;
 	@FXML
-	private ComboBox<String> combo_state_reg			= null;
+	private ComboBox<String> combo_state_reg	= null;
 	@FXML
-	private ComboBox<String> combo_city_reg			= null;
+	private ComboBox<String> combo_city_reg		= null;
 
 	List<Node> nodes = new ArrayList<Node>();
 
+	public void handleDetectSelection() {
+		WindowDataFacade.getInstance().dynamicFieldsEnable();
+	}
+	
+	public void handleCourseRegComboClick() {
+		EventInterface ei = new UpdateCourseCombo();
+		ei.performAction();
+	}
+	
+	public void handleCollegeRegComboClick() {
+		EventInterface ei = new CollegeUpdatePerform();
+		ei.performAction();
+	}
+	
+	public void handleLoginComboClick() {
+		EventInterface ei = new LoginPerform();
+		ei.performAction();
+	}
+	
 	public void handleSendButton() {
 		EventInterface ei = new SendPerform();
 		ei.performAction();
@@ -158,7 +177,6 @@ public class FXController implements Initializable {
 		btn_send.setDefaultButton(true);
 		lbl_time.setText(Calendar.getInstance().getTime().toString());
 		loadFacade();
-		indicator.setVisible(false);
 		fld_status.setText(getTimestamp() + "LOCAL> Offline");
 	}
 
@@ -170,7 +188,6 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(sv_address);
 		WindowDataFacade.getInstance().addNode(sv_port);
 		WindowDataFacade.getInstance().addNode(progress);
-		WindowDataFacade.getInstance().addNode(indicator);
 		WindowDataFacade.getInstance().addNode(btn_sv_opt);
 		WindowDataFacade.getInstance().addNode(fld_status);
 		WindowDataFacade.getInstance().addNode(lbl_status);
@@ -195,18 +212,18 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(fld_facebook_reg);
 		
 		WindowDataFacade.getInstance().addNode(fld_othercol_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addcol_reg);
-		WindowDataFacade.getInstance().addNode(fld_addcourse_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addcourse_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addcol_reg);
+//		WindowDataFacade.getInstance().addNode(fld_addcourse_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addcourse_reg);
 		WindowDataFacade.getInstance().addNode(lbl_infnetid_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addcountry_reg);
-		WindowDataFacade.getInstance().addNode(fld_new_country_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addstate_reg);
-		WindowDataFacade.getInstance().addNode(fld_new_state_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addcity_reg);
-		WindowDataFacade.getInstance().addNode(fld_new_city_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addcountry_reg);
+//		WindowDataFacade.getInstance().addNode(fld_new_country_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addstate_reg);
+//		WindowDataFacade.getInstance().addNode(fld_new_state_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addcity_reg);
+//		WindowDataFacade.getInstance().addNode(fld_new_city_reg);
 		WindowDataFacade.getInstance().addNode(lbl_coursestart_reg);
-		WindowDataFacade.getInstance().addTab(tab_reg);
+//		WindowDataFacade.getInstance().addTab(tab_reg);
 		
 		
 		WindowDataFacade.getInstance().addNode(combo_country_reg);
