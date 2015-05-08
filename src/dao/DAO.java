@@ -8,7 +8,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -46,7 +49,8 @@ public class DAO {
 //					query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY) VALUES ('raphaelbgr','RaphaeL','tjq5uxt3','Male','INFNET','raphaelb.rocha@al.infnet.edu.br','GEC','2013.2','raphaelbgr@gmail.com','21988856697','fb.com/raphaelbgr','BRA','RJ','Rio de Janeiro')";
 					Statement s = c.prepareStatement(query);
 					s.execute(query);
-					JOptionPane.showMessageDialog(null, "User successfully registered on the database.");
+//					JOptionPane.showMessageDialog(null, "User successfully registered on the database.");
+					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> User successfully registered on the database.");
 					System.out.println(query);
 		} else {
 			System.out.println("não passou");
@@ -88,4 +92,11 @@ public class DAO {
 //		list.add("<END>");
 		return list;
 	}
+	
+	private String getTimestamp() {
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateFormatted = formatter.format(new Date());
+		return "["+dateFormatted+"]" + " ";
+	}
+	
 }
