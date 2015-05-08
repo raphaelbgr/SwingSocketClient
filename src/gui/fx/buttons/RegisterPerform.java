@@ -19,7 +19,7 @@ public class RegisterPerform implements EventInterface {
 			dao.registerUser();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
-			WindowDataFacade.getInstance().setBigStatusMsg("LOCAL> " + e.getLocalizedMessage());
+			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + e.getLocalizedMessage());
 		}
 		
 	}
