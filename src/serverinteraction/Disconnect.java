@@ -26,7 +26,7 @@ public class Disconnect {
 
 		DisconnectionMessage dm = new DisconnectionMessage();
 		dm = (DisconnectionMessage) dm.buildDisconnectMessage();
-		dm.setOwner(this.owner);
+		dm.setOwnerName(this.owner);
 		dm.setPcname(this.pcname);
 
 		try {
@@ -52,7 +52,7 @@ public class Disconnect {
 
 		DisconnectionMessage dm = new DisconnectionMessage();
 		dm = (DisconnectionMessage) dm.buildDisconnectMessage();
-		dm.setOwner(c.getName());
+		dm.setOwnerName(c.getName());
 
 		stream.sendObject(dm);
 //		stream.getSock().close();

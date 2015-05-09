@@ -124,7 +124,7 @@ public class WindowDataFacade<E> {
 	private WindowDataFacade() {
 	}
 
-	public String getUserName() {
+	public String getComboLogin() {
 		//		return fld_username.getText();
 		if (combo_login.getSelectionModel().getSelectedItem() != null) {
 			return combo_login.getSelectionModel().getSelectedItem().toString();
@@ -352,7 +352,7 @@ public class WindowDataFacade<E> {
 	public Object getMessage() {
 		NormalMessage m = new NormalMessage();
 		m.setText(this.message_box.getText());
-		m.setOwner(this.getUserName());
+		m.setOwnerName(this.getComboLogin());
 		m.setTimestamp();
 		m.setDate();
 		return m;
@@ -459,7 +459,7 @@ public class WindowDataFacade<E> {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				txt_chatlog.appendText(getTimestamp() + m.getOwner()+ " -> " + m.getText() + "\n");
+				txt_chatlog.appendText(getTimestamp() + m.getOwnerName() + " -> " + m.getText() + "\n");
 			}
 		});
 
@@ -508,15 +508,15 @@ public class WindowDataFacade<E> {
 	}
 
 	public boolean validateName() {
-		if (getUserName() != null) {
-			if (getUserName().length() < 21 && getUserName().length() > 4) {
+		if (getComboLogin() != null) {
+			if (getComboLogin().length() < 21 && getComboLogin().length() > 4) {
 				return true;
 			} else return false;
 		} else return false;
 	}
 
 	public boolean validateLoginFromCombo() {
-		if (getUserName().length() < 21 && getUserName().length() > 4) {
+		if (getComboLogin().length() < 21 && getComboLogin().length() > 4) {
 			return true;
 		} else return false;
 	}

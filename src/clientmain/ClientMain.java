@@ -73,7 +73,7 @@ public class ClientMain extends Application {
 										private static final long serialVersionUID = 5000337873561587678L;
 										@Override
 										public void setName(String name) {
-											super.setName(WindowDataFacade.getInstance().getUserName());
+											super.setName(WindowDataFacade.getInstance().getComboLogin());
 										}
 									});
 								} catch (UnknownHostException e) {

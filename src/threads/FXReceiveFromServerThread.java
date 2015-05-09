@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sendable.BroadCastMessage;
+import sendable.Client;
 import sendable.DisconnectionMessage;
 import sendable.Message;
 import sendable.NormalMessage;
@@ -22,6 +23,7 @@ import clientmain.Status;
 public class FXReceiveFromServerThread implements Runnable {
 
 	private ClientStream stream = ClientStream.getInstance();
+	private Client cl = null;
 
 	@Override
 	public void run() {
@@ -31,7 +33,9 @@ public class FXReceiveFromServerThread implements Runnable {
 				try {
 					final Object o = stream.receiveMessage();
 					if (o != null) {
-						if (o instanceof Message) {
+						if (o instanceof Client) {
+							cl = (Client)o;
+						} else if (o instanceof Message) {
 							if (o instanceof ServerMessage) {
 								final ServerMessage sm = (ServerMessage) o;
 								if (sm.getServresponse() != null) {
@@ -56,11 +60,11 @@ public class FXReceiveFromServerThread implements Runnable {
 							} else if (o instanceof NormalMessage) {
 								final NormalMessage nm = (NormalMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(nm);
-								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getInstance().getUserName())) {
+								if (!nm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getComboLogin())) {
 									Platform.runLater(new Runnable() {
 										@Override
 										public void run() {
-											WindowDataFacade.getInstance().getFld_status().setText("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwner());
+											WindowDataFacade.getInstance().getFld_status().setText("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwnerName());
 										}	
 									});
 								} else {
@@ -92,11 +96,11 @@ public class FXReceiveFromServerThread implements Runnable {
 										@Override
 										public void run() {
 											if (((Message) o).isError()) {
-												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + ((Message) o).getOwner() + "Had a connection problem.");
-											} else if (((Message) o).getOwner().equalsIgnoreCase(WindowDataFacade.getInstance().getUserName())) {
+												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + ((Message) o).getOwnerName() + "Had a connection problem.");
+											} else if (((Message) o).getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getComboLogin())) {
 												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + "Disconnected.");
 											} else {
-												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + ((Message) o).getOwner() + "Disconnected.");
+												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + ((Message) o).getOwnerName() + "Disconnected.");
 											}
 
 										}	
@@ -116,11 +120,11 @@ public class FXReceiveFromServerThread implements Runnable {
 								final BroadCastMessage bm = (BroadCastMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(bm);
 								if (bm != null) {
-									if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getInstance().getUserName())) {
+									if (!bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getComboLogin())) {
 										Platform.runLater(new Runnable() {
 											@Override
 											public void run() {
-												WindowDataFacade.getInstance().getFld_status().setText("[" + bm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + bm.getOwner());
+												WindowDataFacade.getInstance().getFld_status().setText("[" + bm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + bm.getOwnerName());
 											}	
 										});
 									} else {

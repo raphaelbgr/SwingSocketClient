@@ -48,7 +48,7 @@ public class SendPerform implements EventInterface {
 
 	private Client buildClient(WindowDataFacade wdf) {
 		Client c = new Client();
-		c.setName(wdf.getUserName());
+		c.setLogin(wdf.getComboLogin());
 		c.setTargetPort(wdf.getPort().intValue());
 		c.setVersion(ClientMain.version);
 		c.setPassword(wdf.getPassword());

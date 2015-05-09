@@ -53,8 +53,8 @@ public class ReceiveFromServerThread implements Runnable {
 								}
 							} else if (o instanceof NormalMessage) {
 								NormalMessage nm = (NormalMessage) o;
-								if (!nm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
-									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwner());
+								if (!nm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
+									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwnerLogin());
 								} else {
 									serverLog.setGreenMessage("[" + nm.getTimestamp() + "]" + " " + nm.getServresponse());
 								}
@@ -75,8 +75,8 @@ public class ReceiveFromServerThread implements Runnable {
 								break; //NOT SURE IF THIS LINE IS NEEDED
 							} else if (o instanceof BroadCastMessage) {
 								BroadCastMessage bm = (BroadCastMessage) o;
-								if (!bm.getOwner().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
-									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + bm.getOwner());
+								if (!bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getJsv().getNameFieldText())) {
+									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + bm.getOwnerLogin());
 								} else {
 									serverLog.setGreenMessage("[" + bm.getTimestamp() + "]" + " " + bm.getServresponse());
 								}
