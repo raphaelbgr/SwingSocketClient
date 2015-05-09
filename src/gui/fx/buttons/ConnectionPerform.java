@@ -39,10 +39,12 @@ public class ConnectionPerform implements EventInterface {
 							t1.start();
 							WindowDataFacade.getInstance().createConnectedWorker();
 						} catch (ConnectException | UnknownHostException e) {
+							e.printStackTrace();
 							wdf.createCanceledWorker();
 							WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + "Host not found or offline. Is port correct?");
 							reconnect();
 						} catch (IOException e) {
+							e.printStackTrace();
 							wdf.createCanceledWorker();
 							WindowDataFacade.getInstance().createCanceledWorker();
 //							e.printStackTrace();
