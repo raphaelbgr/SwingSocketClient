@@ -18,24 +18,24 @@ public class MessageDataTableModel {
         this.message = new SimpleStringProperty(message);
     }
 
-	public SimpleStringProperty getTimestamp() {
-		return timestamp;
+	public String getTimestamp() {
+		return timestamp.getValue();
 	}
 
 	public void setTimestamp(String timestamp) {
 		this.timestamp.set(timestamp);
 	}
 
-	public SimpleStringProperty getScreenname() {
-		return screenname;
+	public String getScreenname() {
+		return screenname.getValue();
 	}
 
 	public void setScreenname(String screenname) {
 		this.screenname.set(screenname);
 	}
 
-	public SimpleStringProperty getMessage() {
-		return message;
+	public String getMessage() {
+		return message.getValue();
 	}
 
 	public void setMessage(String message) {

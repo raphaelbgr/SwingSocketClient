@@ -8,6 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?>
+<?import fxmltableview.*?> 
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.fx.controllers.FXController">
   <children>
@@ -122,9 +125,9 @@
                               <ComboBox fx:id="combo_hist_rows" layoutX="452.0" layoutY="2.0" onAction="#handleHistoryCombo" prefWidth="150.0" promptText="Rows limit" />
                               <TableView fx:id="table_chathistory" layoutX="7.0" layoutY="31.0" prefHeight="354.0" prefWidth="602.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Timestamp" />
-                                  <TableColumn prefWidth="85.0" text="Screen Name" />
-                                    <TableColumn prefWidth="441.0" text="Message" />
+                                  <TableColumn prefWidth="75.0" text="Timestamp"><cellValueFactory><PropertyValueFactory property="timestamp" /></cellValueFactory></TableColumn>
+                                  <TableColumn prefWidth="85.0" text="Screen Name"><cellValueFactory><PropertyValueFactory property="screenname" /></cellValueFactory></TableColumn>
+                                    <TableColumn prefWidth="441.0" text="Message"><cellValueFactory><PropertyValueFactory property="message" /></cellValueFactory></TableColumn>
                                 </columns>
                               </TableView>
                            </children>
