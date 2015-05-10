@@ -1,5 +1,8 @@
 package gui.fx;
 
+import gui.fx.models.MessageDataTableModel;
+
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,11 +30,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import sendable.Message;
 import sendable.NormalMessage;
+import dao.DAO;
 
 public class WindowDataFacade<E> {
 
@@ -90,6 +95,8 @@ public class WindowDataFacade<E> {
 	private ComboBox<String> combo_country_reg		= null;
 	private ComboBox<String> combo_city_reg			= null;
 	private ComboBox<String> combo_login			= null;
+	private TableView table_chathistory;
+	private ComboBox<String> combo_hist_rows;
 
 	public static WindowDataFacade wdf;
 	public static WindowDataFacade getInstance() {
@@ -100,15 +107,24 @@ public class WindowDataFacade<E> {
 	}
 
 	public String getCityReg() {
-		return combo_city_reg.getSelectionModel().getSelectedItem().toString();
+		if (combo_city_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_city_reg.getSelectionModel().getSelectedItem().toString();
+		}
+		else return null;
 	}
 
 	public String getStateReg() {
-		return combo_state_reg.getSelectionModel().getSelectedItem().toString();
+		if (combo_state_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_state_reg.getSelectionModel().getSelectedItem().toString();
+		}
+		else return null;
 	}
 
 	public String getCountryReg() {
-		return combo_country_reg.getSelectionModel().getSelectedItem().toString();
+		if (combo_country_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_country_reg.getSelectionModel().getSelectedItem().toString();
+		}
+		else return null;
 	}
 
 	public String getCourse() {
@@ -303,10 +319,39 @@ public class WindowDataFacade<E> {
 			combo_city_reg = (ComboBox<String>) node;
 		} else if (node.getId().equalsIgnoreCase("combo_login")) {
 			combo_login = (ComboBox<String>) node;
-		}
+		} else if (node.getId().equalsIgnoreCase("table_chathistory")) {
+			table_chathistory = (TableView) node;
+		} else if (node.getId().equalsIgnoreCase("combo_hist_rows")) {
+			combo_hist_rows = (ComboBox<String>) node;
+		} 
 		nodes.add(node);
 	}
 
+	public void populateHistoryTable() {
+		int rows = combo_hist_rows.getSelectionModel().getSelectedIndex();
+		switch (rows) {
+		case 0:
+			rows = 50;
+		case 1:
+			rows = 500;
+		case 2:
+			rows = 5000;
+		case 3: 
+			rows = 5000;
+		case 4:
+			rows = 0;
+		}
+		DAO dao = new DAO();
+		try {
+			dao.connect();
+			table_chathistory.setItems(dao.queryChatHistory(rows));
+			dao.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void addTab(Tab tab) {
 		if (tab.getId().equalsIgnoreCase("tab_reg")) {
 			tab_reg = tab;
@@ -354,11 +399,11 @@ public class WindowDataFacade<E> {
 		m.setText(this.message_box.getText());
 		m.setOwnerName(this.getComboLogin());
 		m.setTimestamp();
-		m.setDate();
+		m.setDateString();
 		return m;
 	}
 
-	public void createConnectedWorker() {
+	public synchronized void createConnectedWorker() {
 		final Task<Void> task = new Task<Void>() {
 			@Override 
 			public Void call() {
@@ -389,7 +434,7 @@ public class WindowDataFacade<E> {
 
 	}
 
-	public void createConnectingWorker() {
+	public synchronized void createConnectingWorker() {
 		Task<Void> task = new Task<Void>() {
 			@Override 
 			public Void call() {
@@ -403,7 +448,7 @@ public class WindowDataFacade<E> {
 		new Thread(task).start();
 	}
 
-	public void createCanceledWorker() {
+	public synchronized void createCanceledWorker() {
 		Task<Void> task = new Task<Void>() {
 			@Override 
 			public Void call() {
@@ -426,7 +471,7 @@ public class WindowDataFacade<E> {
 		new Thread(task).start();
 	}
 
-	public void createSendWorker() {
+	public synchronized void createSendWorker() {
 		Task<Void> task = new Task<Void>() {
 			@Override 
 			public Void call() {
@@ -612,7 +657,7 @@ public class WindowDataFacade<E> {
 			getFld_status().setText(getTimestamp() + "LOCAL> Invalid login lenght."); 
 		} else if ((WindowDataFacade.getInstance().getNameReg().length() < 4) || (WindowDataFacade.getInstance().getNameReg().length() > 30)) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Invalid name lenght."); 
-		} else if ((WindowDataFacade.getInstance().getPassword().length() < 4) || (WindowDataFacade.getInstance().getLoginReg().length() > 20)) {
+		} else if ((WindowDataFacade.getInstance().getPasswordReg().length() < 4) || (WindowDataFacade.getInstance().getPasswordReg().length() > 20)) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Invalid password lenght."); 
 		} else if (!validatePassword()) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Passwords does not match."); 
@@ -624,6 +669,12 @@ public class WindowDataFacade<E> {
 			getFld_status().setText(getTimestamp() + "LOCAL> Please enter a valid infnet ID.");
 		} else if (!(getEmailReg().contains("@") && getEmailReg().contains("."))) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Please enter a valid email.");
+		} else if (getCountryReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select a country/republic.");
+		} else if (getCityReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select a city.");
+		} else if (getStateReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select a state/province.");
 		} else return true;
 		return false;
 	}
@@ -686,7 +737,7 @@ public class WindowDataFacade<E> {
 		combo_sex_reg.getItems().add("Female");
 		combo_city_reg.getItems().addAll("Rio de Janeiro", "Niterói", "São Gonçalo", "Maricá", "São Paulo", "Minas Gerais");
 		combo_state_reg.getItems().addAll("RJ","SP","MG","BA");
-		combo_country_reg.getItems().addAll("BRA", "USA", "RUS");
+		combo_country_reg.getItems().addAll("BRA");
 		combo_courseStTr_reg.getItems().addAll("2010.1",
 				"2010.2", "2010.3", "2010.4",
 				"2011.1", "2011.2", "2011.3",
@@ -695,8 +746,8 @@ public class WindowDataFacade<E> {
 				"2013.2", "2013.3", "2013.4",
 				"2014.1", "2014.2", "2014.3",
 				"2014.4", "2015.1", "2015.2");
-
 		combo_login.autosize();
+		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
 	}
 
 	public String getLoginReg() {

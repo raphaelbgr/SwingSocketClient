@@ -1,8 +1,8 @@
 package dao;
 
 import gui.fx.WindowDataFacade;
+import gui.fx.models.MessageDataTableModel;
 
-import java.awt.Dialog;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JOptionPane;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class DAO {
 
@@ -30,8 +31,8 @@ public class DAO {
 	
 	public void registerUser() throws SQLException {
 		if (WindowDataFacade.getInstance().validateRegFields()) {
-			System.out.println("passou");
-			String query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY)"
+//			System.out.println("passou");
+			String query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY,ID)"
 					+ " VALUES ('"+WindowDataFacade.getInstance().getLoginReg()+"','"
 					+ WindowDataFacade.getInstance().getNameReg()+"','"
 					+ WindowDataFacade.getInstance().getPasswordReg()+"','"
@@ -45,15 +46,16 @@ public class DAO {
 					+ WindowDataFacade.getInstance().getFacebookReg()+"','"
 					+ WindowDataFacade.getInstance().getCountryReg()+"','"
 					+ WindowDataFacade.getInstance().getStateReg()+"','"
-					+ WindowDataFacade.getInstance().getCityReg()+"')";
+					+ WindowDataFacade.getInstance().getCityReg()+"',"
+					+ generateOwnerID(WindowDataFacade.getInstance().getLoginReg()) +")";
 //					query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY) VALUES ('raphaelbgr','RaphaeL','tjq5uxt3','Male','INFNET','raphaelb.rocha@al.infnet.edu.br','GEC','2013.2','raphaelbgr@gmail.com','21988856697','fb.com/raphaelbgr','BRA','RJ','Rio de Janeiro')";
 					Statement s = c.prepareStatement(query);
 					s.execute(query);
 //					JOptionPane.showMessageDialog(null, "User successfully registered on the database.");
 					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> User successfully registered on the database.");
-					System.out.println(query);
+//					System.out.println(query);
 		} else {
-			System.out.println("não passou");
+//			System.out.println("não passou");
 		}
 	}
 
@@ -93,10 +95,42 @@ public class DAO {
 		return list;
 	}
 	
+	public int generateOwnerID(String login) throws SQLException {
+		String query = "SELECT DISTINCT COUNT(LOGIN) FROM CLIENTS AS COUNT";
+		Statement st = c.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		int id = 0;
+		while(rs.next()) {
+			id =  rs.getInt("COUNT(LOGIN)");
+		}
+		return id + 1;
+	}
+	
+	public ObservableList<MessageDataTableModel> queryChatHistory(int rowLimit) throws SQLException {
+		final ObservableList<MessageDataTableModel> data = FXCollections.observableArrayList();
+		String query = null;
+		if (rowLimit == 0) {
+			query = "SELECT SERV_REC_TIMESTAMP, OWNERNAME, TEXT FROM MESSAGELOG";
+		} else {
+			query = "SELECT SERV_REC_TIMESTAMP, OWNERNAME, TEXT FROM MESSAGELOG LIMIT " + rowLimit;
+		}
+		
+		Statement st = c.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		while(rs.next()) {
+			data.add(new MessageDataTableModel(rs.getString(1),rs.getString(2),rs.getString(3)));
+		}
+		return data;
+	}		
+	
 	private String getTimestamp() {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
+	}
+	
+	public synchronized void disconnect() throws SQLException {
+		c.close();
 	}
 	
 }

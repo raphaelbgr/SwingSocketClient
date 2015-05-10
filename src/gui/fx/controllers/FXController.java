@@ -30,6 +30,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -127,9 +128,17 @@ public class FXController implements Initializable {
 	private ComboBox<String> combo_state_reg	= null;
 	@FXML
 	private ComboBox<String> combo_city_reg		= null;
-
+	@FXML
+	private ComboBox<String> combo_hist_rows	= null;
+	@FXML
+	private TableView table_chathistory			= null;
+	
 	List<Node> nodes = new ArrayList<Node>();
 
+	public void handleHistoryCombo() {
+		WindowDataFacade.getInstance().populateHistoryTable();
+	}
+	
 	public void handleDetectSelection() {
 		WindowDataFacade.getInstance().dynamicFieldsEnable();
 	}
@@ -230,6 +239,9 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(combo_state_reg);
 		WindowDataFacade.getInstance().addNode(combo_city_reg);
 		WindowDataFacade.getInstance().addNode(combo_login);
+		
+		WindowDataFacade.getInstance().addNode(table_chathistory);
+		WindowDataFacade.getInstance().addNode(combo_hist_rows);
 		
 		WindowDataFacade.getInstance().startClock();
 		WindowDataFacade.getInstance().startOnlineUserList();

@@ -17,6 +17,7 @@ public class RegisterPerform implements EventInterface {
 		try {
 			dao.connect();
 			dao.registerUser();
+			dao.disconnect();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + e.getLocalizedMessage());

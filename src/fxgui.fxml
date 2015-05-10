@@ -59,15 +59,15 @@
                               <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0" />
                               <TextField fx:id="sv_port" layoutX="488.0" layoutY="329.0" prefHeight="25.0" prefWidth="51.0" />
                               <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
-                              <Label fx:id="lbl_time" layoutX="61.0" prefHeight="17.0" prefWidth="53.0" />
-                              <ComboBox fx:id="combo_login" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" />
+                              <Label fx:id="lbl_time" layoutX="352.0" prefHeight="17.0" prefWidth="53.0" />
+                              <ComboBox fx:id="combo_login" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visibleRowCount="20" />
                            </children>
                         </Pane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="tab_reg" text="Registration">
+            <Tab fx:id="tab_reg" closable="false" text="Registration">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="395.0" prefWidth="628.0">
                      <children>
@@ -105,6 +105,28 @@
                               <Label layoutX="403.0" layoutY="212.0" text="*City" />
                               <Label layoutX="386.0" layoutY="135.0" text="*Country" />
                               <ComboBox fx:id="combo_country_reg" layoutX="443.0" layoutY="131.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose Country" />
+                          <Button fx:id="btn_sv_opt" layoutX="518.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleRegisterButton" prefHeight="25.0" prefWidth="94.0" text="Register" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab closable="false" text="History">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane layoutX="7.0" layoutY="7.0" prefHeight="389.0" prefWidth="616.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" text="Chat history log" />
+                              <ComboBox fx:id="combo_hist_rows" layoutX="452.0" layoutY="2.0" onAction="#handleHistoryCombo" prefWidth="150.0" promptText="Rows limit" />
+                              <TableView fx:id="table_chathistory" layoutX="7.0" layoutY="31.0" prefHeight="354.0" prefWidth="602.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="Timestamp" />
+                                  <TableColumn prefWidth="85.0" text="Screen Name" />
+                                    <TableColumn prefWidth="441.0" text="Message" />
+                                </columns>
+                              </TableView>
                            </children>
                         </Pane>
                      </children>
@@ -115,9 +137,8 @@
       </TabPane>
       <Pane layoutX="23.0" layoutY="486.0" prefHeight="68.0" prefWidth="596.0">
          <children>
-        <Button fx:id="btn_sv_opt" layoutX="120.0" mnemonicParsing="false" onAction="#handleRegisterButton" prefHeight="25.0" prefWidth="94.0" text="Register" />
-            <ProgressBar fx:id="progress" layoutX="322.0" layoutY="6.0" prefHeight="18.0" prefWidth="203.0" progress="0.0" />
-        <Button fx:id="btn_disconnect" layoutX="225.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleDisconnectButton" text="Disconnect" />
+            <ProgressBar fx:id="progress" layoutX="206.0" layoutY="6.0" prefHeight="18.0" prefWidth="325.0" progress="0.0" />
+        <Button fx:id="btn_disconnect" layoutX="120.0" mnemonicParsing="false" onAction="#handleDisconnectButton" text="Disconnect" />
         <Button fx:id="btn_exit" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" text="Exit" />
         <Button fx:id="btn_connect" alignment="TOP_CENTER" layoutX="51.0" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect" />
             <Button fx:id="btn_send" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
