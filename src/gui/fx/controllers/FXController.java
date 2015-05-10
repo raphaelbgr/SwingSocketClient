@@ -4,6 +4,7 @@ import gui.fx.WindowDataFacade;
 import gui.fx.buttons.CollegeUpdatePerform;
 import gui.fx.buttons.ConnectionPerform;
 import gui.fx.buttons.DisconnectionPerform;
+import gui.fx.buttons.ExitPerform;
 import gui.fx.buttons.LoginPerform;
 import gui.fx.buttons.RegisterPerform;
 import gui.fx.buttons.SendPerform;
@@ -135,6 +136,11 @@ public class FXController implements Initializable {
 	
 	List<Node> nodes = new ArrayList<Node>();
 
+	public void handleExitButton() {
+		EventInterface ei = new ExitPerform();
+		ei.performAction();
+	}
+	
 	public void handleHistoryCombo() {
 		WindowDataFacade.getInstance().populateHistoryTable();
 	}

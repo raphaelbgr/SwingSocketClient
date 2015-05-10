@@ -8,9 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
-<?import javafx.scene.control.cell.*?> 
+<?import javafx.scene.control.cell.*?>
 <?import javafx.collections.*?>
-<?import fxmltableview.*?> 
+<?import fxmltableview.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.fx.controllers.FXController">
   <children>
@@ -142,7 +142,7 @@
          <children>
             <ProgressBar fx:id="progress" layoutX="206.0" layoutY="6.0" prefHeight="18.0" prefWidth="325.0" progress="0.0" />
         <Button fx:id="btn_disconnect" layoutX="120.0" mnemonicParsing="false" onAction="#handleDisconnectButton" text="Disconnect" />
-        <Button fx:id="btn_exit" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" text="Exit" />
+        <Button fx:id="btn_exit" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleExitButton" text="Exit" />
         <Button fx:id="btn_connect" alignment="TOP_CENTER" layoutX="51.0" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect" />
             <Button fx:id="btn_send" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
             <Label fx:id="lbl_status" layoutX="480.0" layoutY="6.0" prefHeight="17.0" prefWidth="53.0" />
