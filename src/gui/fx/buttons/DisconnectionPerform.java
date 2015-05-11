@@ -18,20 +18,23 @@ public class DisconnectionPerform implements EventInterface {
 	private WindowDataFacade wdf = WindowDataFacade.getInstance();
 
 	@FXML
-	public void performAction() {
+	public boolean performAction() {
 		try {
 			wdf.setDisconnectedLockFields();
 			wdf.createCanceledWorker();
 			new Disconnect(buildClient());
 //			Status.getInstance().setConnected(false);
+			return true;
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			ClientStream.getInstance().setSock(null);
 			Status.getInstance().setConnected(false);
+			return false;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			ClientStream.getInstance().setSock(null);
 			Status.getInstance().setConnected(false);
+			return false;
 		}
 	}
 	

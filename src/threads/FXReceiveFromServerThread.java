@@ -16,8 +16,10 @@ import sendable.Client;
 import sendable.DisconnectionMessage;
 import sendable.Message;
 import sendable.NormalMessage;
+import sendable.RegistrationMessage;
 import sendable.ServerMessage;
 import sync.ClientStream;
+import clientmain.ClientMain;
 import clientmain.Status;
 
 public class FXReceiveFromServerThread implements Runnable {
@@ -147,6 +149,19 @@ public class FXReceiveFromServerThread implements Runnable {
 										WindowDataFacade.getInstance().setOnlineUserList(items); 
 									}
 								}
+							} else if (o instanceof RegistrationMessage) {
+								RegistrationMessage rm = (RegistrationMessage)o;
+								ClientMain.DATABASE_ADDR = rm.getDbAddr();
+								ClientMain.DATABASE_KEY = rm.getDbCryptKey();
+								ClientMain.DATABASE_PASS = rm.getDbPass();
+								ClientMain.DATABASE_USER = rm.getDbUser();
+								Platform.runLater(new Runnable() {
+									@Override
+									public void run() {
+										WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + "SERVER> Received database information from server.");
+									}
+								});
+								break;
 							}
 						} else if (o instanceof ServerException) {
 							final ServerException se = (ServerException) o;

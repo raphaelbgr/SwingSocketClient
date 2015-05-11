@@ -17,28 +17,26 @@ import javafx.stage.Stage;
 import sendable.Client;
 import serverinteraction.Disconnect;
 import threads.ConnectionCheckerThread;
+import threads.FXReceiveFromServerThread;
 
 public class ClientMain extends Application {
-
-	//	public static boolean CONNECTED			= false;
-
 	public static int port 					= 0;
-	public static int version				= 14;
+	public static int version				= 15;
 
 	public static Thread receiver			= null;
 
 	public static String ip 				= null;		
 	public static String your_name 			= null;
+	
+	public static String DATABASE_KEY 		= null;
+	public static String DATABASE_ADDR		= null;
+	public static String DATABASE_USER		= null;
+	public static String DATABASE_PASS		= null;
 
 	public static void main(final String[] args) {	
-		//		JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));
-
-		//		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
-		
+//		JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));
+//		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
 		launch(args);
-		
-		Thread t2 = new Thread(new ConnectionCheckerThread());
-		t2.start();
 	}
 
 	@Override

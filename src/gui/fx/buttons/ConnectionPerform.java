@@ -26,7 +26,7 @@ public class ConnectionPerform implements EventInterface {
 	ProgressBar progress = ((ProgressBar)wdf.getNode("progress"));
 
 	@FXML
-	public void performAction() {
+	public boolean performAction() {
 		if (wdf.validateName()) {
 			if (wdf.validadePassword()) {
 				if (wdf.validadeIP()) {
@@ -57,16 +57,21 @@ public class ConnectionPerform implements EventInterface {
 						}
 					} else {
 						wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid port range.");
+						return false;
 					}
 				} else {
 					wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid IP lenght.");
+					return false;
 				}
 			} else {
 				wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid password lenght.");
+				return false;
 			}
 		} else {
 			wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid name lenght.");
+			return false;
 		}
+		return true;
 	}
 
 	private String getTimestamp() {

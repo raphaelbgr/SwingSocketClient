@@ -18,23 +18,29 @@ public class ExitPerform implements EventInterface {
 	private WindowDataFacade wdf = WindowDataFacade.getInstance();
 
 	@FXML
-	public void performAction() {
+	public boolean performAction() {
 		if (Status.getInstance().isConnected()) {
 			try {
 				wdf.setDisconnectedLockFields();
 				wdf.createCanceledWorker();
 				Status.getInstance().setConnected(false);
 				new Disconnect(buildClient());
+				return true;
 			} catch (UnknownHostException e) {
 				ClientStream.getInstance().setSock(null);
 				Status.getInstance().setConnected(false);
+				return false;
 			} catch (IOException e) {
 				ClientStream.getInstance().setSock(null);
 				Status.getInstance().setConnected(false);
+				return false;
 			} finally {
 				System.exit(0);
 			}
-		} else System.exit(0);
+		} else {
+			System.exit(0);
+			return true;
+		}
 		
 	}
 	

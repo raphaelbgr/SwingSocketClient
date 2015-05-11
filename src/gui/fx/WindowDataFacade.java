@@ -164,7 +164,7 @@ public class WindowDataFacade<E> {
 		lbl_status.setText(s);
 	}
 
-	public void setBigStatusMsg(final String s) {
+	public synchronized void setBigStatusMsg(final String s) {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {

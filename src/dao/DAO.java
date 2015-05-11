@@ -16,26 +16,34 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import clientmain.ClientMain;
 
 public class DAO {
 
-	final private String DATABASE_URL = "jdbc:mysql://surfael.sytes.net:3307/chatdb";
+//	final private String DATABASE_URL = "jdbc:mysql://surfael.sytes.net:3307/chatdb";
+	final private String DATABASE_URL = ClientMain.DATABASE_ADDR;
+	final private String DATABASE_KEY = ClientMain.DATABASE_KEY;
+	final private String DATABASE_USER = ClientMain.DATABASE_USER;
+	final private String DATABASE_PASS = ClientMain.DATABASE_PASS;
 	
 	Connection c = null;
 	
 	public void connect() throws SQLException {
-		c = DriverManager.getConnection(DATABASE_URL, "chatclient", "nopass");
-//		System.out.println("funcionou");
-		//TODO
+		c = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASS);
+	}
+	
+	public String codifyPassword(String pass) {
+		return MD5.getMD5(pass);
 	}
 	
 	public void registerUser() throws SQLException {
 		if (WindowDataFacade.getInstance().validateRegFields()) {
 //			System.out.println("passou");
-			String query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY,ID)"
+			String query = "INSERT INTO CLIENTS (LOGIN,NAME,AES_ENCRYPT(CRYPTPASSWORD,'" + DATABASE_KEY + "'),SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY,ID)"
 					+ " VALUES ('"+WindowDataFacade.getInstance().getLoginReg()+"','"
 					+ WindowDataFacade.getInstance().getNameReg()+"','"
 					+ WindowDataFacade.getInstance().getPasswordReg()+"','"
+//					+ codifyPassword(WindowDataFacade.getInstance().getPasswordReg()) +"','"
 					+ WindowDataFacade.getInstance().getSexReg()+"','"
 					+ WindowDataFacade.getInstance().getCollegeReg()+"','"
 					+ WindowDataFacade.getInstance().getInfnetMailReg()+"','"
