@@ -218,8 +218,8 @@ public class WindowDataFacade<E> {
 				//				fld_username.setDisable(false);
 				combo_login.setDisable(false);
 				passwd_field.setDisable(false);
-				sv_address.setDisable(false);
-				sv_port.setDisable(false);
+//				sv_address.setDisable(false);
+//				sv_port.setDisable(false);
 			}
 		});
 	}
