@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -39,10 +40,11 @@ public class DAO {
 	public void registerUser() throws SQLException {
 		if (WindowDataFacade.getInstance().validateRegFields()) {
 //			System.out.println("passou");
-			String query = "INSERT INTO CLIENTS (LOGIN,NAME,AES_ENCRYPT(CRYPTPASSWORD,'" + DATABASE_KEY + "'),SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY,ID)"
+			String query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,CRYPTPASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY,ID,registrationdate)"
 					+ " VALUES ('"+WindowDataFacade.getInstance().getLoginReg()+"','"
-					+ WindowDataFacade.getInstance().getNameReg()+"','"
-					+ WindowDataFacade.getInstance().getPasswordReg()+"','"
+					+ WindowDataFacade.getInstance().getNameReg()+"',"
+					+ "'nopass',"
+					+ "AES_ENCRYPT(" + WindowDataFacade.getInstance().getPasswordReg()+",'"+ ClientMain.DATABASE_KEY +"'),'"
 //					+ codifyPassword(WindowDataFacade.getInstance().getPasswordReg()) +"','"
 					+ WindowDataFacade.getInstance().getSexReg()+"','"
 					+ WindowDataFacade.getInstance().getCollegeReg()+"','"
@@ -55,13 +57,13 @@ public class DAO {
 					+ WindowDataFacade.getInstance().getCountryReg()+"','"
 					+ WindowDataFacade.getInstance().getStateReg()+"','"
 					+ WindowDataFacade.getInstance().getCityReg()+"',"
-					+ generateOwnerID(WindowDataFacade.getInstance().getLoginReg()) +")";
+					+ generateOwnerID(WindowDataFacade.getInstance().getLoginReg()) +",'"
+					+ new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()) + "')";
+//					System.out.println(query);
 //					query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY) VALUES ('raphaelbgr','RaphaeL','tjq5uxt3','Male','INFNET','raphaelb.rocha@al.infnet.edu.br','GEC','2013.2','raphaelbgr@gmail.com','21988856697','fb.com/raphaelbgr','BRA','RJ','Rio de Janeiro')";
 					Statement s = c.prepareStatement(query);
 					s.execute(query);
-//					JOptionPane.showMessageDialog(null, "User successfully registered on the database.");
 					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> User successfully registered on the database.");
-//					System.out.println(query);
 		} else {
 //			System.out.println("não passou");
 		}
