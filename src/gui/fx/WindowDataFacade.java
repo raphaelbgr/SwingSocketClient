@@ -1,7 +1,5 @@
 package gui.fx;
 
-import gui.fx.models.MessageDataTableModel;
-
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -748,6 +746,8 @@ public class WindowDataFacade<E> {
 				"2014.4", "2015.1", "2015.2");
 		combo_login.autosize();
 		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
+		sv_port.setDisable(true);
+		sv_address.setDisable(true);
 	}
 
 	public String getLoginReg() {
