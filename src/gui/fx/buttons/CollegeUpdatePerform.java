@@ -1,17 +1,20 @@
 package gui.fx.buttons;
 
-import java.sql.SQLException;
-
-import clientmain.ClientMain;
-import dao.DAO;
 import gui.fx.WindowDataFacade;
 import gui.fx.events.EventInterface;
+import gui.fx.events.GetServerKeys;
+
+import java.sql.SQLException;
+
+import dao.DAO;
 
 public class CollegeUpdatePerform implements EventInterface {
 
 	@Override
 	public boolean performAction() {
-		if (ClientMain.DATABASE_ADDR != null) {
+		GetServerKeys gsk = new GetServerKeys();
+		boolean go = gsk.performAction();
+		if (go) {
 			DAO dao = new DAO();
 			try {
 				dao.connect();

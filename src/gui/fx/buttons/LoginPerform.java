@@ -27,7 +27,6 @@ public class LoginPerform implements EventInterface {
 				return false;
 			}
 		} else return false;
-
 	}
 
 }

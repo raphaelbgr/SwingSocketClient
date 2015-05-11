@@ -11,9 +11,10 @@ public class UpdateCourseCombo implements EventInterface {
 
 	@Override
 	public boolean performAction() {
-		DAO dao = new DAO();
 		GetServerKeys gsk = new GetServerKeys();
-		if (gsk.performAction()) {
+		boolean go = gsk.performAction();
+		if (go) {
+			DAO dao = new DAO();
 			try {
 				dao.connect();
 				WindowDataFacade.getInstance().updateCourseCombo(dao.queryCourses());
@@ -26,5 +27,4 @@ public class UpdateCourseCombo implements EventInterface {
 			}
 		} else return false;
 	}
-
 }
