@@ -44,7 +44,7 @@ public class DAO {
 					+ " VALUES ('"+WindowDataFacade.getInstance().getLoginReg()+"','"
 					+ WindowDataFacade.getInstance().getNameReg()+"',"
 					+ "'nopass',"
-					+ "AES_ENCRYPT(" + WindowDataFacade.getInstance().getPasswordReg()+",'"+ ClientMain.DATABASE_KEY +"'),'"
+					+ "AES_ENCRYPT(`" + WindowDataFacade.getInstance().getPasswordReg()+"`,'"+ ClientMain.DATABASE_KEY +"'),'"
 //					+ codifyPassword(WindowDataFacade.getInstance().getPasswordReg()) +"','"
 					+ WindowDataFacade.getInstance().getSexReg()+"','"
 					+ WindowDataFacade.getInstance().getCollegeReg()+"','"
