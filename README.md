@@ -16,3 +16,5 @@ Link for the binary:
 ![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage.png)
 
 ![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage2.png)
+
+![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage3.png)
