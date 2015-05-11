@@ -30,6 +30,7 @@ public class Send {
 			throw new LocalException("Not connected.");
 		}
 	}
+	
 	public Send() {
 		
 	}
@@ -50,16 +51,5 @@ public class Send {
 			throw new LocalException("Not connected.");
 		}
 	}
-
-	//Monta o objeto mensagem
-//	private Message assembleMessage() {
-//		NormalMessage nm = new NormalMessage();
-//		nm.setOwner(WindowDataFacade.getJsv().getNameFieldText());
-//		nm.setPcname(stream.getSock().getInetAddress().getCanonicalHostName());
-//		nm.setText(WindowDataFacade.getJam().getTextField().getText());
-//		nm.setTimestamp();
-//		nm.setDate();
-//		return nm;
-//	}
 
 }

@@ -1,9 +1,15 @@
 package gui.fx.controllers;
 
 import gui.fx.WindowDataFacade;
+import gui.fx.buttons.CollegeUpdatePerform;
 import gui.fx.buttons.ConnectionPerform;
 import gui.fx.buttons.DisconnectionPerform;
+import gui.fx.buttons.ExitPerform;
+import gui.fx.buttons.LoginPerform;
+import gui.fx.buttons.RegisterPerform;
 import gui.fx.buttons.SendPerform;
+import gui.fx.buttons.UpdateCourseCombo;
+import gui.fx.events.EventInterface;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -24,8 +30,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -39,7 +45,8 @@ public class FXController implements Initializable {
 	@FXML
 	private Button btn_sv_opt 				= null;
 	@FXML
-	private TextField fld_username 			= null;
+	private ComboBox<String> combo_login	= null;
+//	private TextField fld_username 			= null;
 	@FXML
 	private TextField sv_address 			= null;
 	@FXML
@@ -48,8 +55,6 @@ public class FXController implements Initializable {
 	private TextField sv_port 				= null;
 	@FXML
 	private ProgressBar progress 			= null;
-	@FXML
-	private ProgressIndicator indicator 	= null;
 	@FXML
 	private TextField fld_status 			= null;
 	@FXML
@@ -94,7 +99,6 @@ public class FXController implements Initializable {
 	private TextField fld_facebook_reg		= null;
 	@FXML
 	private Tab tab_reg						= null;
-	
 	@FXML
 	private TextField fld_othercol_reg		= null;
 	@FXML
@@ -119,24 +123,66 @@ public class FXController implements Initializable {
 	private TextField fld_new_city_reg		= null;
 	@FXML
 	private Label lbl_coursestart_reg		= null;
+	@FXML
+	private ComboBox<String> combo_country_reg	= null;
+	@FXML
+	private ComboBox<String> combo_state_reg	= null;
+	@FXML
+	private ComboBox<String> combo_city_reg		= null;
+	@FXML
+	private ComboBox<String> combo_hist_rows	= null;
+	@FXML
+	private TableView table_chathistory			= null;
 	
-
 	List<Node> nodes = new ArrayList<Node>();
 
+	public void handleExitButton() {
+		EventInterface ei = new ExitPerform();
+		ei.performAction();
+	}
+	
+	public void handleHistoryCombo() {
+		WindowDataFacade.getInstance().populateHistoryTable();
+	}
+	
+	public void handleDetectSelection() {
+		WindowDataFacade.getInstance().dynamicFieldsEnable();
+	}
+	
+	public void handleCourseRegComboClick() {
+		EventInterface ei = new UpdateCourseCombo();
+		ei.performAction();
+	}
+	
+	public void handleCollegeRegComboClick() {
+		EventInterface ei = new CollegeUpdatePerform();
+		ei.performAction();
+	}
+	
+	public void handleLoginComboClick() {
+		EventInterface ei = new LoginPerform();
+		ei.performAction();
+	}
+	
 	public void handleSendButton() {
-		SendPerform sl = new SendPerform();
-		sl.performAction();
+		EventInterface ei = new SendPerform();
+		ei.performAction();
 	}
 
 	public void handleDisconnectButton() {
-		DisconnectionPerform dp = new DisconnectionPerform();
-		dp.performAction();
+		EventInterface ei = new DisconnectionPerform();
+		ei.performAction();
 
 	}
 
 	public void handleConnectButton() {
-		ConnectionPerform cp = new ConnectionPerform();
-		cp.performAction();
+		EventInterface ei = new ConnectionPerform();
+		ei.performAction();
+	}
+	
+	public void handleRegisterButton() {
+		EventInterface ei = new RegisterPerform();
+		ei.performAction();
 	}
 
 	@Override
@@ -146,19 +192,17 @@ public class FXController implements Initializable {
 		btn_send.setDefaultButton(true);
 		lbl_time.setText(Calendar.getInstance().getTime().toString());
 		loadFacade();
-		indicator.setVisible(false);
 		fld_status.setText(getTimestamp() + "LOCAL> Offline");
 	}
 
 	private void loadFacade() {
 		WindowDataFacade.getInstance().addNode(btn_connect);
 		WindowDataFacade.getInstance().addNode(btn_disconnect);
-		WindowDataFacade.getInstance().addNode(fld_username);
+//		WindowDataFacade.getInstance().addNode(fld_username);
 		WindowDataFacade.getInstance().addNode(passwd_field);
 		WindowDataFacade.getInstance().addNode(sv_address);
 		WindowDataFacade.getInstance().addNode(sv_port);
 		WindowDataFacade.getInstance().addNode(progress);
-		WindowDataFacade.getInstance().addNode(indicator);
 		WindowDataFacade.getInstance().addNode(btn_sv_opt);
 		WindowDataFacade.getInstance().addNode(fld_status);
 		WindowDataFacade.getInstance().addNode(lbl_status);
@@ -182,21 +226,32 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(fld_whatsapp_reg);
 		WindowDataFacade.getInstance().addNode(fld_facebook_reg);
 		
+		WindowDataFacade.getInstance().addNode(fld_othercol_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addcol_reg);
+//		WindowDataFacade.getInstance().addNode(fld_addcourse_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addcourse_reg);
+		WindowDataFacade.getInstance().addNode(lbl_infnetid_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addcountry_reg);
+//		WindowDataFacade.getInstance().addNode(fld_new_country_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addstate_reg);
+//		WindowDataFacade.getInstance().addNode(fld_new_state_reg);
+//		WindowDataFacade.getInstance().addNode(lbl_addcity_reg);
+//		WindowDataFacade.getInstance().addNode(fld_new_city_reg);
+		WindowDataFacade.getInstance().addNode(lbl_coursestart_reg);
+//		WindowDataFacade.getInstance().addTab(tab_reg);
+		
+		
+		WindowDataFacade.getInstance().addNode(combo_country_reg);
+		WindowDataFacade.getInstance().addNode(combo_state_reg);
+		WindowDataFacade.getInstance().addNode(combo_city_reg);
+		WindowDataFacade.getInstance().addNode(combo_login);
+		
+		WindowDataFacade.getInstance().addNode(table_chathistory);
+		WindowDataFacade.getInstance().addNode(combo_hist_rows);
+		
 		WindowDataFacade.getInstance().startClock();
 		WindowDataFacade.getInstance().startOnlineUserList();
-		
-		WindowDataFacade.getInstance().addNode(fld_othercol_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addcol_reg);
-		WindowDataFacade.getInstance().addNode(fld_addcourse_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addcourse_reg);
-		WindowDataFacade.getInstance().addNode(lbl_infnetid_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addcountry_reg);
-		WindowDataFacade.getInstance().addNode(fld_new_country_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addstate_reg);
-		WindowDataFacade.getInstance().addNode(fld_new_state_reg);
-		WindowDataFacade.getInstance().addNode(lbl_addcity_reg);
-		WindowDataFacade.getInstance().addNode(fld_new_city_reg);
-		WindowDataFacade.getInstance().addNode(lbl_coursestart_reg);
+		WindowDataFacade.getInstance().initialize();
 	}
 
 	private String getTimestamp() {
@@ -207,24 +262,24 @@ public class FXController implements Initializable {
 	
 	public void setDebug(boolean go) {
 		if (go) {
-			fld_username.setText("raphaelbgr");
-			passwd_field.setText("nopass");
+//			fld_username.setText("raphaelbgr");
+//			passwd_field.setText("nopass");
 			sv_address.setText("surfael.sytes.net");
 			sv_port.setText("2000");	
 		}
 	}
 	
-	public void setPublicDebug(boolean go) {
+	public void setPublicDefaultValues(boolean go) {
 		if (go) {
-			passwd_field.setText("nopass");
-			passwd_field.setDisable(true);
+//			passwd_field.setText("nopass");
+//			passwd_field.setDisable(true);
 			sv_address.setText("surfael.sytes.net");
 			sv_port.setText("2000");	
 		}
 	}
 	
-	public void setLockDebugReg() {
-		WindowDataFacade.getInstance().lockRegForDebugFields();
-	}
+//	public void setLockDebugReg() {
+//		WindowDataFacade.getInstance().lockRegForDebugFields();
+//	}
 
 }

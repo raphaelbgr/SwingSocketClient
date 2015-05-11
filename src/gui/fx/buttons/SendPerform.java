@@ -1,5 +1,9 @@
 package gui.fx.buttons;
 
+import exceptions.LocalException;
+import gui.fx.WindowDataFacade;
+import gui.fx.events.EventInterface;
+
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
@@ -7,48 +11,50 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import clientmain.ClientMain;
-import clientmain.Status;
-import exceptions.LocalException;
-import gui.fx.WindowDataFacade;
-import gui.fx.events.EventInterface;
 import sendable.Client;
 import serverinteraction.Connect;
 import serverinteraction.Send;
 import threads.FXReceiveFromServerThread;
+import clientmain.ClientMain;
+import clientmain.Status;
 
 public class SendPerform implements EventInterface {
 
 
 	@Override
-	public void performAction() {
+	public boolean performAction() {
 		if (WindowDataFacade.getInstance().validadeMessage()) {
 			try {
 				WindowDataFacade.getInstance().createConnectingWorker();
 				new Send(WindowDataFacade.getInstance().getMessage());
 				WindowDataFacade.getInstance().clearMessageBox();
 				WindowDataFacade.getInstance().createSendWorker();
+				return true;
 			} catch (IOException e) {
 				WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + e.getLocalizedMessage());
 				WindowDataFacade.getInstance().createCanceledWorker();
 				e.printStackTrace();
 				reconenct();
+				return false;
 			} catch (LocalException e) {
 				WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + e.getLocalizedMessage());
 				WindowDataFacade.getInstance().createCanceledWorker();
 				e.printStackTrace();
 				reconenct();
+				return false;
 			} finally {
 				reconenct();
 			}
 		} else {
 			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + "Blank messages not allowed.");
+			return false;
 		}
+		
 	}
 
 	private Client buildClient(WindowDataFacade wdf) {
 		Client c = new Client();
-		c.setName(wdf.getUserName());
+		c.setLogin(wdf.getComboLogin());
 		c.setTargetPort(wdf.getPort().intValue());
 		c.setVersion(ClientMain.version);
 		c.setPassword(wdf.getPassword());

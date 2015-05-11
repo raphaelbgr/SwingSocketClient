@@ -95,7 +95,7 @@ public class JButtonSendServerListener implements ActionListener {
 			} else {
 				Message m = new NormalMessage();
 				m.addSeen(jsv.getNameFieldText());
-				m.setOwner(jsv.getName());
+				m.setOwnerName(jsv.getName());
 				m.setText(jam.getTextField().getText());
 				m.setTimestamp();
 				return m;

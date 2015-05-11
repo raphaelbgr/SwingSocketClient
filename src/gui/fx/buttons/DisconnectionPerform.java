@@ -1,6 +1,7 @@
 package gui.fx.buttons;
 
 import gui.fx.WindowDataFacade;
+import gui.fx.events.EventInterface;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -12,31 +13,34 @@ import sync.ClientStream;
 import clientmain.ClientMain;
 import clientmain.Status;
 
-public class DisconnectionPerform {
+public class DisconnectionPerform implements EventInterface {
 	
 	private WindowDataFacade wdf = WindowDataFacade.getInstance();
 
 	@FXML
-	public void performAction() {
+	public boolean performAction() {
 		try {
 			wdf.setDisconnectedLockFields();
 			wdf.createCanceledWorker();
 			new Disconnect(buildClient());
 //			Status.getInstance().setConnected(false);
+			return true;
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			ClientStream.getInstance().setSock(null);
 			Status.getInstance().setConnected(false);
+			return false;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			ClientStream.getInstance().setSock(null);
 			Status.getInstance().setConnected(false);
+			return false;
 		}
 	}
 	
 	private Client buildClient() {
 		Client c = new Client();
-		c.setName(wdf.getUserName());
+		c.setName(wdf.getComboLogin());
 		c.setTargetPort(wdf.getPort());
 		c.setVersion(ClientMain.version);
 		c.setPassword(wdf.getPassword());

@@ -1,5 +1,6 @@
 package gui.fx;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,17 +27,20 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import sendable.Message;
 import sendable.NormalMessage;
+import dao.DAO;
 
 public class WindowDataFacade<E> {
 
 	private Button btn_connect 						= null;
 	private Button btn_disconnect 					= null;
-	private Button btn_sv_opt 					= null;
+	private Button btn_sv_opt 						= null;
 	private TextField fld_username					= null;
 	private TextField sv_address 					= null;
 	private PasswordField passwd_field 				= null;
@@ -56,7 +60,7 @@ public class WindowDataFacade<E> {
 	private Parent root 							= null;
 	private Task<Void> task 						= null;
 	private TextField message_box					= null;
-	
+
 	ObservableList<String> items 					= null;
 	private TextField fld_login_reg					= null;
 	private TextField fld_name_reg					= null;
@@ -67,11 +71,10 @@ public class WindowDataFacade<E> {
 	private ComboBox<String> combo_course_reg		= null;
 	private ComboBox<String> combo_courseStTr_reg	= null;
 	private TextField fld_infnetmail_reg			= null;
-	private TextField fld_otherCol_reg				= null;
 	private TextField fld_email_reg					= null;
 	private TextField fld_whatsapp_reg				= null;
 	private TextField fld_facebook_reg				= null;
-	
+
 	private TextField fld_othercol_reg				= null;
 	private Label lbl_addcol_reg					= null;
 	private TextField fld_addcourse_reg				= null;
@@ -82,9 +85,16 @@ public class WindowDataFacade<E> {
 	private Label lbl_addstate_reg					= null;
 	private TextField fld_new_state_reg				= null;
 	private Label lbl_addcity_reg					= null;
-	private TextField fld_new_city_reg					= null;
-	private Label lbl_coursestart_reg;
+	private TextField fld_new_city_reg				= null;
+	private Label lbl_coursestart_reg				= null;
 
+	private Tab tab_reg								= null;
+	private ComboBox<String> combo_state_reg		= null;
+	private ComboBox<String> combo_country_reg		= null;
+	private ComboBox<String> combo_city_reg			= null;
+	private ComboBox<String> combo_login			= null;
+	private TableView table_chathistory;
+	private ComboBox<String> combo_hist_rows;
 
 	public static WindowDataFacade wdf;
 	public static WindowDataFacade getInstance() {
@@ -94,6 +104,33 @@ public class WindowDataFacade<E> {
 		return wdf;
 	}
 
+	public String getCityReg() {
+		if (combo_city_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_city_reg.getSelectionModel().getSelectedItem().toString();
+		}
+		else return null;
+	}
+
+	public String getStateReg() {
+		if (combo_state_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_state_reg.getSelectionModel().getSelectedItem().toString();
+		}
+		else return null;
+	}
+
+	public String getCountryReg() {
+		if (combo_country_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_country_reg.getSelectionModel().getSelectedItem().toString();
+		}
+		else return null;
+	}
+
+	public String getCourse() {
+		if (combo_course_reg.isDisable()) {
+			return "Not infnet";
+		} else return combo_course_reg.getSelectionModel().getSelectedItem().toString();
+	}
+
 	public void setRoot(Parent root) {
 		this.root = root;
 	}
@@ -101,8 +138,12 @@ public class WindowDataFacade<E> {
 	private WindowDataFacade() {
 	}
 
-	public String getUserName() {
-		return fld_username.getText();
+	public String getComboLogin() {
+		//		return fld_username.getText();
+		if (combo_login.getSelectionModel().getSelectedItem() != null) {
+			return combo_login.getSelectionModel().getSelectedItem().toString();
+		}
+		else return null;
 	}
 
 	public String getPassword() {
@@ -121,7 +162,7 @@ public class WindowDataFacade<E> {
 		lbl_status.setText(s);
 	}
 
-	public void setBigStatusMsg(final String s) {
+	public synchronized void setBigStatusMsg(final String s) {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -142,7 +183,8 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(true);
 				btn_connect.setDisable(true);
 				btn_disconnect.setDisable(true);
-				fld_username.setDisable(true);
+				//				fld_username.setDisable(true);
+				combo_login.setDisable(true);
 				passwd_field.setDisable(true);
 				sv_address.setDisable(true);
 				sv_port.setDisable(true);
@@ -157,7 +199,8 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(false);
 				btn_connect.setDisable(true);
 				btn_disconnect.setDisable(false);
-				fld_username.setDisable(true);
+				//				fld_username.setDisable(true);
+				combo_login.setDisable(true);
 				passwd_field.setDisable(true);
 				sv_address.setDisable(true);
 				sv_port.setDisable(true);
@@ -172,10 +215,11 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(true);
 				btn_connect.setDisable(false);
 				btn_disconnect.setDisable(true);
-				fld_username.setDisable(false);
+				//				fld_username.setDisable(false);
+				combo_login.setDisable(false);
 				passwd_field.setDisable(false);
-				sv_address.setDisable(false);
-				sv_port.setDisable(false);
+//				sv_address.setDisable(false);
+//				sv_port.setDisable(false);
 			}
 		});
 	}
@@ -235,8 +279,6 @@ public class WindowDataFacade<E> {
 			combo_courseStTr_reg = (ComboBox<String>) node;
 		} else if (node.getId().equalsIgnoreCase("fld_infnetmail_reg")) {
 			fld_infnetmail_reg = (TextField) node;
-		} else if (node.getId().equalsIgnoreCase("fld_otherCol_reg")) {
-			fld_otherCol_reg = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("fld_email_reg")) {
 			fld_email_reg = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("fld_whatsapp_reg")) {
@@ -244,17 +286,17 @@ public class WindowDataFacade<E> {
 		} else if (node.getId().equalsIgnoreCase("fld_facebook_reg")) {
 			fld_facebook_reg = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("fld_othercol_reg")) {
-			 fld_othercol_reg = (TextField) node;
+			fld_othercol_reg = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("lbl_addcol_reg")) {
-			 lbl_addcol_reg = (Label) node;
+			lbl_addcol_reg = (Label) node;
 		} else if (node.getId().equalsIgnoreCase("fld_addcourse_reg")) {
-			 fld_addcourse_reg = (TextField) node;
+			fld_addcourse_reg = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("lbl_addcourse_reg")) {
-			 lbl_addcourse_reg = (Label) node;
+			lbl_addcourse_reg = (Label) node;
 		} else if (node.getId().equalsIgnoreCase("lbl_infnetid_reg")) {
-			 lbl_infnetid_reg = (Label) node;
+			lbl_infnetid_reg = (Label) node;
 		} else if (node.getId().equalsIgnoreCase("lbl_addcountry_reg")) {
-			 lbl_addcountry_reg = (Label) node;
+			lbl_addcountry_reg = (Label) node;
 		} else if (node.getId().equalsIgnoreCase("fld_new_country_reg")) {
 			fld_new_country_reg = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("lbl_addstate_reg")) {
@@ -267,8 +309,51 @@ public class WindowDataFacade<E> {
 			fld_new_city_reg = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("lbl_coursestart_reg")) {
 			lbl_coursestart_reg = (Label) node;
-		}
+		} else if (node.getId().equalsIgnoreCase("combo_country_reg")) {
+			combo_country_reg = (ComboBox<String>) node;
+		} else if (node.getId().equalsIgnoreCase("combo_state_reg")) {
+			combo_state_reg = (ComboBox<String>) node;
+		} else if (node.getId().equalsIgnoreCase("combo_city_reg")) {
+			combo_city_reg = (ComboBox<String>) node;
+		} else if (node.getId().equalsIgnoreCase("combo_login")) {
+			combo_login = (ComboBox<String>) node;
+		} else if (node.getId().equalsIgnoreCase("table_chathistory")) {
+			table_chathistory = (TableView) node;
+		} else if (node.getId().equalsIgnoreCase("combo_hist_rows")) {
+			combo_hist_rows = (ComboBox<String>) node;
+		} 
 		nodes.add(node);
+	}
+
+	public void populateHistoryTable() {
+		int rows = combo_hist_rows.getSelectionModel().getSelectedIndex();
+		switch (rows) {
+		case 0:
+			rows = 50;
+		case 1:
+			rows = 500;
+		case 2:
+			rows = 5000;
+		case 3: 
+			rows = 5000;
+		case 4:
+			rows = 0;
+		}
+		DAO dao = new DAO();
+		try {
+			dao.connect();
+			table_chathistory.setItems(dao.queryChatHistory(rows));
+			dao.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void addTab(Tab tab) {
+		if (tab.getId().equalsIgnoreCase("tab_reg")) {
+			tab_reg = tab;
+		}
 	}
 
 	public Node getNode(String id) {
@@ -310,23 +395,13 @@ public class WindowDataFacade<E> {
 	public Object getMessage() {
 		NormalMessage m = new NormalMessage();
 		m.setText(this.message_box.getText());
-		m.setOwner(this.getUserName());
+		m.setOwnerName(this.getComboLogin());
 		m.setTimestamp();
-		m.setDate();
+		m.setDateString();
 		return m;
 	}
 
-	public void createConnectedWorker() {
-		//		Platform.runLater(new Runnable() {
-		//			@Override
-		//			public void run() {
-		//				for (double i = 0; i <= 100; i = i + 0.01) {
-		//					progress.setProgress(i);
-		//					wdf.setConnectedLockFields();
-		//				}
-		//			}	
-		//		});
-
+	public synchronized void createConnectedWorker() {
 		final Task<Void> task = new Task<Void>() {
 			@Override 
 			public Void call() {
@@ -339,7 +414,6 @@ public class WindowDataFacade<E> {
 					try {
 						Thread.sleep(3);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -355,22 +429,10 @@ public class WindowDataFacade<E> {
 				new Thread(task).start();
 			}
 		});
-		
+
 	}
 
-	public void createConnectingWorker() {
-		//		Platform.runLater(new Runnable() {
-		//			@Override
-		//			public void run() {
-		//				progress.setProgress(-1);
-		//				wdf.setConnectingLockFields();
-		//				try {
-		//					Thread.sleep(1);
-		//				} catch (InterruptedException e) {
-		//				}
-		//			}	
-		//		});
-
+	public synchronized void createConnectingWorker() {
 		Task<Void> task = new Task<Void>() {
 			@Override 
 			public Void call() {
@@ -384,19 +446,7 @@ public class WindowDataFacade<E> {
 		new Thread(task).start();
 	}
 
-	public void createCanceledWorker() {
-		//		Platform.runLater(new Runnable() {
-		//			@Override
-		//			public void run() {
-		//				progress.setProgress(0);
-		//				wdf.setDisconnectedLockFields();
-		//				try {
-		//					Thread.sleep(1);
-		//				} catch (InterruptedException e) {
-		//				}
-		//			}
-		//		});
-
+	public synchronized void createCanceledWorker() {
 		Task<Void> task = new Task<Void>() {
 			@Override 
 			public Void call() {
@@ -408,8 +458,6 @@ public class WindowDataFacade<E> {
 					try {
 						Thread.sleep(3);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 				}
 				progress.progressProperty().unbind();
@@ -421,7 +469,7 @@ public class WindowDataFacade<E> {
 		new Thread(task).start();
 	}
 
-	public void createSendWorker() {
+	public synchronized void createSendWorker() {
 		Task<Void> task = new Task<Void>() {
 			@Override 
 			public Void call() {
@@ -434,7 +482,6 @@ public class WindowDataFacade<E> {
 					try {
 						Thread.sleep(3);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -443,7 +490,6 @@ public class WindowDataFacade<E> {
 			}
 		};
 		progress.progressProperty().unbind();
-//		progress.setProgress(0);
 		progress.progressProperty().bind(task.progressProperty());		
 		new Thread(task).start();
 	}
@@ -451,15 +497,15 @@ public class WindowDataFacade<E> {
 	public void clearMessageBox() {
 		this.message_box.setText("");
 	}
-	
+
 	public void addChatMessage(final Message m) {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				txt_chatlog.appendText(getTimestamp() + m.getOwner()+ " -> " + m.getText() + "\n");
+				txt_chatlog.appendText(getTimestamp() + m.getOwnerName() + " -> " + m.getText() + "\n");
 			}
 		});
-		
+
 	}
 
 	public void startClock() {
@@ -479,12 +525,12 @@ public class WindowDataFacade<E> {
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
-	
+
 	public void startOnlineUserList() {
 		items = FXCollections.observableArrayList();
 		list_view.setItems(items);
 	}
-	
+
 	public void addOnlineUser(final String s) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -492,9 +538,9 @@ public class WindowDataFacade<E> {
 				items.add(s);
 			}	
 		});
-		
+
 	}
-	
+
 	public void setOnlineUserList(final ObservableList<String> items) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -503,63 +549,268 @@ public class WindowDataFacade<E> {
 			}	
 		});
 	}
-	
+
 	public boolean validateName() {
-		if (fld_username.lengthProperty().get() < 21 && fld_username.lengthProperty().get() > 4) {
+		if (getComboLogin() != null) {
+			if (getComboLogin().length() < 21 && getComboLogin().length() > 4) {
+				return true;
+			} else return false;
+		} else return false;
+	}
+
+	public boolean validateLoginFromCombo() {
+		if (getComboLogin().length() < 21 && getComboLogin().length() > 4) {
 			return true;
 		} else return false;
 	}
-	
+
 	public boolean validadePort() {
 		if (Integer.valueOf(sv_port.getText()) < 65536 && Integer.valueOf(sv_port.getText()) > 0) {
 			return true;
 		} else return false;
 	}
-	
+
 	public boolean validadePassword() {
 		if (passwd_field.lengthProperty().get() > 4 && passwd_field.lengthProperty().get() < 21) {
 			return true;
 		} else return false;
 	}
-	
+
 	public boolean validadeIP() {
 		if (sv_address.lengthProperty().get() > 0) {
 			return true;
 		} else return false;
 	}
-	
+
 	public boolean validadeMessage() {
 		if (message_box.getText().length() > 0) {
 			return true;
 		} else return false;
 	}
-	
+
 	private String getTimestamp() {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
 	}
-	
-	public void lockRegForDebugFields() {
-		fld_login_reg.setDisable(true);
-		fld_name_reg.setDisable(true);
-		fld_password_reg.setDisable(true);
-		fld_password2_reg.setDisable(true);
-		combo_sex_reg.setDisable(true);
-		combo_college_reg.setDisable(true);
-		combo_course_reg.setDisable(true);
-		combo_courseStTr_reg.setDisable(true);
-		fld_infnetmail_reg.setDisable(true);
-		fld_otherCol_reg.setDisable(true);
-		fld_email_reg.setDisable(true);
-		btn_sv_opt.setDisable(true);
-		fld_whatsapp_reg.setDisable(true);
-		fld_facebook_reg.setDisable(true);
-		lbl_addcountry_reg.setDisable(true);
-		lbl_addstate_reg.setDisable(true);
-		lbl_addcity_reg.setDisable(true);
-		lbl_addcourse_reg.setDisable(true);
-		lbl_addcol_reg.setDisable(true);
-		lbl_coursestart_reg.setDisable(true);
+
+	//	public void lockRegForDebugFields() {
+	//		fld_login_reg.setDisable(true);
+	//		fld_name_reg.setDisable(true);
+	//		fld_password_reg.setDisable(true);
+	//		fld_password2_reg.setDisable(true);
+	//		combo_sex_reg.setDisable(true);
+	//		combo_college_reg.setDisable(true);
+	//		combo_course_reg.setDisable(true);
+	//		combo_courseStTr_reg.setDisable(true);
+	//		fld_infnetmail_reg.setDisable(true);
+	//		fld_otherCol_reg.setDisable(true);
+	//		fld_email_reg.setDisable(true);
+	//		btn_sv_opt.setDisable(true);
+	//		fld_whatsapp_reg.setDisable(true);
+	//		fld_facebook_reg.setDisable(true);
+	//		lbl_addcountry_reg.setDisable(true);
+	//		lbl_addstate_reg.setDisable(true);
+	//		lbl_addcity_reg.setDisable(true);
+	//		lbl_addcourse_reg.setDisable(true);
+	//		lbl_addcol_reg.setDisable(true);
+	//		lbl_coursestart_reg.setDisable(true);
+	//		//		tab_reg.setDisable(true);
+	//	}
+
+	public void setDisableRegTab(boolean condition) {
+		tab_reg.setDisable(condition);
+	}
+
+	public void setLockRegistrationFields(boolean condition) {
+		fld_login_reg.setDisable(condition);
+		fld_name_reg.setDisable(condition);
+		fld_password_reg.setDisable(condition);
+		fld_password2_reg.setDisable(condition);
+		combo_sex_reg.setDisable(condition);
+		combo_college_reg.setDisable(condition);
+		combo_course_reg.setDisable(condition);
+		combo_courseStTr_reg.setDisable(condition);
+		fld_infnetmail_reg.setDisable(condition);
+		fld_email_reg.setDisable(condition);
+		fld_whatsapp_reg.setDisable(condition);
+		fld_facebook_reg.setDisable(condition);
+		lbl_addcountry_reg.setDisable(condition);
+		lbl_addstate_reg.setDisable(condition);
+		lbl_addcity_reg.setDisable(condition);
+		lbl_addcourse_reg.setDisable(condition);
+		lbl_addcol_reg.setDisable(condition);
+		lbl_coursestart_reg.setDisable(condition);
+		combo_college_reg.setDisable(condition);
+		combo_course_reg.setDisable(condition);
+		combo_courseStTr_reg.setDisable(condition);
+		combo_sex_reg.setDisable(condition);
+		combo_country_reg.setDisable(condition);
+		combo_state_reg.setDisable(condition);
+		combo_city_reg.setDisable(condition);
+	}
+
+	public boolean validateRegFields() {
+		if ((getLoginReg().length() < 4) || getLoginReg().length() > 20) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Invalid login lenght."); 
+		} else if ((WindowDataFacade.getInstance().getNameReg().length() < 4) || (WindowDataFacade.getInstance().getNameReg().length() > 30)) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Invalid name lenght."); 
+		} else if ((WindowDataFacade.getInstance().getPasswordReg().length() < 4) || (WindowDataFacade.getInstance().getPasswordReg().length() > 20)) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Invalid password lenght."); 
+		} else if (!validatePassword()) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Passwords does not match."); 
+		} else if (getSexReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select a gender.");
+		} else if (getCollegeReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select a College.");
+		} else if ((!fld_infnetmail_reg.isDisable()) && (getInfnetMailReg().equalsIgnoreCase("") || !(getInfnetMailReg().contains("@") && getInfnetMailReg().contains(".") && getInfnetMailReg().contains("infnet")))) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please enter a valid infnet ID.");
+		} else if (!(getEmailReg().contains("@") && getEmailReg().contains("."))) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please enter a valid email.");
+		} else if (getCountryReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select a country/republic.");
+		} else if (getCityReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select a city.");
+		} else if (getStateReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select a state/province.");
+		} else return true;
+		return false;
+	}
+
+	public void dynamicFieldsEnable() {
+		if (combo_college_reg.getSelectionModel() != null) {
+			if (getCollegeReg().equalsIgnoreCase("Other College")) {
+				fld_othercol_reg.setDisable(false);
+				fld_infnetmail_reg.setDisable(true);
+				combo_course_reg.setDisable(true);
+			} else {
+				fld_othercol_reg.setDisable(true);
+				fld_infnetmail_reg.setDisable(true);
+				combo_course_reg.setDisable(true);
+			}
+		} 
+		if (getCollegeReg().equalsIgnoreCase("INFNET")) {
+			fld_othercol_reg.setDisable(true);
+			fld_infnetmail_reg.setDisable(false);
+			combo_course_reg.setDisable(false);
+		}
+	}
+
+	public String getSelectecCollegeReg() {
+		if (combo_college_reg.getSelectionModel() == null) {
+			return "Other College";
+		} else {
+			return combo_college_reg.getSelectionModel().toString();
+		}
+	}
+
+	public boolean validatePassword() {
+		String login = WindowDataFacade.getInstance().getLoginReg();
+		WindowDataFacade.getInstance().getPasswordReg();
+		WindowDataFacade.getInstance().getPassword2Reg();
+		if (getPasswordReg().equalsIgnoreCase(getPassword2Reg())) {
+			return true;
+		} else return false;
+	}
+
+	public synchronized void updateCourseCombo(List<String> list) {
+		combo_course_reg.getItems().clear();
+		combo_course_reg.getItems().addAll(list);
+		combo_course_reg.getItems().add("Other Course");
+	}
+
+	public synchronized void updateCollegeCombo(List<String> list) {
+		combo_college_reg.getItems().clear();
+		combo_college_reg.getItems().addAll(list);
+		combo_college_reg.getItems().add("Other College");
+	}
+
+	public void updateLoginCombo(List<String> list) {
+		combo_login.getItems().clear();
+		combo_login.getItems().addAll(list);
+	}
+
+	public void initialize() {
+		combo_sex_reg.getItems().add("Male");
+		combo_sex_reg.getItems().add("Female");
+		combo_city_reg.getItems().addAll("Rio de Janeiro", "Niterói", "São Gonçalo", "Maricá", "São Paulo", "Minas Gerais");
+		combo_state_reg.getItems().addAll("RJ","SP","MG","BA");
+		combo_country_reg.getItems().addAll("BRA");
+		combo_courseStTr_reg.getItems().addAll("2010.1",
+				"2010.2", "2010.3", "2010.4",
+				"2011.1", "2011.2", "2011.3",
+				"2011.4", "2012.1", "2012.2",
+				"2012.3", "2012.4", "2013.1",
+				"2013.2", "2013.3", "2013.4",
+				"2014.1", "2014.2", "2014.3",
+				"2014.4", "2015.1", "2015.2");
+		combo_login.autosize();
+		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
+		sv_port.setDisable(true);
+		sv_address.setDisable(true);
+	}
+
+	public String getLoginReg() {
+		return fld_login_reg.getText().toLowerCase();
+	}
+
+	public String getNameReg() {
+		return fld_name_reg.getText();
+	}
+
+	public String getPasswordReg() {
+		return fld_password_reg.getText();
+	}
+
+	public String getPassword2Reg() {
+		return fld_password2_reg.getText();
+	}
+
+	public String getSexReg() {
+		if (combo_sex_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_sex_reg.getSelectionModel().getSelectedItem().toString();
+		} else return null;
+	}
+
+	public String getCollegeReg() {
+		if (combo_college_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_college_reg.getSelectionModel().getSelectedItem().toString();
+		} else return "Choose College";	
+	}
+
+	public String getCourseStartReg() {
+		if (combo_courseStTr_reg.getSelectionModel().getSelectedItem() != null) {
+			return combo_courseStTr_reg.getSelectionModel().getSelectedItem().toString();
+		} else return null;
+	}
+
+	public String getInfnetMailReg() {
+		if (fld_infnetmail_reg.isDisable()) {
+			return "not@infnet.edu";
+		} else return fld_infnetmail_reg.getText();
+	}
+
+	public String getEmailReg() {
+		return fld_email_reg.getText();
+	}
+
+	public String getWhatsappReg() {
+		return fld_whatsapp_reg.getText();
+	}
+
+	public String getFacebookReg() {
+		return fld_facebook_reg.getText();
+	}
+
+	public String getNewCountryRreg() {
+		return fld_new_country_reg.getText();
+	}
+
+	public String getNewStateReg() {
+		return fld_new_state_reg.getText();
+	}
+
+	public String getNewCityReg() {
+		return fld_new_city_reg.getText();
 	}
 }

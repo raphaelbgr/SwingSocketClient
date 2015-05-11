@@ -8,9 +8,7 @@ public class ConnectionCheckerThread implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("test1");
 		while(true) {
-			System.out.println("test");
 			if (ClientStream.getInstance().getSock() != null) {
 				try {
 					if (ClientStream.getInstance().getSock().getInputStream().read() != -1) {
@@ -20,9 +18,9 @@ public class ConnectionCheckerThread implements Runnable {
 					}
 				} catch (IOException e) {
 					System.out.println("socket is dead");
-					e.printStackTrace();
+//					e.printStackTrace();
 				} 
-			}
+			} else System.out.println("socket is null");
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {

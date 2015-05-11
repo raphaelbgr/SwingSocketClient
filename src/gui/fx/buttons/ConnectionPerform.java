@@ -26,7 +26,7 @@ public class ConnectionPerform implements EventInterface {
 	ProgressBar progress = ((ProgressBar)wdf.getNode("progress"));
 
 	@FXML
-	public void performAction() {
+	public boolean performAction() {
 		if (wdf.validateName()) {
 			if (wdf.validadePassword()) {
 				if (wdf.validadeIP()) {
@@ -39,10 +39,12 @@ public class ConnectionPerform implements EventInterface {
 							t1.start();
 							WindowDataFacade.getInstance().createConnectedWorker();
 						} catch (ConnectException | UnknownHostException e) {
+							e.printStackTrace();
 							wdf.createCanceledWorker();
 							WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + "Host not found or offline. Is port correct?");
 							reconnect();
 						} catch (IOException e) {
+							e.printStackTrace();
 							wdf.createCanceledWorker();
 							WindowDataFacade.getInstance().createCanceledWorker();
 //							e.printStackTrace();
@@ -55,16 +57,21 @@ public class ConnectionPerform implements EventInterface {
 						}
 					} else {
 						wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid port range.");
+						return false;
 					}
 				} else {
 					wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid IP lenght.");
+					return false;
 				}
 			} else {
 				wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid password lenght.");
+				return false;
 			}
 		} else {
 			wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid name lenght.");
+			return false;
 		}
+		return true;
 	}
 
 	private String getTimestamp() {
@@ -75,7 +82,7 @@ public class ConnectionPerform implements EventInterface {
 	
 	private Client buildClient(WindowDataFacade wdf) {
 		Client c = new Client();
-		c.setName(wdf.getUserName());
+		c.setLogin(wdf.getComboLogin());
 		c.setTargetPort(wdf.getPort().intValue());
 		c.setVersion(ClientMain.version);
 		c.setPassword(wdf.getPassword());
