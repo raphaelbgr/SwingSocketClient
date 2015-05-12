@@ -6,6 +6,8 @@ import gui.fx.buttons.ConnectionPerform;
 import gui.fx.buttons.DisconnectionPerform;
 import gui.fx.buttons.ExitPerform;
 import gui.fx.buttons.LoginPerform;
+import gui.fx.buttons.PerformHistoryComboUpdate;
+import gui.fx.buttons.RefreshPerform;
 import gui.fx.buttons.RegisterPerform;
 import gui.fx.buttons.SendPerform;
 import gui.fx.buttons.UpdateCourseCombo;
@@ -133,16 +135,28 @@ public class FXController implements Initializable {
 	private ComboBox<String> combo_hist_rows	= null;
 	@FXML
 	private TableView table_chathistory			= null;
+	@FXML
+	private Button btn_refresh					= null;
 	
 	List<Node> nodes = new ArrayList<Node>();
 
+	public void handleRefreshtButton() {
+		EventInterface ei = new RefreshPerform();
+		if (ei.performAction()) {
+			WindowDataFacade.getInstance().populateHistoryTable();
+		}
+	}
+	
 	public void handleExitButton() {
 		EventInterface ei = new ExitPerform();
 		ei.performAction();
 	}
 	
 	public void handleHistoryCombo() {
-		WindowDataFacade.getInstance().populateHistoryTable();
+		EventInterface ei = new PerformHistoryComboUpdate();
+		if (ei.performAction()) {
+			WindowDataFacade.getInstance().populateHistoryTable();
+		}
 	}
 	
 	public void handleDetectSelection() {
@@ -248,6 +262,7 @@ public class FXController implements Initializable {
 		
 		WindowDataFacade.getInstance().addNode(table_chathistory);
 		WindowDataFacade.getInstance().addNode(combo_hist_rows);
+		WindowDataFacade.getInstance().addNode(btn_refresh);
 		
 		WindowDataFacade.getInstance().startClock();
 		WindowDataFacade.getInstance().startOnlineUserList();

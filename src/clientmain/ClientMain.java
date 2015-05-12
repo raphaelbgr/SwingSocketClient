@@ -16,12 +16,12 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 import sendable.Client;
 import serverinteraction.Disconnect;
-import threads.ConnectionCheckerThread;
-import threads.FXReceiveFromServerThread;
 
 public class ClientMain extends Application {
 	public static int port 					= 0;
-	public static int version				= 15;
+	public static int version				= 16;
+	public static boolean compKey			= false;
+	public static boolean receiveRdy		= false;
 
 	public static Thread receiver			= null;
 
@@ -32,6 +32,8 @@ public class ClientMain extends Application {
 	public static String DATABASE_ADDR		= null;
 	public static String DATABASE_USER		= null;
 	public static String DATABASE_PASS		= null;
+	
+	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
 
 	public static void main(final String[] args) {	
 //		JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));

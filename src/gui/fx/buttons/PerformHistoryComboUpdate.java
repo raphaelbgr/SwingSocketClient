@@ -1,9 +1,5 @@
 package gui.fx.buttons;
 
-import gui.fx.WindowDataFacade;
-import gui.fx.events.EventInterface;
-import gui.fx.events.RequestServerKeys;
-
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,8 +7,11 @@ import java.util.Date;
 
 import clientmain.ClientMain;
 import dao.DAO;
+import gui.fx.WindowDataFacade;
+import gui.fx.events.EventInterface;
+import gui.fx.events.RequestServerKeys;
 
-public class CollegeUpdatePerform implements EventInterface {
+public class PerformHistoryComboUpdate implements EventInterface {
 
 	@Override
 	public boolean performAction() {
@@ -24,7 +23,7 @@ public class CollegeUpdatePerform implements EventInterface {
 				DAO dao = new DAO();
 				try {
 					dao.connect();
-					WindowDataFacade.getInstance().updateCollegeCombo(dao.queryColleges());
+					WindowDataFacade.getInstance().updateLoginCombo(dao.queryLogins());
 					dao.disconnect();
 					return true;
 				} catch (SQLException e) {
@@ -32,14 +31,15 @@ public class CollegeUpdatePerform implements EventInterface {
 					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + e.getLocalizedMessage());
 					try {
 						dao.disconnect();
-					} catch (SQLException e2) {
-//						e.printStackTrace();
+					} catch (SQLException e1) {
+//							e.printStackTrace();
 					}
 				}
 			} else {
 				try {
 					Thread.sleep(40);
 				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -51,5 +51,4 @@ public class CollegeUpdatePerform implements EventInterface {
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
 	}
-
 }

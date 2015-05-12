@@ -33,6 +33,7 @@ public class FXReceiveFromServerThread implements Runnable {
 		while (true) {
 			if ((stream.getSock() != null) && (stream.getSock().isConnected() == true)) {
 				try {
+					ClientMain.receiveRdy = true;
 					final Object o = stream.receiveMessage();
 					if (o != null) {
 						if (o instanceof Client) {
@@ -150,11 +151,16 @@ public class FXReceiveFromServerThread implements Runnable {
 									}
 								}
 							} else if (o instanceof RegistrationMessage) {
+								ClientMain.compKey = true;
 								RegistrationMessage rm = (RegistrationMessage)o;
 								ClientMain.DATABASE_ADDR = rm.getDbAddr();
 								ClientMain.DATABASE_KEY = rm.getDbCryptKey();
 								ClientMain.DATABASE_PASS = rm.getDbPass();
 								ClientMain.DATABASE_USER = rm.getDbUser();
+
+								WindowDataFacade.getInstance().createConnectedWorker();
+								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + "Got server database keys.");
+								
 								Platform.runLater(new Runnable() {
 									@Override
 									public void run() {
@@ -178,7 +184,6 @@ public class FXReceiveFromServerThread implements Runnable {
 									@Override
 									public void run() {
 										WindowDataFacade.getInstance().setDisconnectedLockFields();
-//										WindowDataFacade.getInstance().getFld_status().setText(getTimestamp() + " LOCAL> Disconnected");	
 										Status.getInstance().setConnected(false);
 									}	
 								});

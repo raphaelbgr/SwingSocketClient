@@ -1,5 +1,7 @@
 package gui.fx;
 
+import gui.fx.models.MessageDataTableModel;
+
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -93,8 +95,9 @@ public class WindowDataFacade<E> {
 	private ComboBox<String> combo_country_reg		= null;
 	private ComboBox<String> combo_city_reg			= null;
 	private ComboBox<String> combo_login			= null;
-	private TableView table_chathistory;
+	private TableView<MessageDataTableModel> table_chathistory		= null;
 	private ComboBox<String> combo_hist_rows;
+	private Button btn_refresh;
 
 	public static WindowDataFacade wdf;
 	public static WindowDataFacade getInstance() {
@@ -172,6 +175,10 @@ public class WindowDataFacade<E> {
 
 	}
 
+	public synchronized String getBigStatusMsg() {
+		return this.fld_status.getText();
+	}
+
 	public void setTimeLabel(String s) {
 		lbl_time.setText(s);
 	}
@@ -199,7 +206,7 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(false);
 				btn_connect.setDisable(true);
 				btn_disconnect.setDisable(false);
-				//				fld_username.setDisable(true);
+//				fld_username.setDisable(true);
 				combo_login.setDisable(true);
 				passwd_field.setDisable(true);
 				sv_address.setDisable(true);
@@ -215,7 +222,7 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(true);
 				btn_connect.setDisable(false);
 				btn_disconnect.setDisable(true);
-				//				fld_username.setDisable(false);
+//				fld_username.setDisable(false);
 				combo_login.setDisable(false);
 				passwd_field.setDisable(false);
 //				sv_address.setDisable(false);
@@ -321,7 +328,9 @@ public class WindowDataFacade<E> {
 			table_chathistory = (TableView) node;
 		} else if (node.getId().equalsIgnoreCase("combo_hist_rows")) {
 			combo_hist_rows = (ComboBox<String>) node;
-		} 
+		} else if (node.getId().equalsIgnoreCase("btn_refresh")) {
+			btn_refresh = (Button) node;
+		}
 		nodes.add(node);
 	}
 
@@ -330,26 +339,33 @@ public class WindowDataFacade<E> {
 		switch (rows) {
 		case 0:
 			rows = 50;
+			break;
 		case 1:
 			rows = 500;
+			break;
 		case 2:
 			rows = 5000;
+			break;
 		case 3: 
 			rows = 5000;
+			break;
 		case 4:
 			rows = 0;
+			break;
 		}
 		DAO dao = new DAO();
+		//		System.out.println(rows);
 		try {
 			dao.connect();
 			table_chathistory.setItems(dao.queryChatHistory(rows));
 			dao.disconnect();
+			btn_refresh.setDisable(false);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void addTab(Tab tab) {
 		if (tab.getId().equalsIgnoreCase("tab_reg")) {
 			tab_reg = tab;
@@ -594,30 +610,6 @@ public class WindowDataFacade<E> {
 		return "["+dateFormatted+"]" + " ";
 	}
 
-	//	public void lockRegForDebugFields() {
-	//		fld_login_reg.setDisable(true);
-	//		fld_name_reg.setDisable(true);
-	//		fld_password_reg.setDisable(true);
-	//		fld_password2_reg.setDisable(true);
-	//		combo_sex_reg.setDisable(true);
-	//		combo_college_reg.setDisable(true);
-	//		combo_course_reg.setDisable(true);
-	//		combo_courseStTr_reg.setDisable(true);
-	//		fld_infnetmail_reg.setDisable(true);
-	//		fld_otherCol_reg.setDisable(true);
-	//		fld_email_reg.setDisable(true);
-	//		btn_sv_opt.setDisable(true);
-	//		fld_whatsapp_reg.setDisable(true);
-	//		fld_facebook_reg.setDisable(true);
-	//		lbl_addcountry_reg.setDisable(true);
-	//		lbl_addstate_reg.setDisable(true);
-	//		lbl_addcity_reg.setDisable(true);
-	//		lbl_addcourse_reg.setDisable(true);
-	//		lbl_addcol_reg.setDisable(true);
-	//		lbl_coursestart_reg.setDisable(true);
-	//		//		tab_reg.setDisable(true);
-	//	}
-
 	public void setDisableRegTab(boolean condition) {
 		tab_reg.setDisable(condition);
 	}
@@ -651,16 +643,16 @@ public class WindowDataFacade<E> {
 	}
 
 	public boolean validateRegFields() {
-		if ((getLoginReg().length() < 4) || getLoginReg().length() > 20) {
-			getFld_status().setText(getTimestamp() + "LOCAL> Invalid login lenght."); 
-		} else if ((WindowDataFacade.getInstance().getNameReg().length() < 4) || (WindowDataFacade.getInstance().getNameReg().length() > 30)) {
-			getFld_status().setText(getTimestamp() + "LOCAL> Invalid name lenght."); 
+		if ((getLoginReg().length() < 6) || getLoginReg().length() > 20) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Invalid login lenght. Use more than 5 and less then 20."); 
+		} else if ((WindowDataFacade.getInstance().getNameReg().length() < 3) || (WindowDataFacade.getInstance().getNameReg().length() > 30)) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Invalid name lenght. Use from 3 to 30 characters."); 
 		} else if ((WindowDataFacade.getInstance().getPasswordReg().length() < 4) || (WindowDataFacade.getInstance().getPasswordReg().length() > 20)) {
-			getFld_status().setText(getTimestamp() + "LOCAL> Invalid password lenght."); 
+			getFld_status().setText(getTimestamp() + "LOCAL> Invalid password lenght. Use from 4 to 20 characters."); 
 		} else if (!validatePassword()) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Passwords does not match."); 
 		} else if (getSexReg() == null) {
-			getFld_status().setText(getTimestamp() + "LOCAL> Please select a gender.");
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select your Sex.");
 		} else if (getCollegeReg() == null) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Please select a College.");
 		} else if ((!fld_infnetmail_reg.isDisable()) && (getInfnetMailReg().equalsIgnoreCase("") || !(getInfnetMailReg().contains("@") && getInfnetMailReg().contains(".") && getInfnetMailReg().contains("infnet")))) {
@@ -673,6 +665,10 @@ public class WindowDataFacade<E> {
 			getFld_status().setText(getTimestamp() + "LOCAL> Please select a city.");
 		} else if (getStateReg() == null) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Please select a state/province.");
+		} else if (getCourseStartReg() == null) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select your start Trimester.");
+		} else if ((!fld_othercol_reg.isDisable()) && (fld_othercol_reg.getText().equalsIgnoreCase("") || getInfnetMailReg().matches("\\W+"))) {
+			getFld_status().setText(getTimestamp() + "LOCAL> Please select value for College.");
 		} else return true;
 		return false;
 	}
@@ -727,16 +723,20 @@ public class WindowDataFacade<E> {
 
 	public void updateLoginCombo(List<String> list) {
 		combo_login.getItems().clear();
-		combo_login.getItems().addAll(list);
+		if (list.isEmpty()) {
+			combo_login.getItems().add("<Refresh>");
+		} else combo_login.getItems().addAll(list);
 	}
 
 	public void initialize() {
 		combo_sex_reg.getItems().add("Male");
 		combo_sex_reg.getItems().add("Female");
 		combo_city_reg.getItems().addAll("Rio de Janeiro", "Niterói", "São Gonçalo", "Maricá", "São Paulo", "Minas Gerais");
-		combo_state_reg.getItems().addAll("RJ","SP","MG","BA");
+		combo_state_reg.getItems().addAll("RJ");
 		combo_country_reg.getItems().addAll("BRA");
-		combo_courseStTr_reg.getItems().addAll("2010.1",
+		combo_courseStTr_reg.getItems().addAll(
+				"2009.1","2009.2","2009.3",
+				"2009.4","2010.1",
 				"2010.2", "2010.3", "2010.4",
 				"2011.1", "2011.2", "2011.3",
 				"2011.4", "2012.1", "2012.2",
@@ -775,7 +775,14 @@ public class WindowDataFacade<E> {
 	public String getCollegeReg() {
 		if (combo_college_reg.getSelectionModel().getSelectedItem() != null) {
 			return combo_college_reg.getSelectionModel().getSelectedItem().toString();
-		} else return "Choose College";	
+		} else return "Other College";	
+	}
+	
+	public String getCollegeRegValue() {
+		if (combo_college_reg.getSelectionModel().getSelectedItem().equalsIgnoreCase("Other College")) {
+			return fld_othercol_reg.getText();
+		}
+		return null;
 	}
 
 	public String getCourseStartReg() {

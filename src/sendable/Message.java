@@ -40,6 +40,8 @@ public class Message implements Serializable, Comparable<Message> {
 	private boolean error = false;
 	private boolean connect = false;
 
+	private String compilationKey = null;
+	
 	private String addUser;
 	private String delUser;
 	private String ownerLogin;
@@ -55,6 +57,7 @@ public class Message implements Serializable, Comparable<Message> {
 	private String network;
 	private String type;
 	private String servresponse;
+	private String dnsHostName;
 
 	private String aux1;
 	private String aux2;
@@ -62,6 +65,8 @@ public class Message implements Serializable, Comparable<Message> {
 	private String aux4;
 
 	private Object msg_DateCreatedSQL;
+
+	private Long serverReceivedTimeLong;
 
 	public Set<String> getSeen() {
 		return receivedby;
@@ -342,6 +347,7 @@ public class Message implements Serializable, Comparable<Message> {
 		this.serverReceivedTimeSQLDate = new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis());
 		this.serverReceivedTimeDate = Calendar.getInstance().getTime();
 		this.serverReceivedTimeString = Calendar.getInstance().getTime().toString();
+		this.serverReceivedTimeLong = Calendar.getInstance().getTimeInMillis();
 	}
 	public int getMessageServerCount() {
 		return messageServerCount;
@@ -372,5 +378,20 @@ public class Message implements Serializable, Comparable<Message> {
 	}
 	public Object getMsg_DateCreatedSQL() {
 		return msg_DateCreatedSQL;
+	}
+	public String getCompilationKey() {
+		return compilationKey;
+	}
+	public void setCompilationKey(String compilationKey) {
+		this.compilationKey = compilationKey;
+	}
+	public Long getServerReceivedTimeLong() {
+		return serverReceivedTimeLong;
+	}
+	public String getDnsHostName() {
+		return dnsHostName;
+	}
+	public void setDnsHostName(String dnsHostName) {
+		this.dnsHostName = dnsHostName;
 	}
 }

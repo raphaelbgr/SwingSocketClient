@@ -44,10 +44,10 @@ public class DAO {
 					+ " VALUES ('"+WindowDataFacade.getInstance().getLoginReg()+"','"
 					+ WindowDataFacade.getInstance().getNameReg()+"',"
 					+ "'nopass',"
-					+ "AES_ENCRYPT(`" + WindowDataFacade.getInstance().getPasswordReg()+"`,'"+ ClientMain.DATABASE_KEY +"'),'"
+					+ "AES_ENCRYPT(\"" + WindowDataFacade.getInstance().getPasswordReg()+"\",'"+ ClientMain.DATABASE_KEY +"'),'"
 //					+ codifyPassword(WindowDataFacade.getInstance().getPasswordReg()) +"','"
 					+ WindowDataFacade.getInstance().getSexReg()+"','"
-					+ WindowDataFacade.getInstance().getCollegeReg()+"','"
+					+ WindowDataFacade.getInstance().getCollegeRegValue()+"','"
 					+ WindowDataFacade.getInstance().getInfnetMailReg()+"','"
 					+ WindowDataFacade.getInstance().getCourse()+"','"
 					+ WindowDataFacade.getInstance().getCourseStartReg()+"','"
@@ -59,7 +59,7 @@ public class DAO {
 					+ WindowDataFacade.getInstance().getCityReg()+"',"
 					+ generateOwnerID(WindowDataFacade.getInstance().getLoginReg()) +",'"
 					+ new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()) + "')";
-//					System.out.println(query);
+					System.out.println(query);
 //					query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY) VALUES ('raphaelbgr','RaphaeL','tjq5uxt3','Male','INFNET','raphaelb.rocha@al.infnet.edu.br','GEC','2013.2','raphaelbgr@gmail.com','21988856697','fb.com/raphaelbgr','BRA','RJ','Rio de Janeiro')";
 					Statement s = c.prepareStatement(query);
 					s.execute(query);
@@ -124,7 +124,7 @@ public class DAO {
 		} else {
 			query = "SELECT SERV_REC_TIMESTAMP, OWNERNAME, TEXT FROM MESSAGELOG LIMIT " + rowLimit;
 		}
-		
+//		System.out.println(query);
 		Statement st = c.createStatement();
 		ResultSet rs = st.executeQuery(query);
 		while(rs.next()) {

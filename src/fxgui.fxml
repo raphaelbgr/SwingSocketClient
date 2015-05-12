@@ -33,7 +33,7 @@
         </Menu>
       </menus>
     </MenuBar>
-      <TabPane fx:id="tab_pane" layoutY="21.0" prefHeight="424.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tab_pane" layoutY="21.0" prefHeight="438.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tab_chat" closable="false" text="Chat">
             <content>
@@ -72,9 +72,9 @@
           </Tab>
             <Tab fx:id="tab_reg" closable="false" text="Registration">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="395.0" prefWidth="628.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="628.0">
                      <children>
-                        <Pane prefHeight="424.0" prefWidth="628.0">
+                        <Pane prefHeight="414.0" prefWidth="628.0">
                            <children>
                               <TextField fx:id="fld_login_reg" layoutX="27.0" layoutY="14.0" />
                               <TextField fx:id="fld_name_reg" layoutX="27.0" layoutY="54.0" />
@@ -94,7 +94,7 @@
                               <Label layoutX="194.0" layoutY="291.0" text="*Course" />
                               <TextField fx:id="fld_infnetmail_reg" disable="true" layoutX="28.0" layoutY="250.0" />
                               <Label fx:id="lbl_infnetid_reg" layoutX="192.0" layoutY="254.0" text="Infnet email ID" />
-                              <Label fx:id="lbl_coursestart_reg" layoutX="193.0" layoutY="336.0" text="Course Start Trimester" />
+                              <Label fx:id="lbl_coursestart_reg" layoutX="193.0" layoutY="336.0" text="*Course Start Trimester" />
                               <ComboBox fx:id="combo_courseStTr_reg" layoutX="27.0" layoutY="334.0" prefHeight="25.0" prefWidth="149.0" promptText="Choose Trimester" />
                               <TextField fx:id="fld_email_reg" layoutX="444.0" layoutY="14.0" />
                               <Label layoutX="395.0" layoutY="18.0" text="*Email" />
@@ -130,6 +130,7 @@
                                     <TableColumn prefWidth="441.0" text="Message"><cellValueFactory><PropertyValueFactory property="message" /></cellValueFactory></TableColumn>
                                 </columns>
                               </TableView>
+                              <Button fx:id="btn_refresh" disable="true" layoutX="383.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleRefreshtButton" text="Refresh" />
                            </children>
                         </Pane>
                      </children>
