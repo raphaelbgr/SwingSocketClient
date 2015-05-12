@@ -6,7 +6,7 @@ on eclipse.
 
 Start the program on the class clientmain.ClientMain.java
 
-Actually on the version 1.0 RC
+Actually on the version 0.9
 
 - Redesigned interface in JavaFX
 
@@ -17,3 +17,6 @@ Link for the binary: -> ![here](https://github.com/raphaelbgr/SwingSocketClient/
 ![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage2.png)
 
 ![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage3.png)
+
+Don't forget to use a Compilation Key
+![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/YourKeyHere.png)
