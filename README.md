@@ -10,8 +10,7 @@ Actually on the version 1.0 RC
 
 - Redesigned interface in JavaFX
 
-Link for the binary:
--> https://github.com/raphaelbgr/SwingSocketClient/blob/master/ClientMain.jar
+Link for the binary: -> ![here](https://github.com/raphaelbgr/SwingSocketClient/releases/download/0.9/Client.jar)
 
 ![alt tag](https://github.com/raphaelbgr/SwingSocketClient/blob/master/img/demoImage.png)
 
