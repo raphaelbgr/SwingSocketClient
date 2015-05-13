@@ -68,7 +68,7 @@ public class ConnectionPerform implements EventInterface {
 				return false;
 			}
 		} else {
-			wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Invalid name lenght.");
+			wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Please pick a login.");
 			return false;
 		}
 		return true;

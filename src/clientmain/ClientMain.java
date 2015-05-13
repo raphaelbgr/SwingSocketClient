@@ -20,8 +20,12 @@ import serverinteraction.Disconnect;
 public class ClientMain extends Application {
 	public static int port 					= 0;
 	public static int version				= 17;
+	
 	public static boolean compKey			= false;
 	public static boolean receiveRdy		= false;
+	
+	//DO NOT LEAVE THIS AS TRUE, this will print out all queries on the sysout.
+	public static boolean printQueries		= false;
 
 	public static Thread receiver			= null;
 
@@ -95,7 +99,6 @@ public class ClientMain extends Application {
 			}
 		});
 		System.out.println("public void start: " + Thread.currentThread());
-
 	}
 
 }

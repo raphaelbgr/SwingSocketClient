@@ -11,7 +11,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import clientmain.ClientMain;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -578,7 +577,7 @@ public class WindowDataFacade<E> {
 
 	public boolean validateName() {
 		if (getLogin() != null) {
-			if (getLogin().length() < 21 && getLogin().length() > 4) {
+			if (!getLogin().equalsIgnoreCase("")) {
 				return true;
 			} else return false;
 		} else return false;
