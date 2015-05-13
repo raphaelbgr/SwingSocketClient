@@ -202,7 +202,7 @@ public class Client implements Serializable {
 	
 	@Override
 	public String toString() {
-		if (this.getCollege().equalsIgnoreCase("infnet")) {
+		if (this.getCollege().equalsIgnoreCase("Infnet")) {
 			return this.name + " / " + this.getCourse() + this.getStartTrimester().substring(0, 4);
 		} else {
 			return this.name + " / " + this.getCollege();

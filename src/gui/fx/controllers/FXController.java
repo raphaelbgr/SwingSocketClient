@@ -137,6 +137,9 @@ public class FXController implements Initializable {
 	private TableView table_chathistory			= null;
 	@FXML
 	private Button btn_refresh					= null;
+	@FXML
+	private CheckBox chkbox_mute				= null;
+	
 	
 	List<Node> nodes = new ArrayList<Node>();
 
@@ -263,6 +266,7 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(table_chathistory);
 		WindowDataFacade.getInstance().addNode(combo_hist_rows);
 		WindowDataFacade.getInstance().addNode(btn_refresh);
+		WindowDataFacade.getInstance().addNode(chkbox_mute);
 		
 		WindowDataFacade.getInstance().startClock();
 		WindowDataFacade.getInstance().startOnlineUserList();

@@ -3,14 +3,23 @@ package threads;
 import exceptions.ServerException;
 import gui.fx.WindowDataFacade;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.animation.TimelineBuilder;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import sendable.BroadCastMessage;
 import sendable.Client;
 import sendable.DisconnectionMessage;
@@ -63,11 +72,13 @@ public class FXReceiveFromServerThread implements Runnable {
 							} else if (o instanceof NormalMessage) {
 								final NormalMessage nm = (NormalMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(nm);
-								if (!nm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getComboLogin())) {
+								if (!nm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
 									Platform.runLater(new Runnable() {
 										@Override
 										public void run() {
 											WindowDataFacade.getInstance().getFld_status().setText("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwnerName());
+											WindowDataFacade.getInstance().requestFocus();
+											WindowDataFacade.getInstance().playSound("mp3/sounds-854-quiet-knock.mp3");
 										}	
 									});
 								} else {
@@ -100,7 +111,7 @@ public class FXReceiveFromServerThread implements Runnable {
 										public void run() {
 											if (((Message) o).isError()) {
 												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + ((Message) o).getOwnerName() + "Had a connection problem.");
-											} else if (((Message) o).getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getComboLogin())) {
+											} else if (((Message) o).getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
 												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + "Disconnected.");
 											} else {
 												WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> " + ((Message) o).getOwnerName() + "Disconnected.");
@@ -122,8 +133,14 @@ public class FXReceiveFromServerThread implements Runnable {
 							} else if (o instanceof BroadCastMessage) {
 								final BroadCastMessage bm = (BroadCastMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(bm);
+								if (bm.toString().contains("Connected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
+									WindowDataFacade.getInstance().playSound("mp3/sounds-847-office-2.mp3");
+								} else if (bm.toString().contains("Disconnected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
+									WindowDataFacade.getInstance().playSound("mp3/sounds-896-all-of-a-sudden.mp3");
+									
+								}
 								if (bm != null) {
-									if (!bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getComboLogin())) {
+									if (!bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
 										Platform.runLater(new Runnable() {
 											@Override
 											public void run() {

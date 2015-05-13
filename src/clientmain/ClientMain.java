@@ -19,7 +19,7 @@ import serverinteraction.Disconnect;
 
 public class ClientMain extends Application {
 	public static int port 					= 0;
-	public static int version				= 16;
+	public static int version				= 17;
 	public static boolean compKey			= false;
 	public static boolean receiveRdy		= false;
 
@@ -35,9 +35,8 @@ public class ClientMain extends Application {
 	
 	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
 
+	
 	public static void main(final String[] args) {	
-//		JanelaMain jam = new JanelaMain(new JanelaSelectServer("Address Input"));
-//		Thread t1 = new Thread(new ReceiveFromServerThread(WindowDataFacade.getJam()));
 		launch(args);
 	}
 
@@ -73,15 +72,12 @@ public class ClientMain extends Application {
 										private static final long serialVersionUID = 5000337873561587678L;
 										@Override
 										public void setName(String name) {
-											super.setName(WindowDataFacade.getInstance().getComboLogin());
+											super.setName(WindowDataFacade.getInstance().getLogin());
 										}
 									});
 								} catch (UnknownHostException e) {
-									System.out.println("Onclose2");
 									e.printStackTrace();
 								} catch (IOException e) {
-									System.out.println("Onclose1");
-//									e.printStackTrace();
 								}
 								System.exit(0);
 								} else {
@@ -92,7 +88,7 @@ public class ClientMain extends Application {
 					mainStage.show();
 					fxControl.setDebug(true);
 					fxControl.setPublicDefaultValues(true);
-//					fxControl.setLockDebugReg();
+					WindowDataFacade.getInstance().setMainStage(mainStage);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

@@ -2,6 +2,7 @@ package gui.fx;
 
 import gui.fx.models.MessageDataTableModel;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import sendable.Message;
 import sendable.NormalMessage;
@@ -98,6 +102,9 @@ public class WindowDataFacade<E> {
 	private TableView<MessageDataTableModel> table_chathistory		= null;
 	private ComboBox<String> combo_hist_rows;
 	private Button btn_refresh;
+	
+	private Stage mainStage;
+	private CheckBox chkbox_mute;
 
 	public static WindowDataFacade wdf;
 	public static WindowDataFacade getInstance() {
@@ -141,7 +148,7 @@ public class WindowDataFacade<E> {
 	private WindowDataFacade() {
 	}
 
-	public String getComboLogin() {
+	public String getLogin() {
 		//		return fld_username.getText();
 		if (combo_login.getSelectionModel().getSelectedItem() != null) {
 			return combo_login.getSelectionModel().getSelectedItem().toString();
@@ -330,6 +337,8 @@ public class WindowDataFacade<E> {
 			combo_hist_rows = (ComboBox<String>) node;
 		} else if (node.getId().equalsIgnoreCase("btn_refresh")) {
 			btn_refresh = (Button) node;
+		}else if (node.getId().equalsIgnoreCase("chkbox_mute")) {
+			chkbox_mute = (CheckBox) node;
 		}
 		nodes.add(node);
 	}
@@ -411,7 +420,7 @@ public class WindowDataFacade<E> {
 	public Object getMessage() {
 		NormalMessage m = new NormalMessage();
 		m.setText(this.message_box.getText());
-		m.setOwnerName(this.getComboLogin());
+		m.setOwnerName(this.getLogin());
 		m.setTimestamp();
 		m.setDateString();
 		return m;
@@ -567,15 +576,15 @@ public class WindowDataFacade<E> {
 	}
 
 	public boolean validateName() {
-		if (getComboLogin() != null) {
-			if (getComboLogin().length() < 21 && getComboLogin().length() > 4) {
+		if (getLogin() != null) {
+			if (getLogin().length() < 21 && getLogin().length() > 4) {
 				return true;
 			} else return false;
 		} else return false;
 	}
 
 	public boolean validateLoginFromCombo() {
-		if (getComboLogin().length() < 21 && getComboLogin().length() > 4) {
+		if (getLogin().length() < 21 && getLogin().length() > 4) {
 			return true;
 		} else return false;
 	}
@@ -644,7 +653,7 @@ public class WindowDataFacade<E> {
 
 	public boolean validateRegFields() {
 		if ((getLoginReg().length() < 6) || getLoginReg().length() > 20) {
-			getFld_status().setText(getTimestamp() + "LOCAL> Invalid login lenght. Use more than 5 and less then 20."); 
+			getFld_status().setText(getTimestamp() + "LOCAL> Invalid login lenght. Use from 6 to 20 characters."); 
 		} else if ((WindowDataFacade.getInstance().getNameReg().length() < 3) || (WindowDataFacade.getInstance().getNameReg().length() > 30)) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Invalid name lenght. Use from 3 to 30 characters."); 
 		} else if ((WindowDataFacade.getInstance().getPasswordReg().length() < 4) || (WindowDataFacade.getInstance().getPasswordReg().length() > 20)) {
@@ -653,7 +662,7 @@ public class WindowDataFacade<E> {
 			getFld_status().setText(getTimestamp() + "LOCAL> Passwords does not match."); 
 		} else if (getSexReg() == null) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Please select your Sex.");
-		} else if (getCollegeReg() == null) {
+		} else if (getCollegeReg().equalsIgnoreCase("Other College")) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Please select a College.");
 		} else if ((!fld_infnetmail_reg.isDisable()) && (getInfnetMailReg().equalsIgnoreCase("") || !(getInfnetMailReg().contains("@") && getInfnetMailReg().contains(".") && getInfnetMailReg().contains("infnet")))) {
 			getFld_status().setText(getTimestamp() + "LOCAL> Please enter a valid infnet ID.");
@@ -781,8 +790,7 @@ public class WindowDataFacade<E> {
 	public String getCollegeRegValue() {
 		if (combo_college_reg.getSelectionModel().getSelectedItem().equalsIgnoreCase("Other College")) {
 			return fld_othercol_reg.getText();
-		}
-		return null;
+		} else return combo_college_reg.getSelectionModel().getSelectedItem().toString();
 	}
 
 	public String getCourseStartReg() {
@@ -819,5 +827,31 @@ public class WindowDataFacade<E> {
 
 	public String getNewCityReg() {
 		return fld_new_city_reg.getText();
+	}
+
+	public void requestFocus() {
+		getMainStage().toFront();
+	}
+
+	public Stage getMainStage() {
+		return mainStage;
+	}
+
+	public void setMainStage(Stage mainStage) {
+		this.mainStage = mainStage;
+	}
+
+	public void playSound(final String string) {
+		if (!chkbox_mute.isSelected()) {
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					String musicFile = string;     // For example
+					Media sound = new Media(new File(musicFile).toURI().toString());
+					MediaPlayer mediaPlayer = new MediaPlayer(sound);
+					mediaPlayer.play();
+				}	
+			});
+		}
 	}
 }

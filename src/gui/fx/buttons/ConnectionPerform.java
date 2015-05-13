@@ -82,7 +82,7 @@ public class ConnectionPerform implements EventInterface {
 	
 	private Client buildClient(WindowDataFacade wdf) {
 		Client c = new Client();
-		c.setLogin(wdf.getComboLogin());
+		c.setLogin(wdf.getLogin());
 		c.setTargetPort(wdf.getPort().intValue());
 		c.setVersion(ClientMain.version);
 		c.setPassword(wdf.getPassword());
