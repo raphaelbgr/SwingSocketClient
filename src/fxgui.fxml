@@ -64,7 +64,7 @@
                               <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
                               <Label fx:id="lbl_time" layoutX="352.0" prefHeight="17.0" prefWidth="53.0" />
                               <ComboBox fx:id="combo_login" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visibleRowCount="20" />
-                              <Label layoutX="527.0" layoutY="371.0" text="version 17" />
+                              <Label layoutX="527.0" layoutY="371.0" text="version 18" />
                            </children>
                         </Pane>
                      </children>

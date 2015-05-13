@@ -19,7 +19,7 @@ import serverinteraction.Disconnect;
 
 public class ClientMain extends Application {
 	public static int port 					= 0;
-	public static int version				= 17;
+	public static int version				= 18;
 	
 	public static boolean compKey			= false;
 	public static boolean receiveRdy		= false;
