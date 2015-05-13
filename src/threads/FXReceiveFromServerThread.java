@@ -78,7 +78,7 @@ public class FXReceiveFromServerThread implements Runnable {
 										public void run() {
 											WindowDataFacade.getInstance().getFld_status().setText("[" + nm.getTimestamp() + "]" + " SERVER> " + "Broadcast from " + nm.getOwnerName());
 											WindowDataFacade.getInstance().requestFocus();
-											WindowDataFacade.getInstance().playSound("mp3/sounds-854-quiet-knock.mp3");
+											WindowDataFacade.getInstance().playSound("/sounds-854-quiet-knock.mp3");
 										}	
 									});
 								} else {
@@ -134,9 +134,9 @@ public class FXReceiveFromServerThread implements Runnable {
 								final BroadCastMessage bm = (BroadCastMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(bm);
 								if (bm.toString().contains("Connected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
-									WindowDataFacade.getInstance().playSound("mp3/sounds-847-office-2.mp3");
+									WindowDataFacade.getInstance().playSound("/sounds-847-office-2.mp3");
 								} else if (bm.toString().contains("Disconnected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
-									WindowDataFacade.getInstance().playSound("mp3/sounds-896-all-of-a-sudden.mp3");
+									WindowDataFacade.getInstance().playSound("/sounds-896-all-of-a-sudden.mp3");
 									
 								}
 								if (bm != null) {

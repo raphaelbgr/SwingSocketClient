@@ -2,7 +2,7 @@ package gui.fx;
 
 import gui.fx.models.MessageDataTableModel;
 
-import java.io.File;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import clientmain.ClientMain;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -102,7 +103,7 @@ public class WindowDataFacade<E> {
 	private TableView<MessageDataTableModel> table_chathistory		= null;
 	private ComboBox<String> combo_hist_rows;
 	private Button btn_refresh;
-	
+
 	private Stage mainStage;
 	private CheckBox chkbox_mute;
 
@@ -213,7 +214,7 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(false);
 				btn_connect.setDisable(true);
 				btn_disconnect.setDisable(false);
-//				fld_username.setDisable(true);
+				//				fld_username.setDisable(true);
 				combo_login.setDisable(true);
 				passwd_field.setDisable(true);
 				sv_address.setDisable(true);
@@ -229,11 +230,11 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(true);
 				btn_connect.setDisable(false);
 				btn_disconnect.setDisable(true);
-//				fld_username.setDisable(false);
+				//				fld_username.setDisable(false);
 				combo_login.setDisable(false);
 				passwd_field.setDisable(false);
-//				sv_address.setDisable(false);
-//				sv_port.setDisable(false);
+				//				sv_address.setDisable(false);
+				//				sv_port.setDisable(false);
 			}
 		});
 	}
@@ -786,7 +787,7 @@ public class WindowDataFacade<E> {
 			return combo_college_reg.getSelectionModel().getSelectedItem().toString();
 		} else return "Other College";	
 	}
-	
+
 	public String getCollegeRegValue() {
 		if (combo_college_reg.getSelectionModel().getSelectedItem().equalsIgnoreCase("Other College")) {
 			return fld_othercol_reg.getText();
@@ -847,9 +848,16 @@ public class WindowDataFacade<E> {
 				@Override
 				public void run() {
 					String musicFile = string;     // For example
-					Media sound = new Media(new File(musicFile).toURI().toString());
-					MediaPlayer mediaPlayer = new MediaPlayer(sound);
-					mediaPlayer.play();
+					Media sound;
+					try {
+						sound = new Media(Runnable.class.getResource(string).toURI().toString());
+						MediaPlayer mediaPlayer = new MediaPlayer(sound);
+						mediaPlayer.play();
+
+					} catch (URISyntaxException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}	
 			});
 		}
