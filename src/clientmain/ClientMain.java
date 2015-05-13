@@ -83,7 +83,7 @@ public class ClientMain extends Application {
 									e.printStackTrace();
 								} catch (IOException e) {
 								}
-								System.exit(0);
+								System.exit(1);
 								} else {
 									System.exit(0);
 								}
@@ -95,6 +95,7 @@ public class ClientMain extends Application {
 					WindowDataFacade.getInstance().setMainStage(mainStage);
 				} catch (IOException e) {
 					e.printStackTrace();
+					System.exit(1);
 				}
 			}
 		});
