@@ -16,19 +16,9 @@
   <children>
     <MenuBar layoutY="-4.0" prefHeight="24.0" prefWidth="628.0">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu mnemonicParsing="false" text="About">
           <items>
-            <MenuItem mnemonicParsing="false" text="Close" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Delete" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem fx:id="menu_creator" mnemonicParsing="false" onAction="#handleMenuCreator" text="Me" />
           </items>
         </Menu>
       </menus>
@@ -64,7 +54,10 @@
                               <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
                               <Label fx:id="lbl_time" layoutX="352.0" prefHeight="17.0" prefWidth="53.0" />
                               <ComboBox fx:id="combo_login" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visibleRowCount="20" />
-                              <Label layoutX="527.0" layoutY="371.0" text="version 18" />
+                              <Label layoutX="527.0" layoutY="371.0" text="version 19">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font></Label>
                            </children>
                         </Pane>
                      </children>

@@ -12,7 +12,9 @@ import gui.fx.buttons.RegisterPerform;
 import gui.fx.buttons.SendPerform;
 import gui.fx.buttons.UpdateCourseCombo;
 import gui.fx.events.EventInterface;
+import gui.fx.scenes.MainScene;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,20 +24,28 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 
 public class FXController implements Initializable {
@@ -48,7 +58,7 @@ public class FXController implements Initializable {
 	private Button btn_sv_opt 				= null;
 	@FXML
 	private ComboBox<String> combo_login	= null;
-//	private TextField fld_username 			= null;
+	//	private TextField fld_username 			= null;
 	@FXML
 	private TextField sv_address 			= null;
 	@FXML
@@ -139,9 +149,37 @@ public class FXController implements Initializable {
 	private Button btn_refresh					= null;
 	@FXML
 	private CheckBox chkbox_mute				= null;
+	@FXML
+	private MenuItem menu_creator				= null;
 	
-	
+	private FXMLLoader aboutMeLoader 			= null;
+
+
 	List<Node> nodes = new ArrayList<Node>();
+
+	public void handleMenuCreator() {
+		aboutMeLoader = new FXMLLoader(getClass().getResource("/aboutme.fxml"));
+		Parent root;
+		try {
+			root = (Parent) aboutMeLoader.load();
+			Scene scene2 = new MainScene(root);
+			scene2.setRoot(root);
+			final Stage aboutMeStage = new Stage();
+			aboutMeStage.setScene(scene2);
+			aboutMeStage.setTitle("About Me");
+			aboutMeStage.setResizable(false);
+			aboutMeStage.toFront();
+			aboutMeStage.setOnCloseRequest(new EventHandler() {
+				@Override
+				public void handle(Event arg0) {
+					aboutMeStage.close();
+				}	
+			});
+			aboutMeStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void handleRefreshtButton() {
 		EventInterface ei = new RefreshPerform();
@@ -149,38 +187,38 @@ public class FXController implements Initializable {
 			WindowDataFacade.getInstance().populateHistoryTable();
 		}
 	}
-	
+
 	public void handleExitButton() {
 		EventInterface ei = new ExitPerform();
 		ei.performAction();
 	}
-	
+
 	public void handleHistoryCombo() {
 		EventInterface ei = new PerformHistoryComboUpdate();
 		if (ei.performAction()) {
 			WindowDataFacade.getInstance().populateHistoryTable();
 		}
 	}
-	
+
 	public void handleDetectSelection() {
 		WindowDataFacade.getInstance().dynamicFieldsEnable();
 	}
-	
+
 	public void handleCourseRegComboClick() {
 		EventInterface ei = new UpdateCourseCombo();
 		ei.performAction();
 	}
-	
+
 	public void handleCollegeRegComboClick() {
 		EventInterface ei = new CollegeUpdatePerform();
 		ei.performAction();
 	}
-	
+
 	public void handleLoginComboClick() {
 		EventInterface ei = new LoginPerform();
 		ei.performAction();
 	}
-	
+
 	public void handleSendButton() {
 		EventInterface ei = new SendPerform();
 		ei.performAction();
@@ -196,7 +234,7 @@ public class FXController implements Initializable {
 		EventInterface ei = new ConnectionPerform();
 		ei.performAction();
 	}
-	
+
 	public void handleRegisterButton() {
 		EventInterface ei = new RegisterPerform();
 		ei.performAction();
@@ -215,7 +253,7 @@ public class FXController implements Initializable {
 	private void loadFacade() {
 		WindowDataFacade.getInstance().addNode(btn_connect);
 		WindowDataFacade.getInstance().addNode(btn_disconnect);
-//		WindowDataFacade.getInstance().addNode(fld_username);
+		//		WindowDataFacade.getInstance().addNode(fld_username);
 		WindowDataFacade.getInstance().addNode(passwd_field);
 		WindowDataFacade.getInstance().addNode(sv_address);
 		WindowDataFacade.getInstance().addNode(sv_port);
@@ -242,32 +280,39 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(fld_email_reg);
 		WindowDataFacade.getInstance().addNode(fld_whatsapp_reg);
 		WindowDataFacade.getInstance().addNode(fld_facebook_reg);
-		
+
 		WindowDataFacade.getInstance().addNode(fld_othercol_reg);
-//		WindowDataFacade.getInstance().addNode(lbl_addcol_reg);
-//		WindowDataFacade.getInstance().addNode(fld_addcourse_reg);
-//		WindowDataFacade.getInstance().addNode(lbl_addcourse_reg);
+		//		WindowDataFacade.getInstance().addNode(lbl_addcol_reg);
+		//		WindowDataFacade.getInstance().addNode(fld_addcourse_reg);
+		//		WindowDataFacade.getInstance().addNode(lbl_addcourse_reg);
 		WindowDataFacade.getInstance().addNode(lbl_infnetid_reg);
-//		WindowDataFacade.getInstance().addNode(lbl_addcountry_reg);
-//		WindowDataFacade.getInstance().addNode(fld_new_country_reg);
-//		WindowDataFacade.getInstance().addNode(lbl_addstate_reg);
-//		WindowDataFacade.getInstance().addNode(fld_new_state_reg);
-//		WindowDataFacade.getInstance().addNode(lbl_addcity_reg);
-//		WindowDataFacade.getInstance().addNode(fld_new_city_reg);
+		//		WindowDataFacade.getInstance().addNode(lbl_addcountry_reg);
+		//		WindowDataFacade.getInstance().addNode(fld_new_country_reg);
+		//		WindowDataFacade.getInstance().addNode(lbl_addstate_reg);
+		//		WindowDataFacade.getInstance().addNode(fld_new_state_reg);
+		//		WindowDataFacade.getInstance().addNode(lbl_addcity_reg);
+		//		WindowDataFacade.getInstance().addNode(fld_new_city_reg);
 		WindowDataFacade.getInstance().addNode(lbl_coursestart_reg);
-//		WindowDataFacade.getInstance().addTab(tab_reg);
-		
-		
+		//		WindowDataFacade.getInstance().addTab(tab_reg);
+
+
 		WindowDataFacade.getInstance().addNode(combo_country_reg);
 		WindowDataFacade.getInstance().addNode(combo_state_reg);
 		WindowDataFacade.getInstance().addNode(combo_city_reg);
 		WindowDataFacade.getInstance().addNode(combo_login);
-		
+
 		WindowDataFacade.getInstance().addNode(table_chathistory);
 		WindowDataFacade.getInstance().addNode(combo_hist_rows);
 		WindowDataFacade.getInstance().addNode(btn_refresh);
 		WindowDataFacade.getInstance().addNode(chkbox_mute);
 		
+//		WindowDataFacade.getInstance().addNode(menu_creator);
+		
+//		WindowDataFacade.getInstance().addNode(about_linkedin_link);
+//		WindowDataFacade.getInstance().addNode(about_my_cv_link);
+//		WindowDataFacade.getInstance().addNode(about_whatsapp);
+//		WindowDataFacade.getInstance().addNode(about_email);
+
 		WindowDataFacade.getInstance().startClock();
 		WindowDataFacade.getInstance().startOnlineUserList();
 		WindowDataFacade.getInstance().initialize();
@@ -278,27 +323,27 @@ public class FXController implements Initializable {
 		String dateFormatted = formatter.format(new Date());
 		return "["+dateFormatted+"]" + " ";
 	}
-	
+
 	public void setDebug(boolean go) {
 		if (go) {
-//			fld_username.setText("raphaelbgr");
-//			passwd_field.setText("nopass");
+			//			fld_username.setText("raphaelbgr");
+			//			passwd_field.setText("nopass");
 			sv_address.setText("surfael.sytes.net");
 			sv_port.setText("2000");	
 		}
 	}
-	
+
 	public void setPublicDefaultValues(boolean go) {
 		if (go) {
-//			passwd_field.setText("nopass");
-//			passwd_field.setDisable(true);
+			//			passwd_field.setText("nopass");
+			//			passwd_field.setDisable(true);
 			sv_address.setText("surfael.sytes.net");
 			sv_port.setText("2000");	
 		}
 	}
-	
-//	public void setLockDebugReg() {
-//		WindowDataFacade.getInstance().lockRegForDebugFields();
-//	}
+
+	//	public void setLockDebugReg() {
+	//		WindowDataFacade.getInstance().lockRegForDebugFields();
+	//	}
 
 }

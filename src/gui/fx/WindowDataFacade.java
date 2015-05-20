@@ -2,6 +2,9 @@ package gui.fx;
 
 import gui.fx.models.MessageDataTableModel;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -19,12 +22,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
@@ -40,6 +45,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import sendable.Message;
 import sendable.NormalMessage;
+import clientmain.ClientMain;
 import dao.DAO;
 
 public class WindowDataFacade<E> {
@@ -105,6 +111,10 @@ public class WindowDataFacade<E> {
 
 	private Stage mainStage;
 	private CheckBox chkbox_mute;
+	private Hyperlink about_linkedin_link;
+	private Hyperlink about_my_cv_link;
+	private Hyperlink about_whatsapp;
+	private Hyperlink about_email;
 
 	public static WindowDataFacade wdf;
 	public static WindowDataFacade getInstance() {
@@ -337,7 +347,7 @@ public class WindowDataFacade<E> {
 			combo_hist_rows = (ComboBox<String>) node;
 		} else if (node.getId().equalsIgnoreCase("btn_refresh")) {
 			btn_refresh = (Button) node;
-		}else if (node.getId().equalsIgnoreCase("chkbox_mute")) {
+		} else if (node.getId().equalsIgnoreCase("chkbox_mute")) {
 			chkbox_mute = (CheckBox) node;
 		}
 		nodes.add(node);
@@ -860,5 +870,72 @@ public class WindowDataFacade<E> {
 				}	
 			});
 		}
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void loadMenuItems(List<Node> nodes) {
+		
+		for (Node node : nodes) {
+			if (node.getId().equalsIgnoreCase("about_linkedin_link")) {
+				about_linkedin_link = (Hyperlink) node;
+			} else if (node.getId().equalsIgnoreCase("about_my_cv_link")) {
+				about_my_cv_link = (Hyperlink) node;
+			} else if (node.getId().equalsIgnoreCase("about_whatsapp")) {
+				about_whatsapp = (Hyperlink) node;
+			} else if (node.getId().equalsIgnoreCase("about_email")) {
+				about_email = (Hyperlink) node;
+			}
+		}
+		
+		about_linkedin_link.setOnAction(new EventHandler() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					java.awt.Desktop.getDesktop().browse(new URI(ClientMain.LINKEDIN));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		about_whatsapp.setOnAction(new EventHandler() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					java.awt.Desktop.getDesktop().browse(new URI(ClientMain.VCF));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		about_email.setOnAction(new EventHandler() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					if (Desktop.isDesktopSupported()) {
+					    Desktop desktop = Desktop.getDesktop();
+					    if (desktop.isSupported(Desktop.Action.MAIL)) {
+					        desktop.mail(new URI(ClientMain.MAIL)); // alternately, pass a mailto: URI in here
+					    }
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 	}
 }

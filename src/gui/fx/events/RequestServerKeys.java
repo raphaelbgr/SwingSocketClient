@@ -28,6 +28,7 @@ public class RequestServerKeys implements EventInterface {
 				rm.setIp(ClientStream.getInstance().getSock().getInetAddress().getHostAddress());
 				rm.setPcname(ClientStream.getInstance().getSock().getInetAddress().getCanonicalHostName());
 				rm.setCompilationKey(ClientMain.COMPILATION_KEY);
+				rm.setVersion(ClientMain.VERSION);
 				ClientStream.getInstance().sendObject(rm);
 			} catch (Throwable e) {
 				WindowDataFacade.getInstance().createCanceledWorker();

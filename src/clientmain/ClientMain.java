@@ -18,8 +18,14 @@ import sendable.Client;
 import serverinteraction.Disconnect;
 
 public class ClientMain extends Application {
-	public static int port 					= 0;
-	public static int version				= 18;
+	public static final String LINKEDIN = "https://br.linkedin.com/in/raphaelbgr";
+	public static final String CV = "https://drive.google.com/open?id=0BxXoGz9K8rOQeTVQQlg2eXlSRXM&authuser=0";
+	public static final String VCF = "https://drive.google.com/open?id=0BxXoGz9K8rOQd3UtUlhXYlJOMTg&authuser=0";
+	public static final String MAIL = "mailto:raphaelbgr@gmail.com";
+	
+	
+	public static int PORT 					= 0;
+	public static int VERSION				= 19;
 	
 	public static boolean compKey			= false;
 	public static boolean receiveRdy		= false;
@@ -37,7 +43,8 @@ public class ClientMain extends Application {
 	public static String DATABASE_USER		= null;
 	public static String DATABASE_PASS		= null;
 	
-	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
+	public static String COMPILATION_KEY	= "AHXOCHJY3LMNK3S3JM_";
+//	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
 
 	
 	public static void main(final String[] args) {	

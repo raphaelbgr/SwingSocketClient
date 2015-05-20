@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.fx.controllers.AboutMeController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/perfil.jpg" />
+               </image>
+               <effect>
+                  <Reflection />
+               </effect>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="15.0" text="Raphael Bernardo">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="about_my_cv_link" layoutX="451.0" layoutY="289.0" text="link" underline="true" />
+            <Hyperlink fx:id="about_linkedin_link" layoutX="451.0" layoutY="255.0" text="link" underline="true" />
+            <Label layoutX="388.0" layoutY="20.0" text="Majoring in Computer Engineering" />
+            <Label layoutX="438.0" layoutY="41.0" text="Started Date: 04/14/2013" />
+            <Label layoutX="209.0" layoutY="86.0" prefHeight="139.0" prefWidth="245.0" text="&quot; The purpose of this chat is to correctly learn and use the Java technologies taugh in class on the college I study. By doing this, I was able to learn how to use resources such as Java Sockets, Concurrency, JavaFX Framework, Class Injection, JDBC and a lot more. &quot;" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="Times New Roman Italic" size="15.0" />
+               </font></Label>
+            <Label layoutX="410.0" layoutY="358.0" text="Email:" />
+            <Hyperlink fx:id="about_email" layoutX="451.0" layoutY="355.0" text="raphaelbgr@gmail.com" />
+            <Hyperlink fx:id="about_whatsapp" layoutX="445.0" layoutY="323.0" text="+55 (21) 98885-6697" />
+            <Label layoutX="388.0" layoutY="326.0" text="Whatsapp:" />
+            <Label layoutX="300.0" layoutY="292.0" text="Updated Curriculum Vitae:" />
+            <Separator layoutX="182.0" layoutY="70.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="6.0" />
+            <Separator layoutX="192.0" layoutY="239.0" prefHeight="5.0" prefWidth="279.0" />
+            <Label layoutX="394.0" layoutY="258.0" text="linkedIn:" />
+            <Separator layoutX="465.0" layoutY="68.0" prefHeight="5.0" prefWidth="119.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
