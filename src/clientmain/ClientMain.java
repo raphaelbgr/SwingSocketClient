@@ -43,8 +43,7 @@ public class ClientMain extends Application {
 	public static String DATABASE_USER		= null;
 	public static String DATABASE_PASS		= null;
 	
-	public static String COMPILATION_KEY	= "AHXOCHJY3LMNK3S3JM_";
-//	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
+	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
 
 	
 	public static void main(final String[] args) {	
