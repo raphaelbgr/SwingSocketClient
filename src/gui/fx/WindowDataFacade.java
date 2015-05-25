@@ -887,6 +887,21 @@ public class WindowDataFacade<E> {
 			}
 		}
 		
+		about_my_cv_link.setOnAction(new EventHandler() {
+			@Override
+			public void handle(Event arg0) {
+				try {
+					java.awt.Desktop.getDesktop().browse(new URI(ClientMain.CV));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		about_linkedin_link.setOnAction(new EventHandler() {
 			@Override
 			public void handle(Event arg0) {
