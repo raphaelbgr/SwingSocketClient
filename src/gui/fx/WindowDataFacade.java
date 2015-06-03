@@ -430,7 +430,7 @@ public class WindowDataFacade<E> {
 	public Object getMessage() {
 		NormalMessage m = new NormalMessage();
 		m.setText(this.message_box.getText());
-		m.setOwnerName(this.getLogin());
+		m.setOwnerLogin(this.getLogin());
 		m.setTimestamp();
 		m.setDateString();
 		return m;

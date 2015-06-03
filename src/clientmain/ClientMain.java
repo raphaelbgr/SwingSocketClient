@@ -43,8 +43,9 @@ public class ClientMain extends Application {
 	public static String DATABASE_USER		= null;
 	public static String DATABASE_PASS		= null;
 	
-	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
-
+//	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
+	public static String COMPILATION_KEY	= "223AHXOCHJY3LMNK3S3JM_";
+	
 	
 	public static void main(final String[] args) {	
 		launch(args);
@@ -96,7 +97,7 @@ public class ClientMain extends Application {
 							}	
 					});
 					mainStage.show();
-					fxControl.setDebug(true);
+					fxControl.setLockedServer(false);
 					fxControl.setPublicDefaultValues(true);
 					WindowDataFacade.getInstance().setMainStage(mainStage);
 				} catch (IOException e) {

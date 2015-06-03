@@ -35,7 +35,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -324,26 +323,16 @@ public class FXController implements Initializable {
 		return "["+dateFormatted+"]" + " ";
 	}
 
-	public void setDebug(boolean go) {
-		if (go) {
-			//			fld_username.setText("raphaelbgr");
-			//			passwd_field.setText("nopass");
-			sv_address.setText("surfael.sytes.net");
-			sv_port.setText("2000");	
-		}
+	public void setLockedServer(boolean go) {
+			sv_address.setDisable(go);
+			sv_port.setDisable(go);	
 	}
 
 	public void setPublicDefaultValues(boolean go) {
 		if (go) {
-			//			passwd_field.setText("nopass");
-			//			passwd_field.setDisable(true);
 			sv_address.setText("surfael.sytes.net");
 			sv_port.setText("2000");	
 		}
 	}
-
-	//	public void setLockDebugReg() {
-	//		WindowDataFacade.getInstance().lockRegForDebugFields();
-	//	}
 
 }
