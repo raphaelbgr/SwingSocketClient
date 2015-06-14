@@ -14,8 +14,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import sendable.Message;
-import sendable.NormalMessage;
+import sendable.messages.Message;
+import sendable.messages.NormalMessage;
 import serverinteraction.Send;
 import clientmain.Status;
 

@@ -14,7 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import sendable.Client;
+import sendable.clients.Client;
 import serverinteraction.Disconnect;
 
 public class ClientMain extends Application {

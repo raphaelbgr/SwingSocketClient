@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
-import sendable.Message;
+import sendable.messages.Message;
 
 @SuppressWarnings("serial")
 public class JanelaMain extends JFrame {

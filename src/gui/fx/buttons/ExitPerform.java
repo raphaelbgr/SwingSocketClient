@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import javafx.fxml.FXML;
-import sendable.Client;
+import sendable.clients.Client;
 import serverinteraction.Disconnect;
 import sync.ClientStream;
 import clientmain.ClientMain;

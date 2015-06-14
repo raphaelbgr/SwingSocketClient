@@ -6,8 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import sendable.Client;
-import sendable.DisconnectionMessage;
+import sendable.clients.Client;
+import sendable.messages.DisconnectionMessage;
 import sync.ClientStream;
 
 public class Disconnect {

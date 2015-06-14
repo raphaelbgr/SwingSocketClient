@@ -1,4 +1,5 @@
-package sendable;
+package sendable.messages;
+
 
 public class NormalMessage extends Message {
 	
@@ -9,7 +10,7 @@ public class NormalMessage extends Message {
 
 	@Override
 	public String toString() {
-		return "[" + this.getTimestamp() + "] " + this.getOwnerLogin() + " -> " + this.getText();
+		return "[" + this.getTimestamp() + "] " + this.getOwnerName() + " -> " + this.getText();
 	}
 	
 }

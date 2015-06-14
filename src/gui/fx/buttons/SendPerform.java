@@ -11,7 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import sendable.Client;
+import sendable.clients.Client;
 import serverinteraction.Connect;
 import serverinteraction.Send;
 import threads.FXReceiveFromServerThread;
@@ -25,18 +25,21 @@ public class SendPerform implements EventInterface {
 	public boolean performAction() {
 		if (WindowDataFacade.getInstance().validadeMessage()) {
 			try {
+				WindowDataFacade.getInstance().lockConnectButton(true);
 				WindowDataFacade.getInstance().createConnectingWorker();
 				new Send(WindowDataFacade.getInstance().getMessage());
 				WindowDataFacade.getInstance().clearMessageBox();
 				WindowDataFacade.getInstance().createSendWorker();
 				return true;
 			} catch (IOException e) {
+				WindowDataFacade.getInstance().lockConnectButton(false);
 				WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + e.getLocalizedMessage());
 				WindowDataFacade.getInstance().createCanceledWorker();
 				e.printStackTrace();
 				reconenct();
 				return false;
 			} catch (LocalException e) {
+				WindowDataFacade.getInstance().lockConnectButton(false);
 				WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + e.getLocalizedMessage());
 				WindowDataFacade.getInstance().createCanceledWorker();
 				e.printStackTrace();

@@ -43,8 +43,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sendable.Message;
-import sendable.NormalMessage;
+import sendable.messages.Message;
+import sendable.messages.NormalMessage;
 import clientmain.ClientMain;
 import dao.DAO;
 
@@ -239,11 +239,11 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(true);
 				btn_connect.setDisable(false);
 				btn_disconnect.setDisable(true);
-				//				fld_username.setDisable(false);
+//				fld_username.setDisable(false);
 				combo_login.setDisable(false);
 				passwd_field.setDisable(false);
-				//				sv_address.setDisable(false);
-				//				sv_port.setDisable(false);
+				sv_address.setDisable(false);
+				sv_port.setDisable(false);
 			}
 		});
 	}
@@ -950,6 +950,16 @@ public class WindowDataFacade<E> {
 					e.printStackTrace();
 				}
 			}
+		});
+		
+	}
+
+	public void lockConnectButton(final boolean b) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				btn_connect.setDisable(b);
+			}	
 		});
 		
 	}

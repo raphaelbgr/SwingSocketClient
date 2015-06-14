@@ -3,7 +3,7 @@ package sync;
 import java.util.ArrayList;
 import java.util.List;
 
-import sendable.Message;
+import sendable.messages.Message;
 
 public class LocalMessageCenter {
 	private List<Message> mList = null;

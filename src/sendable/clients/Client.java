@@ -1,10 +1,12 @@
-package sendable;
+package sendable.clients;
 
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import sendable.messages.Message;
 
 
 public class Client implements Serializable {
@@ -202,7 +204,7 @@ public class Client implements Serializable {
 	
 	@Override
 	public String toString() {
-		if (this.getCollege().equalsIgnoreCase("Infnet")) {
+		if (this.getCollege().equalsIgnoreCase("infnet")) {
 			return this.name + " / " + this.getCourse() + this.getStartTrimester().substring(0, 4);
 		} else {
 			return this.name + " / " + this.getCollege();

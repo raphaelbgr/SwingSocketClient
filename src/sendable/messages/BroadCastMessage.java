@@ -1,4 +1,5 @@
-package sendable;
+package sendable.messages;
+
 
 public class BroadCastMessage extends Message {
 	
@@ -10,7 +11,7 @@ public class BroadCastMessage extends Message {
 
 	@Override
 	public String toString() {
-		return "[" + this.getTimestamp() + "] " + this.getOwnerLogin() + " -> " + this.getText();
+		return "[" + this.getTimestamp() + "] " + this.getOwnerLogin() + " -> " + "Connected";
 	}
 	
 }

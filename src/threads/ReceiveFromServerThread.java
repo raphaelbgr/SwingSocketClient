@@ -12,11 +12,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import sendable.BroadCastMessage;
-import sendable.DisconnectionMessage;
-import sendable.Message;
-import sendable.NormalMessage;
-import sendable.ServerMessage;
+import sendable.messages.BroadCastMessage;
+import sendable.messages.DisconnectionMessage;
+import sendable.messages.Message;
+import sendable.messages.NormalMessage;
+import sendable.messages.ServerMessage;
 import serverinteraction.Disconnect;
 import sync.ClientStream;
 import clientmain.Status;

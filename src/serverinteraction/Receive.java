@@ -6,11 +6,10 @@ import gui.swing.updatelogs.LocalLogUpdater;
 
 import java.io.IOException;
 
-import sendable.Client;
-import sendable.ConnectionMessage;
-import sendable.DisconnectionMessage;
-import sendable.Message;
-import sendable.NormalMessage;
+import sendable.clients.Client;
+import sendable.messages.DisconnectionMessage;
+import sendable.messages.Message;
+import sendable.messages.NormalMessage;
 import sync.ClientStream;
 
 public class Receive {
@@ -22,8 +21,6 @@ public class Receive {
 		Object o = stream.receiveMessage();
 		if (o instanceof Message) {
 			if (o instanceof NormalMessage) {
-				log.setGreenMessage("Connected on host.");
-			} else if (o instanceof ConnectionMessage) {
 				log.setGreenMessage("Connected on host.");
 			} else if (o instanceof DisconnectionMessage) {
 				log.setErrorMessage("Error.");

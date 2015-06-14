@@ -8,8 +8,8 @@ import gui.swing.janelas.JanelaSelectServer;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import sendable.Message;
-import sendable.NormalMessage;
+import sendable.messages.Message;
+import sendable.messages.NormalMessage;
 import sync.ClientStream;
 import clientmain.Status;
 

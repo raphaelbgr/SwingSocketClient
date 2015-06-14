@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import sendable.Client;
+import sendable.clients.Client;
 import sync.ClientStream;
 
 public class Connect {

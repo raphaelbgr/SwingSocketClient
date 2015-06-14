@@ -6,7 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import sendable.RegistrationMessage;
+import sendable.messages.RegistrationMessage;
 import serverinteraction.Connect;
 import sync.ClientStream;
 import threads.FXReceiveFromServerThread;

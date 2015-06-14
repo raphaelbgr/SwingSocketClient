@@ -12,7 +12,7 @@ import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
-import sendable.Client;
+import sendable.clients.Client;
 import serverinteraction.Connect;
 import sync.ClientStream;
 import threads.FXReceiveFromServerThread;
@@ -32,6 +32,7 @@ public class ConnectionPerform implements EventInterface {
 				if (wdf.validadeIP()) {
 					if (wdf.validadePort()) {
 						try {
+							WindowDataFacade.getInstance().lockConnectButton(true);
 							WindowDataFacade.getInstance().createConnectingWorker();
 							new Connect(buildClient(wdf));
 							Status.getInstance().setConnected(true);
@@ -39,17 +40,20 @@ public class ConnectionPerform implements EventInterface {
 							t1.start();
 							WindowDataFacade.getInstance().createConnectedWorker();
 						} catch (ConnectException | UnknownHostException e) {
+							WindowDataFacade.getInstance().lockConnectButton(false);
 							e.printStackTrace();
 							wdf.createCanceledWorker();
 							WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + "Host not found or offline. Is port correct?");
 							reconnect();
 						} catch (IOException e) {
+							WindowDataFacade.getInstance().lockConnectButton(false);
 							e.printStackTrace();
 							wdf.createCanceledWorker();
 							WindowDataFacade.getInstance().createCanceledWorker();
 //							e.printStackTrace();
 							reconnect();
 						} catch (Throwable e) {
+							WindowDataFacade.getInstance().lockConnectButton(false);
 							wdf.createCanceledWorker();
 							WindowDataFacade.getInstance().createCanceledWorker();
 							e.printStackTrace();
