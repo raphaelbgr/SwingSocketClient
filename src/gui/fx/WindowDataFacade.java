@@ -239,7 +239,7 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(true);
 				btn_connect.setDisable(false);
 				btn_disconnect.setDisable(true);
-//				fld_username.setDisable(false);
+				//				fld_username.setDisable(false);
 				combo_login.setDisable(false);
 				passwd_field.setDisable(false);
 				sv_address.setDisable(false);
@@ -871,10 +871,10 @@ public class WindowDataFacade<E> {
 			});
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void loadMenuItems(List<Node> nodes) {
-		
+
 		for (Node node : nodes) {
 			if (node.getId().equalsIgnoreCase("about_linkedin_link")) {
 				about_linkedin_link = (Hyperlink) node;
@@ -886,7 +886,7 @@ public class WindowDataFacade<E> {
 				about_email = (Hyperlink) node;
 			}
 		}
-		
+
 		about_my_cv_link.setOnAction(new EventHandler() {
 			@Override
 			public void handle(Event arg0) {
@@ -901,7 +901,7 @@ public class WindowDataFacade<E> {
 				}
 			}
 		});
-		
+
 		about_linkedin_link.setOnAction(new EventHandler() {
 			@Override
 			public void handle(Event arg0) {
@@ -916,7 +916,7 @@ public class WindowDataFacade<E> {
 				}
 			}
 		});
-		
+
 		about_whatsapp.setOnAction(new EventHandler() {
 			@Override
 			public void handle(Event arg0) {
@@ -931,16 +931,16 @@ public class WindowDataFacade<E> {
 				}
 			}
 		});
-		
+
 		about_email.setOnAction(new EventHandler() {
 			@Override
 			public void handle(Event arg0) {
 				try {
 					if (Desktop.isDesktopSupported()) {
-					    Desktop desktop = Desktop.getDesktop();
-					    if (desktop.isSupported(Desktop.Action.MAIL)) {
-					        desktop.mail(new URI(ClientMain.MAIL)); // alternately, pass a mailto: URI in here
-					    }
+						Desktop desktop = Desktop.getDesktop();
+						if (desktop.isSupported(Desktop.Action.MAIL)) {
+							desktop.mail(new URI(ClientMain.MAIL)); // alternately, pass a mailto: URI in here
+						}
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -951,7 +951,16 @@ public class WindowDataFacade<E> {
 				}
 			}
 		});
-		
+
+	}
+
+	public void setFielsStatusMessage(final String msg) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				WindowDataFacade.getInstance().getFld_status().setText(msg);
+			}	
+		});
 	}
 
 	public void lockConnectButton(final boolean b) {
@@ -961,6 +970,6 @@ public class WindowDataFacade<E> {
 				btn_connect.setDisable(b);
 			}	
 		});
-		
+
 	}
 }

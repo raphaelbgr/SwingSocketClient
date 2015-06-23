@@ -1,10 +1,5 @@
 package serverinteraction;
 
-import exceptions.LocalException;
-import gui.swing.WindowDataFacade;
-import gui.swing.janelas.JanelaMain;
-import gui.swing.janelas.JanelaSelectServer;
-
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -12,12 +7,13 @@ import sendable.messages.Message;
 import sendable.messages.NormalMessage;
 import sync.ClientStream;
 import clientmain.Status;
+import exceptions.LocalException;
 
 public class Send {
 
-	JanelaMain jam 			= null;
+//	JanelaMain jam 			= null;
 	ClientStream stream 	= ClientStream.getInstance();
-	JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
+//	JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
 
 	public Send(Object o) throws IOException, LocalException {
 		if (Status.getInstance().isConnected()) {

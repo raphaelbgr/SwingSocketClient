@@ -42,16 +42,10 @@ public class FXReceiveFromServerThread implements Runnable {
 							if (o instanceof ServerMessage) {
 								final ServerMessage sm = (ServerMessage) o;
 								if (sm.getServresponse() != null) {
-									Platform.runLater(new Runnable() {
-										@Override
-										public void run() {
-											WindowDataFacade.getInstance().getFld_status().setText(sm.toString());
-											if (sm.isConnect()) {
-												WindowDataFacade.getInstance().setConnectedLockFields();
-												WindowDataFacade.getInstance().getFld_status().setText(sm.toString());
-											}
-										}	
-									});
+									if (sm.isConnect()) {
+										WindowDataFacade.getInstance().setConnectedLockFields();
+										WindowDataFacade.getInstance().setFielsStatusMessage(sm.toString());
+									}
 								}
 								if (sm.getOnlineUserList() != null) {
 									ObservableList<String> items = FXCollections.observableArrayList();;
@@ -124,9 +118,11 @@ public class FXReceiveFromServerThread implements Runnable {
 							} else if (o instanceof BroadCastMessage) {
 								final BroadCastMessage bm = (BroadCastMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(bm);
-								if (bm.toString().contains("Connected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
+//								if (bm.toString().contains("Connected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
+								if (bm.isConnect()) {
 									WindowDataFacade.getInstance().playSound("/sounds-847-office-2.mp3");
-								} else if (bm.toString().contains("Disconnected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
+//								} else if (bm.toString().contains("Disconnected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
+								} else if (bm.isDisconnect()) {
 									WindowDataFacade.getInstance().playSound("/sounds-896-all-of-a-sudden.mp3");
 									
 								}

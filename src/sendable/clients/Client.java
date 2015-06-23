@@ -20,6 +20,8 @@ public class Client implements Serializable {
 	private int localPort;
 	private int version;
 	
+	boolean isConnect			= false;
+	
 	String text 				= null;
 	String name 				= null;
 	String middlename 			= null;
@@ -365,6 +367,12 @@ public class Client implements Serializable {
 	}
 	public void setMsn(String msn) {
 		this.msn = msn;
+	}
+	public boolean isConnect() {
+		return isConnect;
+	}
+	public void setConnect(boolean isConnect) {
+		this.isConnect = isConnect;
 	}
 	
 }
