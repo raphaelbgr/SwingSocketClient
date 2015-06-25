@@ -18,11 +18,13 @@ import sendable.clients.Client;
 import serverinteraction.Disconnect;
 
 public class ClientMain extends Application {
-	public static final String LINKEDIN = "https://br.linkedin.com/in/raphaelbgr";
-	public static final String CV = "https://drive.google.com/open?id=0BxXoGz9K8rOQeTVQQlg2eXlSRXM&authuser=0";
-	public static final String VCF = "https://drive.google.com/open?id=0BxXoGz9K8rOQd3UtUlhXYlJOMTg&authuser=0";
-	public static final String MAIL = "mailto:raphaelbgr@gmail.com";
+	public static final String LINKEDIN 	= "https://br.linkedin.com/in/raphaelbgr";
+	public static final String CV 			= "https://drive.google.com/open?id=0BxXoGz9K8rOQeTVQQlg2eXlSRXM&authuser=0";
+	public static final String VCF			= "https://drive.google.com/open?id=0BxXoGz9K8rOQd3UtUlhXYlJOMTg&authuser=0";
+	public static final String MAIL			= "mailto:raphaelbgr@gmail.com";
 	
+	public static String ENTERED_ROOM		= " has entered the room...";
+	public static String LEFT_ROOM			= " has left the room...";
 	
 	public static int PORT 					= 0;
 	public static int VERSION				= 19;

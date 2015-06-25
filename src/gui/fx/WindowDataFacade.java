@@ -750,7 +750,7 @@ public class WindowDataFacade<E> {
 	public void initialize() {
 		combo_sex_reg.getItems().add("Male");
 		combo_sex_reg.getItems().add("Female");
-		combo_city_reg.getItems().addAll("Rio de Janeiro", "Niterói", "São Gonçalo", "Maricá", "São Paulo", "Minas Gerais");
+		combo_city_reg.getItems().addAll("Rio de Janeiro", "Niterói", "São Gonçalo", "Maricá", "Cabo Frio", "Duque de Caxias", "Piabetá", "Itaboraí", "Resende");
 		combo_state_reg.getItems().addAll("RJ");
 		combo_country_reg.getItems().addAll("BRA");
 		combo_courseStTr_reg.getItems().addAll(

@@ -97,7 +97,7 @@
                               <Label fx:id="lbl_infnetid_reg" layoutX="192.0" layoutY="254.0" text="Infnet email ID" />
                               <Label fx:id="lbl_coursestart_reg" layoutX="193.0" layoutY="336.0" text="*Course Start Trimester" />
                               <Label layoutX="395.0" layoutY="18.0" text="*Email" />
-                              <Label layoutX="382.0" layoutY="58.0" text="WhatsApp" />
+                              <Label layoutX="347.0" layoutY="58.0" prefHeight="17.0" prefWidth="90.0" text="WhatsApp (+55)" />
                               <Label layoutX="395.0" layoutY="98.0" text="fb.com/" />
                               <Label layoutX="400.0" layoutY="174.0" text="*State" />
                               <Label layoutX="403.0" layoutY="212.0" text="*City" />

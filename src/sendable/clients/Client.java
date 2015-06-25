@@ -21,6 +21,7 @@ public class Client implements Serializable {
 	private int version;
 	
 	boolean isConnect			= false;
+	boolean isDisconnect		= false;
 	
 	String text 				= null;
 	String name 				= null;
@@ -373,6 +374,12 @@ public class Client implements Serializable {
 	}
 	public void setConnect(boolean isConnect) {
 		this.isConnect = isConnect;
+	}
+	public boolean isDisconnect() {
+		return isDisconnect;
+	}
+	public void setDisconnect(boolean isDisconnect) {
+		this.isDisconnect = isDisconnect;
 	}
 	
 }
