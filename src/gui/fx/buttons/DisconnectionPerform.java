@@ -40,10 +40,11 @@ public class DisconnectionPerform implements EventInterface {
 	
 	private Client buildClient() {
 		Client c = new Client();
-		c.setName(wdf.getLogin());
+		c.setLogin(wdf.getLogin());
 		c.setTargetPort(wdf.getPort());
 		c.setVersion(ClientMain.VERSION);
 		c.setPassword(wdf.getPassword());
+		c.setDisconnect(true);
 		return c;
 	}
 	

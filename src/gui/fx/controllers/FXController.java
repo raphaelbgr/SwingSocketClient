@@ -45,6 +45,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import clientmain.ClientMain;
 
 
 public class FXController implements Initializable {
@@ -152,6 +153,8 @@ public class FXController implements Initializable {
 	private MenuItem menu_creator				= null;
 	
 	private FXMLLoader aboutMeLoader 			= null;
+	@FXML
+	private Label lbl_version					= null;
 
 
 	List<Node> nodes = new ArrayList<Node>();
@@ -252,7 +255,7 @@ public class FXController implements Initializable {
 	private void loadFacade() {
 		WindowDataFacade.getInstance().addNode(btn_connect);
 		WindowDataFacade.getInstance().addNode(btn_disconnect);
-		//		WindowDataFacade.getInstance().addNode(fld_username);
+//		WindowDataFacade.getInstance().addNode(fld_username);
 		WindowDataFacade.getInstance().addNode(passwd_field);
 		WindowDataFacade.getInstance().addNode(sv_address);
 		WindowDataFacade.getInstance().addNode(sv_port);
@@ -304,6 +307,7 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(combo_hist_rows);
 		WindowDataFacade.getInstance().addNode(btn_refresh);
 		WindowDataFacade.getInstance().addNode(chkbox_mute);
+		WindowDataFacade.getInstance().addNode(lbl_version);
 		
 //		WindowDataFacade.getInstance().addNode(menu_creator);
 		
@@ -330,7 +334,7 @@ public class FXController implements Initializable {
 
 	public void setPublicDefaultValues(boolean go) {
 		if (go) {
-			sv_address.setText("surfael.sytes.net");
+			sv_address.setText(ClientMain.defaultServer);
 			sv_port.setText("2000");	
 		}
 	}

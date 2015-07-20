@@ -118,11 +118,9 @@ public class FXReceiveFromServerThread implements Runnable {
 							} else if (o instanceof BroadCastMessage) {
 								final BroadCastMessage bm = (BroadCastMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(bm);
-//								if (bm.toString().contains("Connected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
-								if (bm.isConnect()) {
+								if (bm.isConnect() && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
 									WindowDataFacade.getInstance().playSound("/sounds-847-office-2.mp3");
-//								} else if (bm.toString().contains("Disconnected") && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
-								} else if (bm.isDisconnect()) {
+								} else if (bm.isDisconnect() && !bm.getOwnerLogin().equalsIgnoreCase(WindowDataFacade.getInstance().getLogin())) {
 									WindowDataFacade.getInstance().playSound("/sounds-896-all-of-a-sudden.mp3");
 									
 								}

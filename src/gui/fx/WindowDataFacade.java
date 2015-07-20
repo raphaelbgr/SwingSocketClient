@@ -1,5 +1,6 @@
 package gui.fx;
 
+import gui.fx.events.RequestServerKeys;
 import gui.fx.models.MessageDataTableModel;
 
 import java.awt.Desktop;
@@ -115,6 +116,7 @@ public class WindowDataFacade<E> {
 	private Hyperlink about_my_cv_link;
 	private Hyperlink about_whatsapp;
 	private Hyperlink about_email;
+	private Label lbl_version;
 
 	public static WindowDataFacade wdf;
 	public static WindowDataFacade getInstance() {
@@ -349,7 +351,12 @@ public class WindowDataFacade<E> {
 			btn_refresh = (Button) node;
 		} else if (node.getId().equalsIgnoreCase("chkbox_mute")) {
 			chkbox_mute = (CheckBox) node;
+		} else if (node.getId().equalsIgnoreCase("lbl_version")) {
+			lbl_version = (Label) node;
 		}
+		
+		
+		
 		nodes.add(node);
 	}
 
@@ -750,7 +757,7 @@ public class WindowDataFacade<E> {
 	public void initialize() {
 		combo_sex_reg.getItems().add("Male");
 		combo_sex_reg.getItems().add("Female");
-		combo_city_reg.getItems().addAll("Rio de Janeiro", "Niterói", "São Gonçalo", "Maricá", "São Paulo", "Minas Gerais");
+		combo_city_reg.getItems().addAll("Rio de Janeiro", "Niterói", "São Gonçalo", "Maricá", "Cabo Frio", "Duque de Caxias", "Piabetá", "Itaboraí", "Resende");
 		combo_state_reg.getItems().addAll("RJ");
 		combo_country_reg.getItems().addAll("BRA");
 		combo_courseStTr_reg.getItems().addAll(
@@ -767,6 +774,7 @@ public class WindowDataFacade<E> {
 		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
 		sv_port.setDisable(true);
 		sv_address.setDisable(true);
+		lbl_version.setText("version " + ClientMain.VERSION);
 	}
 
 	public String getLoginReg() {
