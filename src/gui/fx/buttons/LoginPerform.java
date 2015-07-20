@@ -19,7 +19,7 @@ public class LoginPerform implements EventInterface {
 		RequestServerKeys gsk = new RequestServerKeys();
 		gsk.performAction();
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 40; i++) {
 			if (ClientMain.DATABASE_ADDR != null && ClientMain.DATABASE_KEY != null && ClientMain.DATABASE_PASS != null && ClientMain.DATABASE_USER != null) {
 				DAO dao = new DAO();
 				try {

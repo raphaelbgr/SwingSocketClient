@@ -31,30 +31,30 @@
                      <children>
                         <Pane layoutX="31.0" layoutY="14.0" prefHeight="393.0" prefWidth="582.0">
                            <children>
-                              <Label layoutX="430.0" layoutY="299.0" text="server IP" />
+                              <Label layoutX="417.0" layoutY="299.0" text="server IP" />
                             <ScrollPane layoutY="27.0" prefHeight="299.0" prefWidth="401.0">
                                  <content>
                                     <TextArea fx:id="txt_chatlog" editable="false" prefHeight="297.0" prefWidth="399.0" wrapText="true" />
                                  </content>
                             </ScrollPane>
-                              <Label layoutX="423.0" layoutY="333.0" text="server Port" />
-                            <Label layoutX="452.0" layoutY="228.0" text="login" />
+                              <Label layoutX="415.0" layoutY="333.0" text="server Port" />
+                            <Label layoutX="417.0" layoutY="228.0" text="login" />
                             <Label layoutX="1.0" layoutY="341.0" text="Message" />
-                            <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="344.0" />
+                            <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="340.0" />
                             <ScrollPane layoutX="417.0" layoutY="27.0" prefHeight="187.0" prefWidth="165.0">
                               <content>
                                 <ListView fx:id="list_view" prefHeight="185.0" prefWidth="163.0" />
                               </content>
                             </ScrollPane>
                             <Label layoutX="2.0" text="Chat log" />
-                              <Label layoutX="428.0" layoutY="263.0" text="password" />
+                              <Label layoutX="418.0" layoutY="263.0" text="password" />
                             <Label layoutX="418.0" text="Online Users" />
                               <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0" />
                               <TextField fx:id="sv_port" layoutX="488.0" layoutY="329.0" prefHeight="25.0" prefWidth="51.0" />
                               <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
                               <Label fx:id="lbl_time" layoutX="352.0" prefHeight="17.0" prefWidth="53.0" />
                               <ComboBox fx:id="combo_login" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visibleRowCount="20" />
-                              <Label layoutX="527.0" layoutY="371.0" text="version 19">
+                              <Label fx:id="lbl_version" layoutX="498.0" layoutY="371.0" prefHeight="17.0" prefWidth="74.0" text="version X.Y.Z">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font></Label>
@@ -147,5 +147,10 @@
          </children>
       </Pane>
       <Separator layoutX="14.0" layoutY="455.0" prefHeight="10.0" prefWidth="596.0" />
+      <Label fx:id="lbl_version1" layoutX="14.0" layoutY="558.0" prefHeight="17.0" prefWidth="82.0" text="hosted in AWS">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>

@@ -27,7 +27,7 @@ public class ClientMain extends Application {
 	public static String LEFT_ROOM			= " has left the room...";
 	
 	public static int PORT 					= 0;
-	public static int VERSION				= 19;
+	public static String VERSION			= "0.9.20";
 	
 	public static boolean compKey			= false;
 	public static boolean receiveRdy		= false;
@@ -47,6 +47,8 @@ public class ClientMain extends Application {
 	
 //	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
 	public static String COMPILATION_KEY	= "test";
+	
+	public static String defaultServer		= "54.232.241.237";
 	
 	
 	public static void main(final String[] args) {	
