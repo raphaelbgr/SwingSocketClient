@@ -6,7 +6,7 @@ on eclipse.
 
 Start the program on the class clientmain.ClientMain.java
 
-Actually on the version 0.9.20
+Actually on the version 0.9.20 // AWS IP -> 54.232.241.237
 
 - Redesigned interface in JavaFX
 
