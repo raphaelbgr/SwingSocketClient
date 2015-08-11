@@ -10,47 +10,48 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import app.control.Status;
 import app.control.serverinteraction.Disconnect;
+import app.control.sync.Status;
 import app.model.clients.Client;
 import app.view.WindowDataFacade;
 import app.view.controllers.FXController;
 import app.view.scenes.MainScene;
 
 public class ClientMain extends Application {
-	public static final String LINKEDIN = "https://br.linkedin.com/in/raphaelbgr";
-	public static final String CV = "https://drive.google.com/open?id=0BxXoGz9K8rOQeTVQQlg2eXlSRXM&authuser=0";
-	public static final String VCF = "https://drive.google.com/open?id=0BxXoGz9K8rOQd3UtUlhXYlJOMTg&authuser=0";
-	public static final String MAIL = "mailto:raphaelbgr@gmail.com";
+	public static final String LINKEDIN 	= "https://br.linkedin.com/in/raphaelbgr";
+	public static final String CV 			= "https://drive.google.com/open?id=0BxXoGz9K8rOQeTVQQlg2eXlSRXM&authuser=0";
+	public static final String VCF			= "https://drive.google.com/open?id=0BxXoGz9K8rOQd3UtUlhXYlJOMTg&authuser=0";
+	public static final String MAIL			= "mailto:raphaelbgr@gmail.com";
+	
+	public static String ENTERED_ROOM		= " has entered the room...";
+	public static String LEFT_ROOM			= " has left the room...";
+	
+	public static int PORT 					= 0;
+	public static String VERSION			= "0.9.20";
+	
+	public static boolean compKey			= false;
+	public static boolean receiveRdy		= false;
+	
+	//DO NOT LEAVE THIS AS TRUE, this will print out all queries on the sysout.
+	public static boolean printQueries		= false;
 
-	public static String ENTERED_ROOM 			= " has entered the room...";
-	public static String LEFT_ROOM 				= " has left the room...";
+	public static Thread receiver			= null;
 
-	public static int PORT		 				= 0;
-	public static String VERSION 				= "0.9.20";
-
-	public static boolean compKey 				= false;
-	public static boolean receiveRdy 			= false;
-
-	// DO NOT LEAVE THIS AS TRUE, this will print out all queries on the sysout.
-	public static boolean printQueries 			= false;
-
-	public static Thread receiver 				= null;
-
-	public static String ip 					= null;
-	public static String your_name 				= null;
-
-	public static String DATABASE_KEY 			= null;
-	public static String DATABASE_ADDR 			= null;
-	public static String DATABASE_USER 			= null;
-	public static String DATABASE_PASS 			= null;
-
-	// public static String COMPILATION_KEY = "YOUR_KEY_HERE!!";
-	public static String COMPILATION_KEY 		= "test";
-
-	public static String defaultServer 			= "54.232.241.237";
-
-	public static void main(final String[] args) {
+	public static String ip 				= null;		
+	public static String your_name 			= null;
+	
+	public static String DATABASE_KEY 		= null;
+	public static String DATABASE_ADDR		= null;
+	public static String DATABASE_USER		= null;
+	public static String DATABASE_PASS		= null;
+	
+//	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
+	public static String COMPILATION_KEY	= "test";
+	
+	public static String defaultServer		= "54.232.241.237";
+	
+	
+	public static void main(final String[] args) {	
 		launch(args);
 	}
 

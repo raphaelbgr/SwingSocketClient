@@ -5,8 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import app.control.Status;
-
 /**
  * This class is supposed to store the socket of the connection generated with the server.
  * It is intended to be a Singleton.

@@ -1,4 +1,4 @@
-package app.control;
+package app.control.sync;
 
 public class Status {
 

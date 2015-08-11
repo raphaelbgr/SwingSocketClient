@@ -8,10 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.ClientMain;
-import app.control.Status;
 import app.control.serverinteraction.Connect;
 import app.control.serverinteraction.Send;
 import app.control.services.FXReceiveFromServerThread;
+import app.control.sync.Status;
 import app.model.clients.Client;
 import app.model.exceptions.LocalException;
 import app.view.WindowDataFacade;
