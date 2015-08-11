@@ -161,11 +161,11 @@ public class WindowDataFacade<E> {
 	}
 
 	public String getLogin() {
-		//		return fld_username.getText();
-		if (combo_login.getSelectionModel().getSelectedItem() != null) {
-			return combo_login.getSelectionModel().getSelectedItem().toString();
-		}
-		else return null;
+		return fld_username.getText();
+//		if (combo_login.getSelectionModel().getSelectedItem() != null) {
+//			return combo_login.getSelectionModel().getSelectedItem().toString();
+//		}
+//		else return null;
 	}
 
 	public String getPassword() {
@@ -225,8 +225,8 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(false);
 				btn_connect.setDisable(true);
 				btn_disconnect.setDisable(false);
-				//				fld_username.setDisable(true);
-				combo_login.setDisable(true);
+				fld_username.setDisable(true);
+//				combo_login.setDisable(true);
 				passwd_field.setDisable(true);
 				sv_address.setDisable(true);
 				sv_port.setDisable(true);
@@ -241,8 +241,8 @@ public class WindowDataFacade<E> {
 				btn_send.setDisable(true);
 				btn_connect.setDisable(false);
 				btn_disconnect.setDisable(true);
-				//				fld_username.setDisable(false);
-				combo_login.setDisable(false);
+				fld_username.setDisable(false);
+//				combo_login.setDisable(false);
 				passwd_field.setDisable(false);
 				sv_address.setDisable(false);
 				sv_port.setDisable(false);
@@ -341,8 +341,8 @@ public class WindowDataFacade<E> {
 			combo_state_reg = (ComboBox<String>) node;
 		} else if (node.getId().equalsIgnoreCase("combo_city_reg")) {
 			combo_city_reg = (ComboBox<String>) node;
-		} else if (node.getId().equalsIgnoreCase("combo_login")) {
-			combo_login = (ComboBox<String>) node;
+//		} else if ((node.getId().equalsIgnoreCase("combo_login"))) {
+//			combo_login = (ComboBox<String>) node;
 		} else if (node.getId().equalsIgnoreCase("table_chathistory")) {
 			table_chathistory = (TableView) node;
 		} else if (node.getId().equalsIgnoreCase("combo_hist_rows")) {
@@ -770,7 +770,7 @@ public class WindowDataFacade<E> {
 				"2013.2", "2013.3", "2013.4",
 				"2014.1", "2014.2", "2014.3",
 				"2014.4", "2015.1", "2015.2");
-		combo_login.autosize();
+//		combo_login.autosize();
 		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
 		sv_port.setDisable(true);
 		sv_address.setDisable(true);

@@ -40,7 +40,6 @@
                               <Label layoutX="415.0" layoutY="333.0" text="server Port" />
                             <Label layoutX="417.0" layoutY="228.0" text="login" />
                             <Label layoutX="1.0" layoutY="341.0" text="Message" />
-                            <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="340.0" />
                             <ScrollPane layoutX="417.0" layoutY="27.0" prefHeight="187.0" prefWidth="165.0">
                               <content>
                                 <ListView fx:id="list_view" prefHeight="185.0" prefWidth="163.0" />
@@ -49,15 +48,17 @@
                             <Label layoutX="2.0" text="Chat log" />
                               <Label layoutX="418.0" layoutY="263.0" text="password" />
                             <Label layoutX="418.0" text="Online Users" />
-                              <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0" />
-                              <TextField fx:id="sv_port" layoutX="488.0" layoutY="329.0" prefHeight="25.0" prefWidth="51.0" />
-                              <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
                               <Label fx:id="lbl_time" layoutX="352.0" prefHeight="17.0" prefWidth="53.0" />
-                              <ComboBox fx:id="combo_login" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visibleRowCount="20" />
+                              <ComboBox fx:id="combo_login" disable="true" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visible="false" visibleRowCount="20" />
                               <Label fx:id="lbl_version" layoutX="498.0" layoutY="371.0" prefHeight="17.0" prefWidth="74.0" text="version X.Y.Z">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font></Label>
+                              <TextField fx:id="fld_username" layoutX="488.0" layoutY="224.0" prefHeight="25.0" prefWidth="94.0" />
+                              <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
+                              <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0" />
+                              <TextField fx:id="sv_port" layoutX="488.0" layoutY="329.0" prefHeight="25.0" prefWidth="51.0" />
+                            <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="340.0" />
                            </children>
                         </Pane>
                      </children>

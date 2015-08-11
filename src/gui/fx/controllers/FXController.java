@@ -56,9 +56,10 @@ public class FXController implements Initializable {
 	private Button btn_disconnect 			= null;
 	@FXML
 	private Button btn_sv_opt 				= null;
+	
+//	private ComboBox<String> combo_login	= null;
 	@FXML
-	private ComboBox<String> combo_login	= null;
-	//	private TextField fld_username 			= null;
+	private TextField fld_username 			= null;
 	@FXML
 	private TextField sv_address 			= null;
 	@FXML
@@ -253,9 +254,13 @@ public class FXController implements Initializable {
 	}
 
 	private void loadFacade() {
+		
+//		WindowDataFacade.getInstance().addNode(combo_login);
+		WindowDataFacade.getInstance().addNode(fld_username);
+		
 		WindowDataFacade.getInstance().addNode(btn_connect);
 		WindowDataFacade.getInstance().addNode(btn_disconnect);
-//		WindowDataFacade.getInstance().addNode(fld_username);
+
 		WindowDataFacade.getInstance().addNode(passwd_field);
 		WindowDataFacade.getInstance().addNode(sv_address);
 		WindowDataFacade.getInstance().addNode(sv_port);
@@ -301,7 +306,7 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().addNode(combo_country_reg);
 		WindowDataFacade.getInstance().addNode(combo_state_reg);
 		WindowDataFacade.getInstance().addNode(combo_city_reg);
-		WindowDataFacade.getInstance().addNode(combo_login);
+		
 
 		WindowDataFacade.getInstance().addNode(table_chathistory);
 		WindowDataFacade.getInstance().addNode(combo_hist_rows);

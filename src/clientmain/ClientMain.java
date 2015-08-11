@@ -46,7 +46,7 @@ public class ClientMain extends Application {
 	public static String DATABASE_PASS		= null;
 	
 //	public static String COMPILATION_KEY	= "YOUR_KEY_HERE!!";
-	public static String COMPILATION_KEY	= "test";
+	public static String COMPILATION_KEY	= "TEST";
 	
 	public static String defaultServer		= "54.232.241.237";
 	
