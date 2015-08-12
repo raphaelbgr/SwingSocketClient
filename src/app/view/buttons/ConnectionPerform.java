@@ -72,7 +72,7 @@ public class ConnectionPerform implements EventInterface {
 				return false;
 			}
 		} else {
-			wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Please pick a login.");
+			wdf.setBigStatusMsg(getTimestamp() + "LOCAL> " + "Please enter a valid login.");
 			return false;
 		}
 		return true;

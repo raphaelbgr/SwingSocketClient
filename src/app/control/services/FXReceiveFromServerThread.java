@@ -26,7 +26,6 @@ public class FXReceiveFromServerThread implements Runnable {
 	private ClientStream stream = ClientStream.getInstance();
 //	private Client cl;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		while (true) {
@@ -199,6 +198,7 @@ public class FXReceiveFromServerThread implements Runnable {
 						});
 					}
 				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
@@ -219,24 +219,25 @@ public class FXReceiveFromServerThread implements Runnable {
 					e.printStackTrace();
 					break;
 				} finally {
-//					try {
-//						Thread.sleep(100);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//					if (!Status.getInstance().isConnected()) {
-//						break;
-//					}
+//					System.err.println("Exeption Thrown");
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (!Status.getInstance().isConnected()) {
+						break;
+					}
 				}
 			} else {
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				if (!Status.getInstance().isConnected()) {
-//					break;
-//				}
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if (!Status.getInstance().isConnected()) {
+					break;
+				}
 			}
 		}
 	}

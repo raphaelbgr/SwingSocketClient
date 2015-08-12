@@ -12,8 +12,6 @@ import app.view.events.EventInterface;
 import app.view.events.RequestServerKeys;
 
 public class PerformHistoryComboUpdate implements EventInterface {
-
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean performAction() {
 		RequestServerKeys gsk = new RequestServerKeys();
@@ -24,17 +22,17 @@ public class PerformHistoryComboUpdate implements EventInterface {
 				DAO dao = new DAO();
 				try {
 					dao.connect();
-					WindowDataFacade.getInstance().updateLoginCombo(dao.queryLogins());
+					WindowDataFacade.getInstance().populateHistoryTable();
 					dao.disconnect();
 					return true;
 				} catch (SQLException e) {
 					WindowDataFacade.getInstance().createCanceledWorker();
 					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + e.getLocalizedMessage());
-					try {
-						dao.disconnect();
-					} catch (SQLException e1) {
-//							e.printStackTrace();
-					}
+//					try {
+						if (ClientMain.DATABASE_ADDR != null && ClientMain.DATABASE_KEY != null && ClientMain.DATABASE_PASS != null && ClientMain.DATABASE_USER != null) {
+//							dao.disconnect();
+						}
+//					}
 				}
 			} else {
 				try {
