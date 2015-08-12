@@ -21,6 +21,7 @@ import app.view.events.EventInterface;
 public class ConnectionPerform implements EventInterface {
 
 	ClientStream stream = ClientStream.getInstance();
+	@SuppressWarnings("rawtypes")
 	WindowDataFacade wdf = WindowDataFacade.getInstance();
 	ProgressBar progress = ((ProgressBar)wdf.getNode("progress"));
 
@@ -83,7 +84,7 @@ public class ConnectionPerform implements EventInterface {
 		return "["+dateFormatted+"]" + " ";
 	}
 	
-	private Client buildClient(WindowDataFacade wdf) {
+	private Client buildClient(@SuppressWarnings("rawtypes") WindowDataFacade wdf) {
 		Client c = new Client();
 		c.setLogin(wdf.getLogin());
 		c.setTargetPort(wdf.getPort().intValue());

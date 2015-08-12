@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 public class MainScene extends Scene implements Initializable {
 
 	Parent root = null;
-	WindowDataFacade wdf = null;
+	WindowDataFacade<?> wdf = null;
 	
 //	@FXML
 //	private Button btn_connect = new Button();

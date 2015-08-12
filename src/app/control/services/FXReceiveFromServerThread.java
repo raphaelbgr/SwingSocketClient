@@ -5,6 +5,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import app.ClientMain;
 import app.control.sync.ClientStream;
 import app.control.sync.Status;
@@ -17,15 +20,13 @@ import app.model.messages.NormalMessage;
 import app.model.messages.RegistrationMessage;
 import app.model.messages.ServerMessage;
 import app.view.WindowDataFacade;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class FXReceiveFromServerThread implements Runnable {
 
 	private ClientStream stream = ClientStream.getInstance();
-	private Client cl = null;
+//	private Client cl;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		while (true) {
@@ -35,7 +36,7 @@ public class FXReceiveFromServerThread implements Runnable {
 					final Object o = stream.receiveMessage();
 					if (o != null) {
 						if (o instanceof Client) {
-							cl = (Client)o;
+//							cl = (Client)o;
 						} else if (o instanceof Message) {
 							if (o instanceof ServerMessage) {
 								final ServerMessage sm = (ServerMessage) o;

@@ -54,6 +54,7 @@ public class SendPerform implements EventInterface {
 		
 	}
 
+	@SuppressWarnings("rawtypes")
 	private Client buildClient(WindowDataFacade wdf) {
 		Client c = new Client();
 		c.setLogin(wdf.getLogin());

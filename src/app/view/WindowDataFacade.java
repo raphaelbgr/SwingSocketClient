@@ -12,12 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import app.ClientMain;
-import app.control.dao.DAO;
-import app.model.messages.Message;
-import app.model.messages.NormalMessage;
-import app.view.events.RequestServerKeys;
-import app.view.models.MessageDataTableModel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -47,7 +41,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import app.ClientMain;
+import app.control.dao.DAO;
+import app.model.messages.Message;
+import app.model.messages.NormalMessage;
+import app.view.models.MessageDataTableModel;
 
+@SuppressWarnings("unused")
 public class WindowDataFacade<E> {
 
 	private Button btn_connect 						= null;
@@ -117,8 +117,9 @@ public class WindowDataFacade<E> {
 	private Hyperlink about_email;
 	private Label lbl_version;
 
-	public static WindowDataFacade wdf;
-	public static WindowDataFacade getInstance() {
+	public static WindowDataFacade<?> wdf;
+	@SuppressWarnings("rawtypes")
+	public static WindowDataFacade<?> getInstance() {
 		if (wdf == null) {
 			wdf =  new WindowDataFacade();
 		}
@@ -249,6 +250,7 @@ public class WindowDataFacade<E> {
 		});
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addNode(Node node) {
 		if (node.getId().equalsIgnoreCase("btn_connect")) {
 			btn_connect = (Button) node;

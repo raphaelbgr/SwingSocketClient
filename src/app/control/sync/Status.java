@@ -5,19 +5,19 @@ public class Status {
 	private boolean connected;
 	
 	private boolean aux1;
-	private boolean aux2;
-	private boolean aux3;
-	private boolean aux4;
-	
-	private String aux5;
-	private String aux6;
-	private String aux7;
-	private String aux8;
-	
-	private int aux9;
-	private int aux10;
-	private int aux11;
-	private int aux12;
+//	private boolean aux2;
+//	private boolean aux3;
+//	private boolean aux4;
+//	
+//	private String aux5;
+//	private String aux6;
+//	private String aux7;
+//	private String aux8;
+//	
+//	private int aux9;
+//	private int aux10;
+//	private int aux11;
+//	private int aux12;
 	
 	private static Status instance;
 	public static Status getInstance() {

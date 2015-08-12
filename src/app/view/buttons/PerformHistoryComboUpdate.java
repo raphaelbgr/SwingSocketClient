@@ -13,6 +13,7 @@ import app.view.events.RequestServerKeys;
 
 public class PerformHistoryComboUpdate implements EventInterface {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean performAction() {
 		RequestServerKeys gsk = new RequestServerKeys();

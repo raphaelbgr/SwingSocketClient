@@ -12,17 +12,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import app.ClientMain;
 import app.view.WindowDataFacade;
 import app.view.models.MessageDataTableModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class DAO {
 
 //	final private String DATABASE_URL = "jdbc:mysql://surfael.sytes.net:3307/chatdb";
 	final private String DATABASE_URL = ClientMain.DATABASE_ADDR;
-	final private String DATABASE_KEY = ClientMain.DATABASE_KEY;
+//	final private String DATABASE_KEY = ClientMain.DATABASE_KEY;
 	final private String DATABASE_USER = ClientMain.DATABASE_USER;
 	final private String DATABASE_PASS = ClientMain.DATABASE_PASS;
 	

@@ -145,7 +145,7 @@ public class FXController implements Initializable {
 	@FXML
 	private ComboBox<String> combo_hist_rows	= null;
 	@FXML
-	private TableView table_chathistory			= null;
+	private TableView<?> table_chathistory			= null;
 	@FXML
 	private Button btn_refresh					= null;
 	@FXML
@@ -160,6 +160,7 @@ public class FXController implements Initializable {
 
 	List<Node> nodes = new ArrayList<Node>();
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void handleMenuCreator() {
 		aboutMeLoader = new FXMLLoader(getClass().getResource("/aboutme.fxml"));
 		Parent root;

@@ -9,6 +9,7 @@ import app.view.events.RequestServerKeys;
 
 public class UpdateCourseCombo implements EventInterface {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean performAction() {
 		RequestServerKeys gsk = new RequestServerKeys();
