@@ -69,7 +69,7 @@ public class ClientMain extends Application {
 				mainStage = new Stage();
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(
-							"../fxgui.fxml"));
+							"/fxgui.fxml"));
 					Parent root = (Parent) loader.load();
 					fxControl = loader.getController();
 					scene = new MainScene(root);

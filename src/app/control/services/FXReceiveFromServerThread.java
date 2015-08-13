@@ -1,6 +1,8 @@
 package app.control.services;
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.io.StreamCorruptedException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -197,6 +199,34 @@ public class FXReceiveFromServerThread implements Runnable {
 							}	
 						});
 					}
+				} catch (StreamCorruptedException e) {
+					e.printStackTrace();
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							if (Status.getInstance().isConnected()) {
+								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> Connection to the server was aborted.");
+							}
+							WindowDataFacade.getInstance().setDisconnectedLockFields();								
+						}	
+					});
+					Status.getInstance().setConnected(false);
+					e.printStackTrace();
+					break;
+				} catch (EOFException e) {
+					e.printStackTrace();
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							if (Status.getInstance().isConnected()) {
+								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> The server broke the connection.");
+							}
+							WindowDataFacade.getInstance().setDisconnectedLockFields();								
+						}	
+					});
+					Status.getInstance().setConnected(false);
+					e.printStackTrace();
+					break;
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 					Platform.runLater(new Runnable() {
