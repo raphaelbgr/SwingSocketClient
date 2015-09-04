@@ -2,6 +2,9 @@ package app;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -113,6 +116,12 @@ public class ClientMain extends Application {
 			}
 		});
 		System.out.println("public void start: " + Thread.currentThread());
+	}
+	
+	public static String getTimestamp() {
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateFormatted = formatter.format(new Date());
+		return "["+dateFormatted+"]" + " ";
 	}
 
 }

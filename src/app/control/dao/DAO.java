@@ -12,11 +12,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import app.ClientMain;
 import app.view.WindowDataFacade;
-import app.view.models.MessageDataTableModel;
 
 public class DAO {
 
@@ -115,22 +112,22 @@ public class DAO {
 		return id + 1;
 	}
 	
-	public ObservableList<MessageDataTableModel> queryChatHistory(int rowLimit) throws SQLException {
-		final ObservableList<MessageDataTableModel> data = FXCollections.observableArrayList();
-		String query = null;
-		if (rowLimit == 0) {
-			query = "SELECT SERV_REC_TIMESTAMP, OWNERNAME, TEXT FROM MESSAGELOG";
-		} else {
-			query = "SELECT SERV_REC_TIMESTAMP, OWNERNAME, TEXT FROM MESSAGELOG LIMIT " + rowLimit;
-		}
-//		System.out.println(query);
-		Statement st = c.createStatement();
-		ResultSet rs = st.executeQuery(query);
-		while(rs.next()) {
-			data.add(new MessageDataTableModel(rs.getString(1),rs.getString(2),rs.getString(3)));
-		}
-		return data;
-	}		
+//	public ObservableList<MessageDataTableModel> queryChatHistory(int rowLimit) throws SQLException {
+//		final ObservableList<MessageDataTableModel> data = FXCollections.observableArrayList();
+//		String query = null;
+//		if (rowLimit == 0) {
+//			query = "SELECT SERV_REC_TIMESTAMP, OWNERNAME, TEXT FROM MESSAGELOG";
+//		} else {
+//			query = "SELECT SERV_REC_TIMESTAMP, OWNERNAME, TEXT FROM MESSAGELOG LIMIT " + rowLimit;
+//		}
+////		System.out.println(query);
+//		Statement st = c.createStatement();
+//		ResultSet rs = st.executeQuery(query);
+//		while(rs.next()) {
+//			data.add(new MessageDataTableModel(rs.getString(1),rs.getString(2),rs.getString(3)));
+//		}
+//		return data;
+//	}		
 	
 	private String getTimestamp() {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
