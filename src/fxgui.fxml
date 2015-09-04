@@ -1,157 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.*?>
+<?import fxmltableview.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.collections.*?>
-<?import fxmltableview.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.controllers.FXController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="629.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.view.controllers.FXController">
   <children>
     <MenuBar layoutY="-4.0" prefHeight="24.0" prefWidth="628.0">
       <menus>
         <Menu mnemonicParsing="false" text="About">
           <items>
-            <MenuItem fx:id="menu_creator" mnemonicParsing="false" onAction="#handleMenuCreator" text="Me" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuCreator" text="Me" fx:id="menu_creator" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-      <TabPane fx:id="tab_pane" layoutY="21.0" prefHeight="438.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab fx:id="tab_chat" closable="false" text="Chat">
-            <content>
-              <AnchorPane prefHeight="438.0" prefWidth="630.0">
-                     <children>
-                        <Pane layoutX="31.0" layoutY="14.0" prefHeight="393.0" prefWidth="582.0">
-                           <children>
-                              <Label layoutX="417.0" layoutY="299.0" text="server IP" />
-                            <ScrollPane layoutY="27.0" prefHeight="299.0" prefWidth="401.0">
-                                 <content>
-                                    <TextArea fx:id="txt_chatlog" editable="false" prefHeight="297.0" prefWidth="399.0" wrapText="true" />
-                                 </content>
-                            </ScrollPane>
-                              <Label layoutX="415.0" layoutY="333.0" text="server Port" />
-                            <Label layoutX="417.0" layoutY="228.0" text="login" />
-                            <Label layoutX="1.0" layoutY="341.0" text="Message" />
-                            <ScrollPane layoutX="417.0" layoutY="27.0" prefHeight="187.0" prefWidth="165.0">
-                              <content>
-                                <ListView fx:id="list_view" prefHeight="185.0" prefWidth="163.0" />
-                              </content>
-                            </ScrollPane>
-                            <Label layoutX="2.0" text="Chat log" />
-                              <Label layoutX="418.0" layoutY="263.0" text="password" />
-                            <Label layoutX="418.0" text="Online Users" />
-                              <Label fx:id="lbl_time" layoutX="352.0" prefHeight="17.0" prefWidth="53.0" />
-                              <ComboBox fx:id="combo_login" disable="true" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visible="false" visibleRowCount="20" />
-                              <Label fx:id="lbl_version" layoutX="498.0" layoutY="371.0" prefHeight="17.0" prefWidth="74.0" text="version X.Y.Z">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font></Label>
-                              <TextField fx:id="fld_username" layoutX="488.0" layoutY="224.0" prefHeight="25.0" prefWidth="94.0" />
-                              <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
-                              <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0" />
-                              <TextField fx:id="sv_port" layoutX="488.0" layoutY="329.0" prefHeight="25.0" prefWidth="51.0" />
-                            <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="340.0" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab fx:id="tab_reg" closable="false" text="Registration">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="628.0">
-                     <children>
-                        <Pane prefHeight="414.0" prefWidth="628.0">
-                           <children>
-                              <TextField fx:id="fld_login_reg" layoutX="142.0" layoutY="11.0" />
-                              <TextField fx:id="fld_name_reg" layoutX="142.0" layoutY="51.0" />
-                              <PasswordField fx:id="fld_password_reg" layoutX="142.0" layoutY="91.0" />
-                              <PasswordField fx:id="fld_password2_reg" layoutX="142.0" layoutY="128.0" />
-                              <ComboBox fx:id="combo_sex_reg" layoutX="142.0" layoutY="167.0" prefWidth="150.0" promptText="Choose Gender" />
-                              <ComboBox fx:id="combo_college_reg" layoutX="141.0" layoutY="207.0" onAction="#handleDetectSelection" onMouseClicked="#handleCollegeRegComboClick" prefWidth="150.0" promptText="Choose College" />
-                              <TextField fx:id="fld_infnetmail_reg" disable="true" layoutX="143.0" layoutY="247.0" />
-                              <ComboBox fx:id="combo_course_reg" disable="true" layoutX="143.0" layoutY="286.0" onMouseClicked="#handleCourseRegComboClick" prefHeight="25.0" prefWidth="148.0" promptText="Choose Course" />
-                              <ComboBox fx:id="combo_courseStTr_reg" layoutX="142.0" layoutY="331.0" prefHeight="25.0" prefWidth="149.0" promptText="Choose Trimester" />
-                              <TextField fx:id="fld_othercol_reg" disable="true" layoutX="142.0" layoutY="371.0" />
-                              <TextField fx:id="fld_email_reg" layoutX="427.0" layoutY="11.0" />
-                              <TextField fx:id="fld_whatsapp_reg" layoutX="427.0" layoutY="51.0" />
-                              <TextField fx:id="fld_facebook_reg" layoutX="427.0" layoutY="91.0" />
-                              <ComboBox fx:id="combo_country_reg" layoutX="426.0" layoutY="128.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose Country" />
-                              <ComboBox fx:id="combo_state_reg" layoutX="426.0" layoutY="167.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose State" />
-                              <ComboBox fx:id="combo_city_reg" layoutX="426.0" layoutY="205.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose City" />
-                              <Label layoutX="386.0" layoutY="15.0" text="*Email" />
-                              <Label layoutX="338.0" layoutY="55.0" prefHeight="17.0" prefWidth="90.0" text="WhatsApp (+55)" />
-                              <Label layoutX="382.0" layoutY="95.0" text="fb.com/" />
-                              <Label layoutX="387.0" layoutY="171.0" text="*State" />
-                              <Label layoutX="390.0" layoutY="209.0" text="*City" />
-                              <Label layoutX="375.0" layoutY="132.0" text="*Country" />
-                          <Button fx:id="btn_sv_opt" layoutX="518.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleRegisterButton" prefHeight="25.0" prefWidth="94.0" text="Register" />
-                              <Label fx:id="lbl_coursestart_reg" layoutX="7.0" layoutY="335.0" text="*Course Start Trimester" />
-                              <Label fx:id="lbl_infnetid_reg" layoutX="53.0" layoutY="251.0" text="Infnet email ID" />
-                              <Label layoutX="88.0" layoutY="290.0" text="*Course" />
-                              <Label fx:id="lbl_addcol_reg" layoutX="55.0" layoutY="375.0" text="Other College" />
-                              <Label layoutX="87.0" layoutY="208.0" text="*College" />
-                              <Label layoutX="109.0" layoutY="170.0" text="*Sex" />
-                              <Label layoutX="32.0" layoutY="131.0" prefHeight="17.0" prefWidth="105.0" text="*Confirm Password" />
-                              <Label layoutX="82.0" layoutY="94.0" text="*Password" />
-                              <Label layoutX="18.0" layoutY="54.0" text="*Name (Screen name)" />
-                              <Label layoutX="103.0" layoutY="14.0" text="*Login" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab closable="false" text="History">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Pane layoutX="7.0" layoutY="7.0" prefHeight="389.0" prefWidth="616.0">
-                           <children>
-                              <Label layoutX="14.0" layoutY="14.0" text="Chat history log" />
-                              <ComboBox fx:id="combo_hist_rows" layoutX="452.0" layoutY="2.0" onAction="#handleHistoryCombo" prefWidth="150.0" promptText="Rows limit" />
-                              <TableView fx:id="table_chathistory" layoutX="7.0" layoutY="31.0" prefHeight="354.0" prefWidth="602.0">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="Timestamp"><cellValueFactory><PropertyValueFactory property="timestamp" /></cellValueFactory></TableColumn>
-                                  <TableColumn prefWidth="85.0" text="Screen Name"><cellValueFactory><PropertyValueFactory property="screenname" /></cellValueFactory></TableColumn>
-                                    <TableColumn prefWidth="441.0" text="Message"><cellValueFactory><PropertyValueFactory property="message" /></cellValueFactory></TableColumn>
-                                </columns>
-                              </TableView>
-                              <Button fx:id="btn_refresh" disable="true" layoutX="383.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleRefreshtButton" text="Refresh" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-      <Pane layoutX="17.0" layoutY="482.0" prefHeight="76.0" prefWidth="596.0">
-         <children>
-            <ProgressBar fx:id="progress" layoutX="206.0" layoutY="6.0" prefHeight="18.0" prefWidth="325.0" progress="0.0" />
+    <TabPane fx:id="tab_pane" layoutY="21.0" prefHeight="438.0" prefWidth="628.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab fx:id="tab_chat" closable="false" text="Chat">
+          <content>
+            <AnchorPane prefHeight="438.0" prefWidth="630.0">
+              <children>
+                <Pane layoutX="31.0" layoutY="14.0" prefHeight="393.0" prefWidth="582.0">
+                  <children>
+                    <Label layoutX="417.0" layoutY="299.0" text="server IP" />
+                    <ScrollPane layoutY="27.0" prefHeight="299.0" prefWidth="401.0">
+                      <content>
+                        <TextArea fx:id="txt_chatlog" editable="false" prefHeight="297.0" prefWidth="399.0" wrapText="true" />
+                      </content>
+                    </ScrollPane>
+                    <Label layoutX="415.0" layoutY="333.0" text="server Port" />
+                    <Label layoutX="417.0" layoutY="228.0" text="login" />
+                    <Label layoutX="1.0" layoutY="341.0" text="Message" />
+                    <ScrollPane layoutX="417.0" layoutY="27.0" prefHeight="187.0" prefWidth="165.0">
+                      <content>
+                        <ListView fx:id="list_view" prefHeight="185.0" prefWidth="163.0" />
+                      </content>
+                    </ScrollPane>
+                    <Label layoutX="2.0" text="Chat log" />
+                    <Label layoutX="418.0" layoutY="263.0" text="password" />
+                    <Label layoutX="418.0" text="Online Users" />
+                    <Label fx:id="lbl_time" layoutX="352.0" prefHeight="17.0" prefWidth="53.0" />
+                    <ComboBox fx:id="combo_login" disable="true" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visible="false" visibleRowCount="20" />
+                    <Label fx:id="lbl_version" layoutX="498.0" layoutY="371.0" prefHeight="17.0" prefWidth="74.0" text="version X.Y.Z">
+                      <font>
+                        <Font name="System Italic" size="12.0" fx:id="x1" />
+                      </font>
+                    </Label>
+                    <TextField fx:id="fld_username" layoutX="488.0" layoutY="224.0" prefHeight="25.0" prefWidth="94.0" />
+                    <PasswordField fx:id="passwd_field" layoutX="488.0" layoutY="259.0" prefHeight="25.0" prefWidth="94.0" />
+                    <TextField fx:id="sv_address" layoutX="488.0" layoutY="295.0" prefHeight="25.0" prefWidth="94.0" />
+                    <TextField fx:id="sv_port" layoutX="488.0" layoutY="329.0" prefHeight="25.0" prefWidth="51.0" />
+                    <TextField fx:id="message_box" layoutX="61.0" layoutY="337.0" prefHeight="25.0" prefWidth="340.0" />
+                  </children>
+                </Pane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab fx:id="tab_reg" closable="false" text="Registration">
+          <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="628.0">
+              <children>
+                <Pane prefHeight="414.0" prefWidth="628.0">
+                  <children>
+                    <TextField fx:id="fld_login_reg" layoutX="142.0" layoutY="11.0" />
+                    <TextField fx:id="fld_name_reg" layoutX="142.0" layoutY="51.0" />
+                    <PasswordField fx:id="fld_password_reg" layoutX="142.0" layoutY="91.0" />
+                    <PasswordField fx:id="fld_password2_reg" layoutX="142.0" layoutY="128.0" />
+                    <ComboBox fx:id="combo_sex_reg" layoutX="142.0" layoutY="167.0" prefWidth="150.0" promptText="Choose Gender" />
+                    <ComboBox fx:id="combo_college_reg" layoutX="141.0" layoutY="207.0" onAction="#handleDetectSelection" onMouseClicked="#handleCollegeRegComboClick" prefWidth="150.0" promptText="Choose College" />
+                    <TextField fx:id="fld_infnetmail_reg" disable="true" layoutX="143.0" layoutY="247.0" />
+                    <ComboBox fx:id="combo_course_reg" disable="true" layoutX="143.0" layoutY="286.0" onMouseClicked="#handleCourseRegComboClick" prefHeight="25.0" prefWidth="148.0" promptText="Choose Course" />
+                    <ComboBox fx:id="combo_courseStTr_reg" layoutX="142.0" layoutY="331.0" prefHeight="25.0" prefWidth="149.0" promptText="Choose Trimester" />
+                    <TextField fx:id="fld_othercol_reg" disable="true" layoutX="142.0" layoutY="371.0" />
+                    <TextField fx:id="fld_email_reg" layoutX="427.0" layoutY="11.0" />
+                    <TextField fx:id="fld_whatsapp_reg" layoutX="427.0" layoutY="51.0" />
+                    <TextField fx:id="fld_facebook_reg" layoutX="427.0" layoutY="91.0" />
+                    <ComboBox fx:id="combo_country_reg" layoutX="426.0" layoutY="128.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose Country" />
+                    <ComboBox fx:id="combo_state_reg" layoutX="426.0" layoutY="167.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose State" />
+                    <ComboBox fx:id="combo_city_reg" layoutX="426.0" layoutY="205.0" prefHeight="25.0" prefWidth="150.0" promptText="Choose City" />
+                    <Label layoutX="386.0" layoutY="15.0" text="*Email" />
+                    <Label layoutX="338.0" layoutY="55.0" prefHeight="17.0" prefWidth="90.0" text="WhatsApp (+55)" />
+                    <Label layoutX="382.0" layoutY="95.0" text="fb.com/" />
+                    <Label layoutX="387.0" layoutY="171.0" text="*State" />
+                    <Label layoutX="390.0" layoutY="209.0" text="*City" />
+                    <Label layoutX="375.0" layoutY="132.0" text="*Country" />
+                    <Button fx:id="btn_sv_opt" layoutX="518.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleRegisterButton" prefHeight="25.0" prefWidth="94.0" text="Register" />
+                    <Label fx:id="lbl_coursestart_reg" layoutX="7.0" layoutY="335.0" text="*Course Start Trimester" />
+                    <Label fx:id="lbl_infnetid_reg" layoutX="53.0" layoutY="251.0" text="Infnet email ID" />
+                    <Label layoutX="88.0" layoutY="290.0" text="*Course" />
+                    <Label fx:id="lbl_addcol_reg" layoutX="55.0" layoutY="375.0" text="Other College" />
+                    <Label layoutX="87.0" layoutY="208.0" text="*College" />
+                    <Label layoutX="109.0" layoutY="170.0" text="*Sex" />
+                    <Label layoutX="32.0" layoutY="131.0" prefHeight="17.0" prefWidth="105.0" text="*Confirm Password" />
+                    <Label layoutX="82.0" layoutY="94.0" text="*Password" />
+                    <Label layoutX="18.0" layoutY="54.0" text="*Name (Screen name)" />
+                    <Label layoutX="103.0" layoutY="14.0" text="*Login" />
+                  </children>
+                </Pane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab closable="false" text="History">
+          <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <Pane layoutX="7.0" layoutY="7.0" prefHeight="389.0" prefWidth="616.0">
+                  <children>
+                    <Label layoutX="14.0" layoutY="14.0" text="Chat history log" />
+                    <ComboBox fx:id="combo_hist_rows" layoutX="452.0" layoutY="2.0" onAction="#handleHistoryCombo" prefWidth="150.0" promptText="Rows limit" />
+                    <TableView fx:id="table_chathistory" layoutX="7.0" layoutY="31.0" prefHeight="354.0" prefWidth="602.0">
+                      <columns>
+                        <TableColumn prefWidth="75.0" text="Timestamp">
+                          <cellValueFactory>
+                            <PropertyValueFactory property="timestamp" />
+                          </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="85.0" text="Screen Name">
+                          <cellValueFactory>
+                            <PropertyValueFactory property="screenname" />
+                          </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="366.0" text="Message">
+                          <cellValueFactory>
+                            <PropertyValueFactory property="message" />
+                          </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="ID" />
+                      </columns>
+                    </TableView>
+                    <Button fx:id="btn_refresh" disable="true" layoutX="383.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleRefreshtButton" text="Refresh" />
+                  </children>
+                </Pane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <Pane layoutX="17.0" layoutY="482.0" prefHeight="76.0" prefWidth="596.0">
+      <children>
+        <ProgressBar fx:id="progress" layoutX="206.0" layoutY="6.0" prefHeight="18.0" prefWidth="325.0" progress="0.0" />
         <Button fx:id="btn_disconnect" layoutX="120.0" mnemonicParsing="false" onAction="#handleDisconnectButton" text="Disconnect" />
         <Button fx:id="btn_exit" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleExitButton" text="Exit" />
         <Button fx:id="btn_connect" alignment="TOP_CENTER" layoutX="51.0" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect" />
-            <Button fx:id="btn_send" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
-            <Label fx:id="lbl_status" layoutX="480.0" layoutY="6.0" prefHeight="17.0" prefWidth="53.0" />
-            <TextField fx:id="fld_status" editable="false" layoutX="2.0" layoutY="37.0" prefHeight="25.0" prefWidth="463.0" />
-            <CheckBox fx:id="chkbox_autocon" layoutX="480.0" layoutY="30.0" mnemonicParsing="false" text="Auto Reconnect" />
-            <CheckBox fx:id="chkbox_mute" layoutX="480.0" layoutY="54.0" mnemonicParsing="false" text="Mute" />
-         </children>
-      </Pane>
-      <Separator layoutX="14.0" layoutY="455.0" prefHeight="10.0" prefWidth="596.0" />
-      <Label fx:id="lbl_version1" layoutX="14.0" layoutY="558.0" prefHeight="17.0" prefWidth="82.0" text="hosted in AWS">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font>
-      </Label>
+        <Button fx:id="btn_send" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
+        <Label fx:id="lbl_status" layoutX="480.0" layoutY="6.0" prefHeight="17.0" prefWidth="53.0" />
+        <TextField fx:id="fld_status" editable="false" layoutX="2.0" layoutY="37.0" prefHeight="25.0" prefWidth="463.0" />
+        <CheckBox fx:id="chkbox_autocon" layoutX="480.0" layoutY="30.0" mnemonicParsing="false" text="Auto Reconnect" />
+        <CheckBox fx:id="chkbox_mute" layoutX="480.0" layoutY="54.0" mnemonicParsing="false" text="Mute" />
+      </children>
+    </Pane>
+    <Separator layoutX="14.0" layoutY="455.0" prefHeight="10.0" prefWidth="596.0" />
+    <Label fx:id="lbl_version1" font="$x1" layoutX="14.0" layoutY="558.0" prefHeight="17.0" prefWidth="82.0" text="hosted in AWS" />
   </children>
 </AnchorPane>
