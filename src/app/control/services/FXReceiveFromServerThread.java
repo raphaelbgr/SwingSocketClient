@@ -218,9 +218,9 @@ public class FXReceiveFromServerThread implements Runnable {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							if (Status.getInstance().isConnected()) {
+//							if (Status.getInstance().isConnected()) {
 								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> The server broke the connection.");
-							}
+//							}
 							WindowDataFacade.getInstance().setDisconnectedLockFields();								
 						}	
 					});

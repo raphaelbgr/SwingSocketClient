@@ -230,6 +230,8 @@ public class WindowDataFacade<E> {
 				passwd_field.setDisable(true);
 				sv_address.setDisable(true);
 				sv_port.setDisable(true);
+//				btn_refresh.setDisable(false);
+				combo_hist_rows.setDisable(false);
 			}
 		});
 	}
@@ -246,6 +248,8 @@ public class WindowDataFacade<E> {
 				passwd_field.setDisable(false);
 				sv_address.setDisable(false);
 				sv_port.setDisable(false);
+				btn_refresh.setDisable(true);
+				combo_hist_rows.setDisable(true);
 			}
 		});
 	}
@@ -773,6 +777,7 @@ public class WindowDataFacade<E> {
 				"2014.4", "2015.1", "2015.2");
 //		combo_login.autosize();
 		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
+		combo_hist_rows.setDisable(true);
 		sv_port.setDisable(true);
 		sv_address.setDisable(true);
 		lbl_version.setText("version " + ClientMain.VERSION);
