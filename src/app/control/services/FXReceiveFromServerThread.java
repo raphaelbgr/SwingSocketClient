@@ -255,24 +255,24 @@ public class FXReceiveFromServerThread implements Runnable {
 					break;
 				} finally {
 //					System.err.println("Exeption Thrown");
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					if (!Status.getInstance().isConnected()) {
-						break;
-					}
+//					try {
+//						Thread.sleep(100);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//					if (!Status.getInstance().isConnected()) {
+//						break;
+//					}
 				}
 			} else {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				if (!Status.getInstance().isConnected()) {
-					break;
-				}
+//				try {
+//					Thread.sleep(500);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				if (!Status.getInstance().isConnected()) {
+//					break;
+//				}
 			}
 		}
 	}
