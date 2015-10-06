@@ -7,9 +7,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import app.ClientMain;
 import app.control.sync.ClientStream;
 import app.control.sync.Status;
@@ -17,11 +14,15 @@ import app.model.clients.Client;
 import app.model.exceptions.ServerException;
 import app.model.messages.BroadCastMessage;
 import app.model.messages.DisconnectionMessage;
+import app.model.messages.History;
 import app.model.messages.Message;
 import app.model.messages.NormalMessage;
 import app.model.messages.RegistrationMessage;
 import app.model.messages.ServerMessage;
 import app.view.WindowDataFacade;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class FXReceiveFromServerThread implements Runnable {
 
@@ -37,7 +38,7 @@ public class FXReceiveFromServerThread implements Runnable {
 					final Object o = stream.receiveMessage();
 					if (o != null) {
 						if (o instanceof Client) {
-//							cl = (Client)o;
+							
 						} else if (o instanceof Message) {
 							if (o instanceof ServerMessage) {
 								final ServerMessage sm = (ServerMessage) o;
@@ -114,7 +115,6 @@ public class FXReceiveFromServerThread implements Runnable {
 										WindowDataFacade.getInstance().setOnlineUserList(items); 
 									}
 								}
-//								break; //NOT SURE IF THIS LINE IS NEEDED
 							} else if (o instanceof BroadCastMessage) {
 								final BroadCastMessage bm = (BroadCastMessage) o;
 								WindowDataFacade.getInstance().addChatMessage(bm);
@@ -141,8 +141,6 @@ public class FXReceiveFromServerThread implements Runnable {
 										});
 									}
 								}
-//								WindowDataFacade.getInstance().addChatMessage(bm);
-//								tlog.addMessage(bm.toString());
 								if (bm.getOnlineUserList() != null) {
 									if (bm.getOnlineUserList() != null) {
 										ObservableList<String> items = FXCollections.observableArrayList();;
@@ -190,6 +188,13 @@ public class FXReceiveFromServerThread implements Runnable {
 									}	
 								});
 							}
+						} else if (o instanceof History) {
+							Platform.runLater(new Runnable() {
+								@Override
+								public void run() {
+									WindowDataFacade.getInstance().populateHistoryTable((History)o);
+								}	
+							});
 						}
 					} else {
 						Platform.runLater(new Runnable() {
@@ -218,9 +223,9 @@ public class FXReceiveFromServerThread implements Runnable {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							if (Status.getInstance().isConnected()) {
+//							if (Status.getInstance().isConnected()) {
 								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> The server broke the connection.");
-							}
+//							}
 							WindowDataFacade.getInstance().setDisconnectedLockFields();								
 						}	
 					});
@@ -250,24 +255,24 @@ public class FXReceiveFromServerThread implements Runnable {
 					break;
 				} finally {
 //					System.err.println("Exeption Thrown");
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					if (!Status.getInstance().isConnected()) {
-						break;
-					}
+//					try {
+//						Thread.sleep(100);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//					if (!Status.getInstance().isConnected()) {
+//						break;
+//					}
 				}
 			} else {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				if (!Status.getInstance().isConnected()) {
-					break;
-				}
+//				try {
+//					Thread.sleep(500);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				if (!Status.getInstance().isConnected()) {
+//					break;
+//				}
 			}
 		}
 	}

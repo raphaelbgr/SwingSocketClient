@@ -4,7 +4,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import app.ClientMain;
+import app.model.messages.History;
+import app.model.messages.Message;
+import app.model.messages.NormalMessage;
+import app.view.models.MessageDataTableModel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,11 +45,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import app.ClientMain;
-import app.control.dao.DAO;
-import app.model.messages.Message;
-import app.model.messages.NormalMessage;
-import app.view.models.MessageDataTableModel;
 
 @SuppressWarnings("unused")
 public class WindowDataFacade<E> {
@@ -230,6 +229,8 @@ public class WindowDataFacade<E> {
 				passwd_field.setDisable(true);
 				sv_address.setDisable(true);
 				sv_port.setDisable(true);
+//				btn_refresh.setDisable(false);
+				combo_hist_rows.setDisable(false);
 			}
 		});
 	}
@@ -246,6 +247,8 @@ public class WindowDataFacade<E> {
 				passwd_field.setDisable(false);
 				sv_address.setDisable(false);
 				sv_port.setDisable(false);
+				btn_refresh.setDisable(true);
+				combo_hist_rows.setDisable(true);
 			}
 		});
 	}
@@ -360,8 +363,7 @@ public class WindowDataFacade<E> {
 		
 		nodes.add(node);
 	}
-
-	public void populateHistoryTable() {
+	public int queryLimitSelected() {
 		int rows = combo_hist_rows.getSelectionModel().getSelectedIndex();
 		switch (rows) {
 		case 0:
@@ -380,16 +382,70 @@ public class WindowDataFacade<E> {
 			rows = 0;
 			break;
 		}
-		DAO dao = new DAO();
-		//		System.out.println(rows);
-		try {
-			dao.connect();
-			table_chathistory.setItems(dao.queryChatHistory(rows));
-			dao.disconnect();
-			btn_refresh.setDisable(false);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		return rows;
+	}
+
+	public void populateHistoryTable(History serverData) {
+		
+		final ObservableList<MessageDataTableModel> dataTable = FXCollections.observableArrayList();
+		
+		// CHECK SIZES TO SAVE PROSSESSING TIME -- FASTEST WAY
+		if (serverData.getColumn1().size() == serverData.getColumn2().size()
+				&& serverData.getColumn3().size() == serverData.getColumn4().size()
+				&& serverData.getColumn1().size() == serverData.getColumn3().size()
+				&& serverData.getColumn1().size() == serverData.getColumn4().size()
+				&& serverData.getColumn2().size() == serverData.getColumn3().size()
+				&& serverData.getColumn2().size() == serverData.getColumn4().size()) {
+			
+			for (int index = 0; index < serverData.getColumn1().size(); index++) {
+				dataTable.add(new MessageDataTableModel(
+						serverData.getColumn1().get(index),
+						serverData.getColumn2().get(index),
+						serverData.getColumn3().get(index),
+						serverData.getColumn4().get(index)
+						));
+			}
+		} else {
+			// COSTS 5 TIMES MORE PROCESSING TIME -- SLOWEST WAY	
+			MessageDataTableModel mdtm = new MessageDataTableModel();
+			for (String text : serverData.getColumn1()) {
+				mdtm.setId(text);
+				dataTable.add(mdtm);
+			}
+			for (String text : serverData.getColumn2()) {
+				int index = 0;
+				mdtm.setTimestamp(text);
+				if (index <= serverData.getColumn2().size()) {
+					dataTable.get(index).setTimestamp(text);
+				} else {
+					dataTable.add(mdtm);
+				}
+				index++;
+			}
+			for (String text : serverData.getColumn3()) {
+				int index = 0;
+				mdtm.setScreenname(text);
+				if (index <= serverData.getColumn3().size()) {
+					dataTable.get(index).setScreenname(text);
+				} else {
+					dataTable.add(mdtm);
+				}
+				index++;
+			}
+			for (String text : serverData.getColumn4()) {
+				int index = 0;
+				mdtm.setMessage(text);
+				if (index <= serverData.getColumn4().size()) {
+					dataTable.get(index).setMessage(text);
+				} else {
+					dataTable.add(mdtm);
+				}
+				index++;
+			}
 		}
+		
+		table_chathistory.setItems(dataTable);
+		btn_refresh.setDisable(false);
 
 	}
 
@@ -773,6 +829,7 @@ public class WindowDataFacade<E> {
 				"2014.4", "2015.1", "2015.2");
 //		combo_login.autosize();
 		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
+		combo_hist_rows.setDisable(true);
 		sv_port.setDisable(true);
 		sv_address.setDisable(true);
 		lbl_version.setText("version " + ClientMain.VERSION);

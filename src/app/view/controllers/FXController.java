@@ -187,9 +187,7 @@ public class FXController implements Initializable {
 
 	public void handleRefreshtButton() {
 		EventInterface ei = new RefreshPerform();
-		if (ei.performAction()) {
-			WindowDataFacade.getInstance().populateHistoryTable();
-		}
+		ei.performAction();
 	}
 
 	public void handleExitButton() {
@@ -199,9 +197,7 @@ public class FXController implements Initializable {
 
 	public void handleHistoryCombo() {
 		EventInterface ei = new PerformHistoryComboUpdate();
-		if (ei.performAction()) {
-			WindowDataFacade.getInstance().populateHistoryTable();
-		}
+		ei.performAction();
 	}
 
 	public void handleDetectSelection() {
