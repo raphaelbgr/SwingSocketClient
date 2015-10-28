@@ -12,6 +12,9 @@ import java.util.Date;
 import java.util.List;
 
 import app.ClientMain;
+import app.control.dao.MD5;
+import app.model.clients.Client;
+import app.model.clients.NewClient;
 import app.model.messages.History;
 import app.model.messages.Message;
 import app.model.messages.NormalMessage;
@@ -792,17 +795,17 @@ public class WindowDataFacade<E> {
 		} else return false;
 	}
 
-	public synchronized void updateCourseCombo(List<String> list) {
-		combo_course_reg.getItems().clear();
-		combo_course_reg.getItems().addAll(list);
-		combo_course_reg.getItems().add("Other Course");
-	}
+//	public synchronized void updateCourseCombo(List<String> list) {
+//		combo_course_reg.getItems().clear();
+//		combo_course_reg.getItems().addAll(list);
+//		combo_course_reg.getItems().add("Other Course");
+//	}
 
-	public synchronized void updateCollegeCombo(List<String> list) {
-		combo_college_reg.getItems().clear();
-		combo_college_reg.getItems().addAll(list);
-		combo_college_reg.getItems().add("Other College");
-	}
+//	public synchronized void updateCollegeCombo(List<String> list) {
+//		combo_college_reg.getItems().clear();
+//		combo_college_reg.getItems().addAll(list);
+//		combo_college_reg.getItems().add("Other College");
+//	}
 
 	public void updateLoginCombo(List<String> list) {
 		combo_login.getItems().clear();
@@ -814,7 +817,45 @@ public class WindowDataFacade<E> {
 	public void initialize() {
 		combo_sex_reg.getItems().add("Male");
 		combo_sex_reg.getItems().add("Female");
-		combo_city_reg.getItems().addAll("Rio de Janeiro", "Niterói", "São Gonçalo", "Maricá", "Cabo Frio", "Duque de Caxias", "Piabetá", "Itaboraí", "Resende");
+		combo_city_reg.getItems().addAll(
+				"Rio de Janeiro", 
+				"Niterói", 
+				"São Gonçalo", 
+				"Maricá", 
+				"Cabo Frio", 
+				"Duque de Caxias", 
+				"Piabetá", 
+				"Itaboraí", 
+				"Resende");
+		combo_college_reg.getItems().addAll(
+				"CEFET",
+				"ESPM",
+				"ESTÁCIO DE SÁ",
+				"FGV",
+				"IBMEC",
+				"IFRJ",
+				"IME",
+				"INFNET",
+				"ITA",
+				"PUC",
+				"SANTA ÚRSULA",
+				"SOUZA MARQUES",
+				"UCÂM",
+				"UENF",
+				"UERJ",
+				"UFF",
+				"UFRJ",
+				"UFRRJ",
+				"UNIRIO",
+				"UNIVERCIDADE",
+				"UVA");
+		combo_course_reg.getItems().addAll(
+				"ENGENHARIA DE COMPUTAÇÃO",
+				"ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
+				"GESTÃO DA TECNOLOGIA DA INFORMAÇÃO",
+				"GESTÃO DE SISTEMAS DA INFORMAÇÃO",
+				"ESCOLA DE COMUNICAÇÃO E DESIGN DIGITAL",
+				"GRADUAÇÃO EM DESIGN GRÁFICO");
 		combo_state_reg.getItems().addAll("RJ");
 		combo_country_reg.getItems().addAll("BRA");
 		combo_courseStTr_reg.getItems().addAll(
@@ -827,14 +868,33 @@ public class WindowDataFacade<E> {
 				"2013.2", "2013.3", "2013.4",
 				"2014.1", "2014.2", "2014.3",
 				"2014.4", "2015.1", "2015.2");
-//		combo_login.autosize();
 		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
 		combo_hist_rows.setDisable(true);
 		sv_port.setDisable(true);
 		sv_address.setDisable(true);
 		lbl_version.setText("version " + ClientMain.VERSION);
+		
+		setTestRegisterMode(ClientMain.testRegister);
 	}
-
+	
+	public void setTestRegisterMode(boolean condition) {
+		fld_login_reg.setText("raphaelbgr");
+		fld_name_reg.setText("RaphaelB");
+		fld_password_reg.setText("12345678");
+		fld_password2_reg.setText("12345678");
+		combo_sex_reg.getSelectionModel().select("Male");
+		combo_college_reg.getSelectionModel().select("INFNET");
+		fld_infnetmail_reg.setText("raphaelb.rocha@al.infnet.edu.br");
+		combo_course_reg.getSelectionModel().select("ENGENHARIA DE COMPUTAÇÃO");
+		combo_courseStTr_reg.getSelectionModel().select("2013.2");
+		fld_email_reg.setText("raphaelbgr@gmail.com");
+		fld_whatsapp_reg.setText("21988856697");
+		fld_facebook_reg.setText("raphaelbgr");
+		combo_country_reg.getSelectionModel().select("BRA");
+		combo_state_reg.getSelectionModel().select("RJ");
+		combo_city_reg.getSelectionModel().select("Rio de Janeiro");
+	}
+	
 	public String getLoginReg() {
 		return fld_login_reg.getText().toLowerCase();
 	}
@@ -1037,5 +1097,30 @@ public class WindowDataFacade<E> {
 			}	
 		});
 
+	}
+	
+	public Client buildNewClientFromForm() {
+		NewClient newClient = new NewClient();
+		
+		newClient.setLogin(WindowDataFacade.getInstance().getLoginReg());
+		newClient.setName(WindowDataFacade.getInstance().getNameReg());
+		newClient.setMD5Password(codifyPassword(WindowDataFacade.getInstance().getPasswordReg()));
+		newClient.setSex(WindowDataFacade.getInstance().getSexReg());
+		newClient.setCollege(WindowDataFacade.getInstance().getCollegeRegValue());
+		newClient.setInfnetMail(WindowDataFacade.getInstance().getInfnetMailReg());
+		newClient.setCourse(WindowDataFacade.getInstance().getCourse());
+		newClient.setStartTrimester(WindowDataFacade.getInstance().getCourseStartReg());
+		newClient.setEmail(WindowDataFacade.getInstance().getEmailReg());
+		newClient.setWhatsapp(WindowDataFacade.getInstance().getWhatsappReg());
+		newClient.setFacebook(WindowDataFacade.getInstance().getFacebookReg());
+		newClient.setCountry(WindowDataFacade.getInstance().getCountryReg());
+		newClient.setState(WindowDataFacade.getInstance().getStateReg());
+		newClient.setCity(WindowDataFacade.getInstance().getCityReg());
+		
+		return newClient;
+	}
+	
+	public String codifyPassword(String pass) {
+		return MD5.getMD5(pass);
 	}
 }

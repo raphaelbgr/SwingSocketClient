@@ -11,9 +11,7 @@ import app.model.messages.NormalMessage;
 
 public class Send {
 
-//	JanelaMain jam 			= null;
 	ClientStream stream 	= ClientStream.getInstance();
-//	JanelaSelectServer jsv 	= WindowDataFacade.getJsv();
 
 	public Send(Object o) throws IOException, LocalException {
 		if (Status.getInstance().isConnected()) {
@@ -27,10 +25,6 @@ public class Send {
 		}
 	}
 	
-	public Send() {
-		
-	}
-
 	public boolean send(Object o) throws UnknownHostException, IOException, LocalException {	
 		if (Status.getInstance().isConnected()) {
 			if (o instanceof NormalMessage) {

@@ -52,14 +52,22 @@ public class ClientMain extends Application {
 	public static String COMPILATION_KEY = "test";
 
 	public static String defaultServer = "54.232.241.237";
+	
+	public static boolean testRegister = false;
 
 	public static void main(final String[] args) {
+		
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equalsIgnoreCase("-testregister")) {
+				testRegister = true;
+			}
+		}
+		
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-
 		Platform.runLater(new Runnable() {
 			private Stage mainStage;
 			private MainScene scene;

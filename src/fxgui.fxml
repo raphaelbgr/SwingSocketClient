@@ -77,9 +77,9 @@
                     <PasswordField fx:id="fld_password_reg" layoutX="142.0" layoutY="91.0" />
                     <PasswordField fx:id="fld_password2_reg" layoutX="142.0" layoutY="128.0" />
                     <ComboBox fx:id="combo_sex_reg" layoutX="142.0" layoutY="167.0" prefWidth="150.0" promptText="Choose Gender" />
-                    <ComboBox fx:id="combo_college_reg" layoutX="141.0" layoutY="207.0" onAction="#handleDetectSelection" onMouseClicked="#handleCollegeRegComboClick" prefWidth="150.0" promptText="Choose College" />
+                    <ComboBox fx:id="combo_college_reg" layoutX="141.0" layoutY="207.0" onAction="#handleDetectSelection" prefWidth="150.0" promptText="Choose College" />
                     <TextField fx:id="fld_infnetmail_reg" disable="true" layoutX="143.0" layoutY="247.0" />
-                    <ComboBox fx:id="combo_course_reg" disable="true" layoutX="143.0" layoutY="286.0" onMouseClicked="#handleCourseRegComboClick" prefHeight="25.0" prefWidth="148.0" promptText="Choose Course" />
+                    <ComboBox fx:id="combo_course_reg" disable="true" layoutX="143.0" layoutY="286.0" prefHeight="25.0" prefWidth="148.0" promptText="Choose Course" />
                     <ComboBox fx:id="combo_courseStTr_reg" layoutX="142.0" layoutY="331.0" prefHeight="25.0" prefWidth="149.0" promptText="Choose Trimester" />
                     <TextField fx:id="fld_othercol_reg" disable="true" layoutX="142.0" layoutY="371.0" />
                     <TextField fx:id="fld_email_reg" layoutX="427.0" layoutY="11.0" />

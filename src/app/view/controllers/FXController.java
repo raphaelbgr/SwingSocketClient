@@ -33,7 +33,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import app.ClientMain;
 import app.view.WindowDataFacade;
-import app.view.buttons.CollegeUpdatePerform;
 import app.view.buttons.ConnectionPerform;
 import app.view.buttons.DisconnectionPerform;
 import app.view.buttons.ExitPerform;
@@ -42,7 +41,6 @@ import app.view.buttons.PerformHistoryComboUpdate;
 import app.view.buttons.RefreshPerform;
 import app.view.buttons.RegisterPerform;
 import app.view.buttons.SendPerform;
-import app.view.buttons.UpdateCourseCombo;
 import app.view.events.EventInterface;
 import app.view.scenes.MainScene;
 
@@ -204,15 +202,15 @@ public class FXController implements Initializable {
 		WindowDataFacade.getInstance().dynamicFieldsEnable();
 	}
 
-	public void handleCourseRegComboClick() {
-		EventInterface ei = new UpdateCourseCombo();
-		ei.performAction();
-	}
+//	public void handleCourseRegComboClick() {
+//		EventInterface ei = new UpdateCourseCombo();
+//		ei.performAction();
+//	}
 
-	public void handleCollegeRegComboClick() {
-		EventInterface ei = new CollegeUpdatePerform();
-		ei.performAction();
-	}
+//	public void handleCollegeRegComboClick() {
+//		EventInterface ei = new CollegeUpdatePerform();
+//		ei.performAction();
+//	}
 
 	public void handleLoginComboClick() {
 		EventInterface ei = new LoginPerform();

@@ -8,12 +8,10 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import app.ClientMain;
-import app.view.WindowDataFacade;
 
 public class DAO {
 
@@ -29,42 +27,37 @@ public class DAO {
 		c = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASS);
 	}
 	
-	public String codifyPassword(String pass) {
-		return MD5.getMD5(pass);
-	}
 	
-	public void registerUser() throws SQLException {
-		if (WindowDataFacade.getInstance().validateRegFields()) {
-//			System.out.println("passou");
-			String query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,CRYPTPASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY,ID,registrationdate)"
-					+ " VALUES ('"+WindowDataFacade.getInstance().getLoginReg()+"','"
-					+ WindowDataFacade.getInstance().getNameReg()+"',"
-					+ "'nopass',"
-					+ "AES_ENCRYPT(\"" + WindowDataFacade.getInstance().getPasswordReg()+"\",'"+ ClientMain.DATABASE_KEY +"'),'"
+//	public boolean registerUser() throws SQLException {
+//		boolean result = false;
+//		if (WindowDataFacade.getInstance().validateRegFields()) {
+//			String query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,CRYPTPASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY,ID,registrationdate)"
+//					+ " VALUES ('"+WindowDataFacade.getInstance().getLoginReg()+"','"
+//					+ WindowDataFacade.getInstance().getNameReg()+"',"
+//					+ "'nopass',"
+////					+ "AES_ENCRYPT(\"" + WindowDataFacade.getInstance().getPasswordReg()+"\",'"+ ClientMain.DATABASE_KEY +"'),'"
 //					+ codifyPassword(WindowDataFacade.getInstance().getPasswordReg()) +"','"
-					+ WindowDataFacade.getInstance().getSexReg()+"','"
-					+ WindowDataFacade.getInstance().getCollegeRegValue()+"','"
-					+ WindowDataFacade.getInstance().getInfnetMailReg()+"','"
-					+ WindowDataFacade.getInstance().getCourse()+"','"
-					+ WindowDataFacade.getInstance().getCourseStartReg()+"','"
-					+ WindowDataFacade.getInstance().getEmailReg()+"','"
-					+ WindowDataFacade.getInstance().getWhatsappReg()+"','"
-					+ WindowDataFacade.getInstance().getFacebookReg()+"','"
-					+ WindowDataFacade.getInstance().getCountryReg()+"','"
-					+ WindowDataFacade.getInstance().getStateReg()+"','"
-					+ WindowDataFacade.getInstance().getCityReg()+"',"
-					+ generateOwnerID(WindowDataFacade.getInstance().getLoginReg()) +",'"
-					+ new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()) + "')";
-					System.out.println(query);
-//					query = "INSERT INTO CLIENTS (LOGIN,NAME,PASSWORD,SEX,COLLEGE,INFNETID,COURSE,COURSESTART,EMAIL,WHATSAPP,FACEBOOK,COUNTRY,STATE,CITY) VALUES ('raphaelbgr','RaphaeL','tjq5uxt3','Male','INFNET','raphaelb.rocha@al.infnet.edu.br','GEC','2013.2','raphaelbgr@gmail.com','21988856697','fb.com/raphaelbgr','BRA','RJ','Rio de Janeiro')";
-					Statement s = c.prepareStatement(query);
-					s.execute(query);
-					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> User successfully registered on the database.");
-		} else {
-//			System.out.println("não passou");
-		}
-	}
-
+//					+ WindowDataFacade.getInstance().getSexReg()+"','"
+//					+ WindowDataFacade.getInstance().getCollegeRegValue()+"','"
+//					+ WindowDataFacade.getInstance().getInfnetMailReg()+"','"
+//					+ WindowDataFacade.getInstance().getCourse()+"','"
+//					+ WindowDataFacade.getInstance().getCourseStartReg()+"','"
+//					+ WindowDataFacade.getInstance().getEmailReg()+"','"
+//					+ WindowDataFacade.getInstance().getWhatsappReg()+"','"
+//					+ WindowDataFacade.getInstance().getFacebookReg()+"','"
+//					+ WindowDataFacade.getInstance().getCountryReg()+"','"
+//					+ WindowDataFacade.getInstance().getStateReg()+"','"
+//					+ WindowDataFacade.getInstance().getCityReg()+"',"
+//					+ generateOwnerID(WindowDataFacade.getInstance().getLoginReg()) +",'"
+//					+ new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()) + "')";
+//					System.out.println(query);
+//					Statement s = c.prepareStatement(query);
+//					result = s.execute(query);
+//					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "SERVER> User successfully registered on the database.");
+//		}
+//		return result;
+//	}
+	
 	public List<String> queryCourses() throws SQLException {
 		String query = "SELECT SHORTNAME FROM COURSES";
 		Statement s = c.prepareStatement(query);
