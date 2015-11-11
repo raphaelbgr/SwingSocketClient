@@ -27,7 +27,6 @@ import javafx.collections.ObservableList;
 public class FXReceiveFromServerThread implements Runnable {
 
 	private ClientStream stream = ClientStream.getInstance();
-//	private Client cl;
 
 	@Override
 	public void run() {
