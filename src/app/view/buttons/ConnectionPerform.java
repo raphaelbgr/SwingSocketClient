@@ -23,7 +23,7 @@ public class ConnectionPerform implements EventInterface {
 	ClientStream stream = ClientStream.getInstance();
 	@SuppressWarnings("rawtypes")
 	WindowDataFacade wdf = WindowDataFacade.getInstance();
-	ProgressBar progress = ((ProgressBar)wdf.getNode("progress"));
+	ProgressBar progress = ((ProgressBar) wdf.getNode("progress"));
 
 	@FXML
 	public boolean performAction() {
@@ -39,19 +39,19 @@ public class ConnectionPerform implements EventInterface {
 							Thread t1 = new Thread(new FXReceiveFromServerThread());
 							t1.start();
 							WindowDataFacade.getInstance().createConnectedWorker();
-						} catch (ConnectException | UnknownHostException e) {
-							WindowDataFacade.getInstance().lockConnectButton(false);
-							e.printStackTrace();
-							wdf.createCanceledWorker();
-							WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + "Host not found or offline. Is port correct?");
-							reconnect();
-						} catch (IOException e) {
-							WindowDataFacade.getInstance().lockConnectButton(false);
-							e.printStackTrace();
-							wdf.createCanceledWorker();
-							WindowDataFacade.getInstance().createCanceledWorker();
+//						} catch (ConnectException | UnknownHostException e) {
+//							WindowDataFacade.getInstance().lockConnectButton(false);
 //							e.printStackTrace();
-							reconnect();
+//							wdf.createCanceledWorker();
+//							WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + "Host not found or offline. Is port correct?");
+//							reconnect();
+//						} catch (IOException e) {
+//							WindowDataFacade.getInstance().lockConnectButton(false);
+//							e.printStackTrace();
+//							wdf.createCanceledWorker();
+//							WindowDataFacade.getInstance().createCanceledWorker();
+////							e.printStackTrace();
+//							reconnect();
 						} catch (Throwable e) {
 							WindowDataFacade.getInstance().lockConnectButton(false);
 							wdf.createCanceledWorker();
