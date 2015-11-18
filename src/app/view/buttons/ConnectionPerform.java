@@ -89,7 +89,8 @@ public class ConnectionPerform implements EventInterface {
 		c.setLogin(wdf.getLogin());
 		c.setTargetPort(wdf.getPort().intValue());
 		c.setVersion(ClientMain.VERSION);
-		c.setPassword(wdf.getPassword());
+//		c.setPassword(wdf.getPassword());
+		c.setMD5Password(wdf.getPassword());
 		c.setTargetIp(WindowDataFacade.getInstance().getAddress());
 		c.setConnect(true);
 		return c;

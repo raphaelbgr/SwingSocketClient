@@ -13,31 +13,31 @@ import app.view.events.RequestServerKeys;
 
 public class LoginPerform implements EventInterface {
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean performAction() {
-		RequestServerKeys gsk = new RequestServerKeys();
-		gsk.performAction();
-		
-		for (int i = 0; i < 40; i++) {
-			if (ClientMain.DATABASE_ADDR != null && ClientMain.DATABASE_KEY != null && ClientMain.DATABASE_PASS != null && ClientMain.DATABASE_USER != null) {
-				DAO dao = new DAO();
-				try {
-					dao.connect();
-					WindowDataFacade.getInstance().updateLoginCombo(dao.queryLogins());
-					dao.disconnect();
-					return true;
-				} catch (SQLException e) {
-					WindowDataFacade.getInstance().createCanceledWorker();
-					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + e.getLocalizedMessage());
-				}
-			} else {
-				try {
-					Thread.sleep(40);
-				} catch (InterruptedException e) {
-				}
-			}
-		} return false;
+//		RequestServerKeys gsk = new RequestServerKeys();
+//		gsk.performAction();
+//		
+//		for (int i = 0; i < 40; i++) {
+//			if (ClientMain.DATABASE_ADDR != null && ClientMain.DATABASE_KEY != null && ClientMain.DATABASE_PASS != null && ClientMain.DATABASE_USER != null) {
+//				DAO dao = new DAO();
+//				try {
+//					dao.connect();
+//					WindowDataFacade.getInstance().updateLoginCombo(dao.queryLogins());
+//					dao.disconnect();
+//					return true;
+//				} catch (SQLException e) {
+//					WindowDataFacade.getInstance().createCanceledWorker();
+//					WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + e.getLocalizedMessage());
+//				}
+//			} else {
+//				try {
+//					Thread.sleep(40);
+//				} catch (InterruptedException e) {
+//				}
+//			}
+//		} 
+		return false;
 	}
 	
 	private String getTimestamp() {

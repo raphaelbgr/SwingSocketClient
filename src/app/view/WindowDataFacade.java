@@ -171,7 +171,9 @@ public class WindowDataFacade<E> {
 	}
 
 	public String getPassword() {
-		return passwd_field.getText();
+		if (passwd_field.getText() != null || !passwd_field.getText().equalsIgnoreCase("")) {
+			return MD5.getMD5(passwd_field.getText());
+		} else return "";
 	}
 
 	public String getAddress() {
@@ -1116,6 +1118,8 @@ public class WindowDataFacade<E> {
 		newClient.setCountry(WindowDataFacade.getInstance().getCountryReg());
 		newClient.setState(WindowDataFacade.getInstance().getStateReg());
 		newClient.setCity(WindowDataFacade.getInstance().getCityReg());
+		
+		System.out.println("New client built: " + newClient.getLogin() + " Password: " + newClient.getMD5Password());
 		
 		return newClient;
 	}
