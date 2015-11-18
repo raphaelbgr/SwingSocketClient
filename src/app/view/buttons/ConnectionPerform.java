@@ -21,7 +21,6 @@ import app.view.events.EventInterface;
 public class ConnectionPerform implements EventInterface {
 
 	ClientStream stream = ClientStream.getInstance();
-	@SuppressWarnings("rawtypes")
 	WindowDataFacade wdf = WindowDataFacade.getInstance();
 	ProgressBar progress = ((ProgressBar) wdf.getNode("progress"));
 
@@ -39,19 +38,6 @@ public class ConnectionPerform implements EventInterface {
 							Thread t1 = new Thread(new FXReceiveFromServerThread());
 							t1.start();
 							WindowDataFacade.getInstance().createConnectedWorker();
-//						} catch (ConnectException | UnknownHostException e) {
-//							WindowDataFacade.getInstance().lockConnectButton(false);
-//							e.printStackTrace();
-//							wdf.createCanceledWorker();
-//							WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> " + "Host not found or offline. Is port correct?");
-//							reconnect();
-//						} catch (IOException e) {
-//							WindowDataFacade.getInstance().lockConnectButton(false);
-//							e.printStackTrace();
-//							wdf.createCanceledWorker();
-//							WindowDataFacade.getInstance().createCanceledWorker();
-////							e.printStackTrace();
-//							reconnect();
 						} catch (Throwable e) {
 							WindowDataFacade.getInstance().lockConnectButton(false);
 							wdf.createCanceledWorker();
@@ -84,7 +70,7 @@ public class ConnectionPerform implements EventInterface {
 		return "["+dateFormatted+"]" + " ";
 	}
 	
-	private Client buildClient(@SuppressWarnings("rawtypes") WindowDataFacade wdf) {
+	private Client buildClient(WindowDataFacade wdf) {
 		Client c = new Client();
 		c.setLogin(wdf.getLogin());
 		c.setTargetPort(wdf.getPort().intValue());
@@ -93,6 +79,7 @@ public class ConnectionPerform implements EventInterface {
 		c.setMD5Password(wdf.getPassword());
 		c.setTargetIp(WindowDataFacade.getInstance().getAddress());
 		c.setConnect(true);
+		c.setPlatform(0);
 		return c;
 	}
 	

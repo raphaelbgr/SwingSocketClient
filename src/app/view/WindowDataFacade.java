@@ -50,15 +50,15 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 @SuppressWarnings("unused")
-public class WindowDataFacade<E> {
+public class WindowDataFacade {
 
 	private Button btn_connect 						= null;
 	private Button btn_disconnect 					= null;
 	private Button btn_sv_opt 						= null;
 	private TextField fld_username					= null;
-	private TextField sv_address 					= null;
-	private PasswordField passwd_field 				= null;
-	private TextField sv_port 						= null;
+	private TextField fld_sv_address 					= null;
+	private PasswordField fld_password 				= null;
+	private TextField fld_sv_port 						= null;
 	private ProgressBar progress 					= null;
 	private ProgressIndicator indicator				= null;
 	private TextField fld_status  					= null;
@@ -119,9 +119,8 @@ public class WindowDataFacade<E> {
 	private Hyperlink about_email;
 	private Label lbl_version;
 
-	public static WindowDataFacade<?> wdf;
-	@SuppressWarnings("rawtypes")
-	public static WindowDataFacade<?> getInstance() {
+	public static WindowDataFacade wdf;
+	public static WindowDataFacade getInstance() {
 		if (wdf == null) {
 			wdf =  new WindowDataFacade();
 		}
@@ -171,17 +170,17 @@ public class WindowDataFacade<E> {
 	}
 
 	public String getPassword() {
-		if (passwd_field.getText() != null || !passwd_field.getText().equalsIgnoreCase("")) {
-			return MD5.getMD5(passwd_field.getText());
+		if (fld_password.getText() != null || !fld_password.getText().equalsIgnoreCase("")) {
+			return MD5.getMD5(fld_password.getText());
 		} else return "";
 	}
 
 	public String getAddress() {
-		return sv_address.getText();
+		return fld_sv_address.getText();
 	}
 
 	public Integer getPort() {
-		return Integer.valueOf(sv_port.getText());
+		return Integer.valueOf(fld_sv_port.getText());
 	}
 
 	public void setSmallStatusMsg(String s) {
@@ -215,9 +214,9 @@ public class WindowDataFacade<E> {
 				btn_disconnect.setDisable(true);
 				//				fld_username.setDisable(true);
 				combo_login.setDisable(true);
-				passwd_field.setDisable(true);
-				sv_address.setDisable(true);
-				sv_port.setDisable(true);
+				fld_password.setDisable(true);
+				fld_sv_address.setDisable(true);
+				fld_sv_port.setDisable(true);
 			}
 		});
 	}
@@ -231,9 +230,9 @@ public class WindowDataFacade<E> {
 				btn_disconnect.setDisable(false);
 				fld_username.setDisable(true);
 //				combo_login.setDisable(true);
-				passwd_field.setDisable(true);
-				sv_address.setDisable(true);
-				sv_port.setDisable(true);
+				fld_password.setDisable(true);
+				fld_sv_address.setDisable(true);
+				fld_sv_port.setDisable(true);
 //				btn_refresh.setDisable(false);
 				combo_hist_rows.setDisable(false);
 			}
@@ -249,9 +248,9 @@ public class WindowDataFacade<E> {
 				btn_disconnect.setDisable(true);
 				fld_username.setDisable(false);
 //				combo_login.setDisable(false);
-				passwd_field.setDisable(false);
-				sv_address.setDisable(false);
-				sv_port.setDisable(false);
+				fld_password.setDisable(false);
+				fld_sv_address.setDisable(false);
+				fld_sv_port.setDisable(false);
 				btn_refresh.setDisable(true);
 				combo_hist_rows.setDisable(true);
 			}
@@ -269,11 +268,11 @@ public class WindowDataFacade<E> {
 		} else if (node.getId().equalsIgnoreCase("fld_username")) {
 			fld_username = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("sv_address")) {
-			sv_address = (TextField) node;
+			fld_sv_address = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("passwd_field")) {
-			passwd_field = (PasswordField) node;
+			fld_password = (PasswordField) node;
 		} else if (node.getId().equalsIgnoreCase("sv_port")) {
-			sv_port = (TextField) node;
+			fld_sv_port = (TextField) node;
 		} else if (node.getId().equalsIgnoreCase("progress")) {
 			progress = (ProgressBar) node;
 		} else if (node.getId().equalsIgnoreCase("indicator")) {
@@ -609,7 +608,15 @@ public class WindowDataFacade<E> {
 				txt_chatlog.appendText(getTimestamp() + m.getOwnerName() + " -> " + m.getText() + "\n");
 			}
 		});
-
+	}
+	
+	public void addDisconnectionChatMessage() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				txt_chatlog.appendText(getTimestamp() + " You" + " -> " + "Disconnected"+ "\n");
+			}
+		});
 	}
 
 	public void startClock() {
@@ -669,19 +676,19 @@ public class WindowDataFacade<E> {
 	}
 
 	public boolean validadePort() {
-		if (Integer.valueOf(sv_port.getText()) < 65536 && Integer.valueOf(sv_port.getText()) > 0) {
+		if (Integer.valueOf(fld_sv_port.getText()) < 65536 && Integer.valueOf(fld_sv_port.getText()) > 0) {
 			return true;
 		} else return false;
 	}
 
 	public boolean validadePassword() {
-		if (passwd_field.lengthProperty().get() > 4 && passwd_field.lengthProperty().get() < 21) {
+		if (fld_password.lengthProperty().get() > 4 && fld_password.lengthProperty().get() < 21) {
 			return true;
 		} else return false;
 	}
 
 	public boolean validadeIP() {
-		if (sv_address.lengthProperty().get() > 0) {
+		if (fld_sv_address.lengthProperty().get() > 0) {
 			return true;
 		} else return false;
 	}
@@ -852,12 +859,12 @@ public class WindowDataFacade<E> {
 				"UNIVERCIDADE",
 				"UVA");
 		combo_course_reg.getItems().addAll(
-				"ENGENHARIA DE COMPUTAÇÃO",
-				"ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
-				"GESTÃO DA TECNOLOGIA DA INFORMAÇÃO",
-				"GESTÃO DE SISTEMAS DA INFORMAÇÃO",
-				"ESCOLA DE COMUNICAÇÃO E DESIGN DIGITAL",
-				"GRADUAÇÃO EM DESIGN GRÁFICO");
+				"GEC",
+				"GADS",
+				"GTI",
+				"GSI",
+				"ECDD",
+				"GDG");
 		combo_state_reg.getItems().addAll("RJ");
 		combo_country_reg.getItems().addAll("BRA");
 		combo_courseStTr_reg.getItems().addAll(
@@ -872,29 +879,37 @@ public class WindowDataFacade<E> {
 				"2014.4", "2015.1", "2015.2");
 		combo_hist_rows.getItems().addAll("First 50 Rows","First 500 Rows", "First 5000 Rows", "First 50000 Rows", "All History");
 		combo_hist_rows.setDisable(true);
-		sv_port.setDisable(true);
-		sv_address.setDisable(true);
+		fld_sv_port.setDisable(true);
+		fld_sv_address.setDisable(true);
 		lbl_version.setText("version " + ClientMain.VERSION);
 		
 		setTestRegisterMode(ClientMain.testRegister);
 	}
 	
 	public void setTestRegisterMode(boolean condition) {
-		fld_login_reg.setText("raphaelbgr");
-		fld_name_reg.setText("RaphaelB");
-		fld_password_reg.setText("12345678");
-		fld_password2_reg.setText("12345678");
-		combo_sex_reg.getSelectionModel().select("Male");
-		combo_college_reg.getSelectionModel().select("INFNET");
-		fld_infnetmail_reg.setText("raphaelb.rocha@al.infnet.edu.br");
-		combo_course_reg.getSelectionModel().select("ENGENHARIA DE COMPUTAÇÃO");
-		combo_courseStTr_reg.getSelectionModel().select("2013.2");
-		fld_email_reg.setText("raphaelbgr@gmail.com");
-		fld_whatsapp_reg.setText("21988856697");
-		fld_facebook_reg.setText("raphaelbgr");
-		combo_country_reg.getSelectionModel().select("BRA");
-		combo_state_reg.getSelectionModel().select("RJ");
-		combo_city_reg.getSelectionModel().select("Rio de Janeiro");
+		if (condition) {
+			fld_login_reg.setText("raphaelbgr");
+			fld_name_reg.setText("Raphael Bernardo");
+			fld_password_reg.setText("12345678");
+			fld_password2_reg.setText("12345678");
+			combo_sex_reg.getSelectionModel().select("Male");
+			combo_college_reg.getSelectionModel().select("INFNET");
+			fld_infnetmail_reg.setText("raphaelb.rocha@al.infnet.edu.br");
+			combo_course_reg.getSelectionModel().select("GEC");
+			combo_courseStTr_reg.getSelectionModel().select("2013.2");
+			fld_email_reg.setText("raphaelbgr@gmail.com");
+			fld_whatsapp_reg.setText("21988856697");
+			fld_facebook_reg.setText("raphaelbgr");
+			combo_country_reg.getSelectionModel().select("BRA");
+			combo_state_reg.getSelectionModel().select("RJ");
+			combo_city_reg.getSelectionModel().select("Rio de Janeiro");
+			
+			fld_username.setText("raphaelbgr");
+			fld_password.setText("12345678");
+			fld_sv_address.setText("localhost");
+			fld_sv_port.setText("2001");
+		}
+		
 	}
 	
 	public String getLoginReg() {
@@ -1118,6 +1133,7 @@ public class WindowDataFacade<E> {
 		newClient.setCountry(WindowDataFacade.getInstance().getCountryReg());
 		newClient.setState(WindowDataFacade.getInstance().getStateReg());
 		newClient.setCity(WindowDataFacade.getInstance().getCityReg());
+		newClient.setPlatform(0);
 		
 		System.out.println("New client built: " + newClient.getLogin() + " Password: " + newClient.getMD5Password());
 		

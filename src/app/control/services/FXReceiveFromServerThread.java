@@ -183,7 +183,6 @@ public class FXReceiveFromServerThread implements Runnable {
 									@Override
 									public void run() {
 										WindowDataFacade.getInstance().setDisconnectedLockFields();
-										Status.getInstance().setConnected(false);
 									}	
 								});
 							}
@@ -211,7 +210,7 @@ public class FXReceiveFromServerThread implements Runnable {
 							if (Status.getInstance().isConnected()) {
 								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> Connection to the server was aborted.");
 							}
-							WindowDataFacade.getInstance().setDisconnectedLockFields();								
+							WindowDataFacade.getInstance().setDisconnectedLockFields();	
 						}	
 					});
 					Status.getInstance().setConnected(false);
@@ -222,10 +221,8 @@ public class FXReceiveFromServerThread implements Runnable {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-//							if (Status.getInstance().isConnected()) {
-								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> The server broke the connection.");
-//							}
-							WindowDataFacade.getInstance().setDisconnectedLockFields();								
+							WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> The server broke the connection.");
+							WindowDataFacade.getInstance().setDisconnectedLockFields();
 						}	
 					});
 					Status.getInstance().setConnected(false);
@@ -246,32 +243,16 @@ public class FXReceiveFromServerThread implements Runnable {
 							if (Status.getInstance().isConnected()) {
 								WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() + "LOCAL> The server broke the connection.");
 							}
-							WindowDataFacade.getInstance().setDisconnectedLockFields();								
+							WindowDataFacade.getInstance().setDisconnectedLockFields();
 						}	
 					});
 					Status.getInstance().setConnected(false);
 					e.printStackTrace();
 					break;
-				} finally {
-//					System.err.println("Exeption Thrown");
-//					try {
-//						Thread.sleep(100);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//					if (!Status.getInstance().isConnected()) {
-//						break;
-//					}
+				} catch (Throwable e) {
+					WindowDataFacade.getInstance().setDisconnectedLockFields();
+					break;
 				}
-			} else {
-//				try {
-//					Thread.sleep(500);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				if (!Status.getInstance().isConnected()) {
-//					break;
-//				}
 			}
 		}
 	}

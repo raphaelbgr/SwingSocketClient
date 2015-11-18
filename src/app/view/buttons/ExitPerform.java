@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 
 public class ExitPerform implements EventInterface {
 
-	private WindowDataFacade<?> wdf = WindowDataFacade.getInstance();
+	private WindowDataFacade wdf = WindowDataFacade.getInstance();
 
 	@FXML
 	public boolean performAction() {

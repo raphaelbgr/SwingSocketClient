@@ -49,7 +49,7 @@
                     <Label layoutX="418.0" layoutY="263.0" text="password" />
                     <Label layoutX="418.0" text="Online Users" />
                     <Label fx:id="lbl_time" layoutX="352.0" prefHeight="17.0" prefWidth="53.0" />
-                    <ComboBox fx:id="combo_login" disable="true" layoutX="488.0" layoutY="224.0" onMouseClicked="#handleLoginComboClick" prefHeight="25.0" prefWidth="94.0" visible="false" visibleRowCount="20" />
+                    <ComboBox fx:id="combo_login" disable="true" layoutX="488.0" layoutY="224.0" prefHeight="25.0" prefWidth="94.0" visible="false" visibleRowCount="20" />
                     <Label fx:id="lbl_version" layoutX="498.0" layoutY="371.0" prefHeight="17.0" prefWidth="74.0" text="version X.Y.Z">
                       <font>
                         <Font name="System Italic" size="12.0" fx:id="x1" />
