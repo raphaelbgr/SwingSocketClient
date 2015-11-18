@@ -36,7 +36,6 @@ import app.view.WindowDataFacade;
 import app.view.buttons.ConnectionPerform;
 import app.view.buttons.DisconnectionPerform;
 import app.view.buttons.ExitPerform;
-import app.view.buttons.LoginPerform;
 import app.view.buttons.PerformHistoryComboUpdate;
 import app.view.buttons.RefreshPerform;
 import app.view.buttons.RegisterPerform;
@@ -212,10 +211,10 @@ public class FXController implements Initializable {
 //		ei.performAction();
 //	}
 
-	public void handleLoginComboClick() {
-		EventInterface ei = new LoginPerform();
-		ei.performAction();
-	}
+//	public void handleLoginComboClick() {
+//		EventInterface ei = new LoginPerform();
+//		ei.performAction();
+//	}
 
 	public void handleSendButton() {
 		EventInterface ei = new SendPerform();
