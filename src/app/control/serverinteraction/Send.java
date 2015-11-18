@@ -9,8 +9,6 @@ import app.model.exceptions.LocalException;
 import app.model.messages.Message;
 import app.model.messages.NormalMessage;
 
-import com.google.gson.Gson;
-
 public class Send {
 
 	ClientStream stream 	= ClientStream.getInstance();
@@ -19,9 +17,9 @@ public class Send {
 		if (Status.getInstance().isConnected()) {
 			if (o instanceof Message) {
 				if(Status.getInstance().isConnected()) {
-					Gson gson = new Gson();
-					o = gson.toJson((NormalMessage)o);
-					stream.sendObject((Gson) o);	//SENDS THE MESSAGE
+//					Gson gson = new Gson();
+//					o = gson.toJson((NormalMessage)o);
+					stream.sendObject(o);	//SENDS THE MESSAGE
 				}
 			}
 		} else {
@@ -33,9 +31,9 @@ public class Send {
 		if (Status.getInstance().isConnected()) {
 			if (o instanceof NormalMessage) {
 				if(Status.getInstance().isConnected()) {
-					Gson gson = new Gson();
-					o = gson.toJson((NormalMessage)o);
-					stream.sendObject((Gson) o);	//SENDS THE MESSAGE
+//					Gson gson = new Gson();
+//					o = gson.toJson((NormalMessage)o);
+					stream.sendObject(o);	//SENDS THE MESSAGE
 					return true;
 				} else {
 					return false;

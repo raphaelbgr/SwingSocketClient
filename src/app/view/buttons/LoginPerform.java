@@ -1,15 +1,10 @@
 package app.view.buttons;
 
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import app.ClientMain;
-import app.control.dao.DAO;
-import app.view.WindowDataFacade;
 import app.view.events.EventInterface;
-import app.view.events.RequestServerKeys;
 
 public class LoginPerform implements EventInterface {
 
