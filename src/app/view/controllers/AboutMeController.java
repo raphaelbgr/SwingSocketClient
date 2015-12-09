@@ -22,7 +22,6 @@ public class AboutMeController implements Initializable {
 	@FXML
 	private Hyperlink about_email				= null;
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		List<Node> nodes = new ArrayList<Node>();
