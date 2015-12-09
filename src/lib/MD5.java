@@ -1,4 +1,4 @@
-package app.control.dao;
+package lib;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

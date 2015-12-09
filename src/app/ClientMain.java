@@ -6,6 +6,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import api.control.sync.Status;
+import app.control.serverinteraction.Disconnect;
+import app.model.clients.Client;
+import app.view.WindowDataFacade;
+import app.view.controllers.FXController;
+import app.view.scenes.MainScene;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -13,12 +19,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import app.control.serverinteraction.Disconnect;
-import app.control.sync.Status;
-import app.model.clients.Client;
-import app.view.WindowDataFacade;
-import app.view.controllers.FXController;
-import app.view.scenes.MainScene;
 
 public class ClientMain extends Application {
 	public static final String LINKEDIN = "https://br.linkedin.com/in/raphaelbgr";

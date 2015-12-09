@@ -1,4 +1,4 @@
-package app.model.clients;
+package api.model.clients;
 
 import java.io.Serializable;
 import java.net.Socket;
@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import app.model.messages.Message;
+import api.model.messages.Message;
 
 
 public class Client implements Serializable {

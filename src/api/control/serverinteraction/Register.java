@@ -1,13 +1,13 @@
-package app.control.serverinteraction;
+package api.control.serverinteraction;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 
 import api.control.sync.ClientStream;
 import api.control.sync.Status;
-import app.model.clients.Client;
-import app.model.clients.NewClient;
-import app.model.exceptions.LocalException;
+import api.model.clients.Client;
+import api.model.clients.NewClient;
+import api.model.exceptions.LocalException;
 
 public class Register {
 	public Register(Object o) throws IOException, LocalException {

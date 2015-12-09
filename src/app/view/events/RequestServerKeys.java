@@ -4,9 +4,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import api.control.sync.ClientStream;
 import app.ClientMain;
 import app.control.serverinteraction.Connect;
-import app.control.sync.ClientStream;
 import app.model.messages.RegistrationMessage;
 import app.view.WindowDataFacade;
 

@@ -1,11 +1,11 @@
-package app.control.serverinteraction;
+package api.control.serverinteraction;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 import api.control.sync.ClientStream;
-import app.model.clients.Client;
+import api.model.clients.Client;
 
 public class Connect {
 

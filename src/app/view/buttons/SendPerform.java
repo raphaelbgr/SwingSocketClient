@@ -7,11 +7,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import api.control.sync.Status;
 import app.ClientMain;
 import app.control.serverinteraction.Connect;
 import app.control.serverinteraction.Send;
 import app.control.services.FXReceiveFromServerThread;
-import app.control.sync.Status;
 import app.model.clients.Client;
 import app.model.exceptions.LocalException;
 import app.view.WindowDataFacade;

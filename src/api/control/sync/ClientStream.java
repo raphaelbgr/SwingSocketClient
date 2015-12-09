@@ -1,4 +1,4 @@
-package app.control.sync;
+package api.control.sync;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

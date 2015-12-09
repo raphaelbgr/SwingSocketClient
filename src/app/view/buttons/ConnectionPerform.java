@@ -7,16 +7,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.ProgressBar;
+import api.control.sync.ClientStream;
+import api.control.sync.Status;
 import app.ClientMain;
 import app.control.serverinteraction.Connect;
 import app.control.services.FXReceiveFromServerThread;
-import app.control.sync.ClientStream;
-import app.control.sync.Status;
 import app.model.clients.Client;
 import app.view.WindowDataFacade;
 import app.view.events.EventInterface;
+import javafx.fxml.FXML;
+import javafx.scene.control.ProgressBar;
 
 public class ConnectionPerform implements EventInterface {
 

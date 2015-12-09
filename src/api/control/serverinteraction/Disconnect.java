@@ -1,4 +1,4 @@
-package app.control.serverinteraction;
+package api.control.serverinteraction;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import api.control.sync.ClientStream;
-import app.model.clients.Client;
-import app.model.messages.DisconnectionMessage;
+import api.model.clients.Client;
+import api.model.messages.DisconnectionMessage;
 
 public class Disconnect {
 

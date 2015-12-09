@@ -7,9 +7,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import api.control.sync.ClientStream;
+import api.control.sync.Status;
 import app.ClientMain;
-import app.control.sync.ClientStream;
-import app.control.sync.Status;
 import app.model.clients.Client;
 import app.model.exceptions.ServerException;
 import app.model.messages.BroadCastMessage;

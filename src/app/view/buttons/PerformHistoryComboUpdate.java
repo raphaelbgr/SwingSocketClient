@@ -2,7 +2,7 @@ package app.view.buttons;
 
 import java.io.IOException;
 
-import app.control.sync.ClientStream;
+import api.control.sync.ClientStream;
 import app.model.messages.ServerMessage;
 import app.view.WindowDataFacade;
 import app.view.events.EventInterface;

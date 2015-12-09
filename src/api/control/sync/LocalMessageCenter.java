@@ -1,9 +1,9 @@
-package app.control.sync;
+package api.control.sync;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.model.messages.Message;
+import api.model.messages.Message;
 
 public class LocalMessageCenter {
 	private List<Message> mList = null;

@@ -1,13 +1,13 @@
-package app.control.serverinteraction;
+package api.control.serverinteraction;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 
 import api.control.sync.ClientStream;
 import api.control.sync.Status;
-import app.model.exceptions.LocalException;
-import app.model.messages.Message;
-import app.model.messages.NormalMessage;
+import api.model.exceptions.LocalException;
+import api.model.messages.Message;
+import api.model.messages.NormalMessage;
 
 public class Send {
 

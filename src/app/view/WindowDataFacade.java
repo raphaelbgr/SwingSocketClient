@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 import app.ClientMain;
-import app.control.dao.MD5;
 import app.model.clients.Client;
 import app.model.clients.NewClient;
 import app.model.messages.History;
@@ -48,6 +47,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lib.MD5;
 
 @SuppressWarnings("unused")
 public class WindowDataFacade {

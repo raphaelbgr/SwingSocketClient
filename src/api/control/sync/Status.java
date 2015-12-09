@@ -1,4 +1,4 @@
-package app.control.sync;
+package api.control.sync;
 
 public class Status {
 
@@ -18,6 +18,8 @@ public class Status {
 //	private int aux10;
 //	private int aux11;
 //	private int aux12;
+	
+	public static final String VERSION = "0.9.21";
 	
 	private static Status instance;
 	public static Status getInstance() {

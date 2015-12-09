@@ -4,10 +4,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import api.control.sync.ClientStream;
+import api.control.sync.Status;
 import app.control.serverinteraction.Connect;
 import app.control.serverinteraction.Register;
-import app.control.sync.ClientStream;
-import app.control.sync.Status;
 import app.view.WindowDataFacade;
 import app.view.events.EventInterface;
 
