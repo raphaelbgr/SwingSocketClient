@@ -8,21 +8,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.ClientMain;
-import app.model.clients.Client;
-import app.model.exceptions.ServerException;
-import app.model.messages.BroadCastMessage;
-import app.model.messages.DisconnectionMessage;
-import app.model.messages.History;
-import app.model.messages.Message;
-import app.model.messages.NormalMessage;
-import app.model.messages.RegistrationMessage;
-import app.model.messages.ServerMessage;
 import app.view.WindowDataFacade;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import net.sytes.surfael.api.control.sync.ClientStream;
 import net.sytes.surfael.api.control.sync.Status;
+import net.sytes.surfael.api.model.clients.Client;
+import net.sytes.surfael.api.model.exceptions.ServerException;
+import net.sytes.surfael.api.model.messages.BroadCastMessage;
+import net.sytes.surfael.api.model.messages.DisconnectionMessage;
+import net.sytes.surfael.api.model.messages.History;
+import net.sytes.surfael.api.model.messages.Message;
+import net.sytes.surfael.api.model.messages.NormalMessage;
+import net.sytes.surfael.api.model.messages.RegistrationMessage;
+import net.sytes.surfael.api.model.messages.ServerMessage;
 
 public class FXReceiveFromServerThread implements Runnable {
 

@@ -3,11 +3,11 @@ package app.control.serverinteraction;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import app.model.exceptions.LocalException;
-import app.model.messages.Message;
-import app.model.messages.NormalMessage;
 import net.sytes.surfael.api.control.sync.ClientStream;
 import net.sytes.surfael.api.control.sync.Status;
+import net.sytes.surfael.api.model.exceptions.LocalException;
+import net.sytes.surfael.api.model.messages.Message;
+import net.sytes.surfael.api.model.messages.NormalMessage;
 
 public class Send {
 

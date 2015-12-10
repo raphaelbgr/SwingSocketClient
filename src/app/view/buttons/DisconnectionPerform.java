@@ -5,12 +5,12 @@ import java.net.UnknownHostException;
 
 import app.ClientMain;
 import app.control.serverinteraction.Disconnect;
-import app.model.clients.Client;
 import app.view.WindowDataFacade;
 import app.view.events.EventInterface;
 import javafx.fxml.FXML;
 import net.sytes.surfael.api.control.sync.ClientStream;
 import net.sytes.surfael.api.control.sync.Status;
+import net.sytes.surfael.api.model.clients.Client;
 
 public class DisconnectionPerform implements EventInterface {
 	

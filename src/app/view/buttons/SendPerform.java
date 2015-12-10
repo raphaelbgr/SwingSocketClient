@@ -11,11 +11,11 @@ import app.ClientMain;
 import app.control.serverinteraction.Connect;
 import app.control.serverinteraction.Send;
 import app.control.services.FXReceiveFromServerThread;
-import app.model.clients.Client;
-import app.model.exceptions.LocalException;
 import app.view.WindowDataFacade;
 import app.view.events.EventInterface;
 import net.sytes.surfael.api.control.sync.Status;
+import net.sytes.surfael.api.model.clients.Client;
+import net.sytes.surfael.api.model.exceptions.LocalException;
 
 public class SendPerform implements EventInterface {
 

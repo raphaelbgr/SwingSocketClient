@@ -6,9 +6,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import app.model.clients.Client;
-import app.model.messages.DisconnectionMessage;
 import net.sytes.surfael.api.control.sync.ClientStream;
+import net.sytes.surfael.api.model.clients.Client;
+import net.sytes.surfael.api.model.messages.DisconnectionMessage;
 
 public class Disconnect {
 

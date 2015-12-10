@@ -12,11 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 import app.ClientMain;
-import app.model.clients.Client;
-import app.model.clients.NewClient;
-import app.model.messages.History;
-import app.model.messages.Message;
-import app.model.messages.NormalMessage;
 import app.view.models.MessageDataTableModel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -48,6 +43,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lib.MD5;
+import net.sytes.surfael.api.model.clients.Client;
+import net.sytes.surfael.api.model.clients.NewClient;
+import net.sytes.surfael.api.model.messages.History;
+import net.sytes.surfael.api.model.messages.Message;
+import net.sytes.surfael.api.model.messages.NormalMessage;
 
 @SuppressWarnings("unused")
 public class WindowDataFacade {

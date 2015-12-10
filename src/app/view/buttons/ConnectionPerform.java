@@ -10,13 +10,13 @@ import java.util.Date;
 import app.ClientMain;
 import app.control.serverinteraction.Connect;
 import app.control.services.FXReceiveFromServerThread;
-import app.model.clients.Client;
 import app.view.WindowDataFacade;
 import app.view.events.EventInterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import net.sytes.surfael.api.control.sync.ClientStream;
 import net.sytes.surfael.api.control.sync.Status;
+import net.sytes.surfael.api.model.clients.Client;
 
 public class ConnectionPerform implements EventInterface {
 

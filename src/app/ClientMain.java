@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.control.serverinteraction.Disconnect;
-import app.model.clients.Client;
 import app.view.WindowDataFacade;
 import app.view.controllers.FXController;
 import app.view.scenes.MainScene;
@@ -19,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import net.sytes.surfael.api.control.sync.Status;
+import net.sytes.surfael.api.model.clients.Client;
 
 public class ClientMain extends Application {
 	public static final String LINKEDIN = "https://br.linkedin.com/in/raphaelbgr";

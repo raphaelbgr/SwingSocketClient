@@ -6,9 +6,9 @@ import java.util.Date;
 
 import app.ClientMain;
 import app.control.serverinteraction.Connect;
-import app.model.messages.RegistrationMessage;
 import app.view.WindowDataFacade;
 import net.sytes.surfael.api.control.sync.ClientStream;
+import net.sytes.surfael.api.model.messages.RegistrationMessage;
 
 public class RequestServerKeys implements EventInterface {
 

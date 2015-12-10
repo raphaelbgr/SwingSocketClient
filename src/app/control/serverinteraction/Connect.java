@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import app.model.clients.Client;
 import net.sytes.surfael.api.control.sync.ClientStream;
+import net.sytes.surfael.api.model.clients.Client;
 
 public class Connect {
 
