@@ -4,11 +4,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import api.control.sync.ClientStream;
 import app.ClientMain;
 import app.control.serverinteraction.Connect;
 import app.model.messages.RegistrationMessage;
 import app.view.WindowDataFacade;
+import net.sytes.surfael.api.control.sync.ClientStream;
 
 public class RequestServerKeys implements EventInterface {
 

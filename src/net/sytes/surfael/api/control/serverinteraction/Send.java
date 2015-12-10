@@ -1,13 +1,11 @@
-package app.control.serverinteraction;
+package net.sytes.surfael.api.control.serverinteraction;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import app.model.exceptions.LocalException;
-import app.model.messages.Message;
-import app.model.messages.NormalMessage;
 import net.sytes.surfael.api.control.sync.ClientStream;
 import net.sytes.surfael.api.control.sync.Status;
+import net.sytes.surfael.api.model.exceptions.LocalException;
 
 public class Send {
 
@@ -15,10 +13,8 @@ public class Send {
 
 	public Send(Object o) throws IOException, LocalException {
 		if (Status.getInstance().isConnected()) {
-			if (o instanceof Message) {
-				if(Status.getInstance().isConnected()) {
-					stream.sendObject(o);	//SENDS THE MESSAGE
-				}
+			if(Status.getInstance().isConnected()) {
+				stream.sendObject(o);	//SENDS THE MESSAGE
 			}
 		} else {
 			throw new LocalException("Not connected.");
@@ -27,13 +23,9 @@ public class Send {
 	
 	public boolean send(Object o) throws UnknownHostException, IOException, LocalException {	
 		if (Status.getInstance().isConnected()) {
-			if (o instanceof NormalMessage) {
-				if(Status.getInstance().isConnected()) {
-					stream.sendObject(o);	//SENDS THE MESSAGE
-					return true;
-				} else {
-					return false;
-				}
+			if(Status.getInstance().isConnected()) {
+				stream.sendObject(o);	//SENDS THE MESSAGE
+				return true;
 			} else {
 				return false;
 			}

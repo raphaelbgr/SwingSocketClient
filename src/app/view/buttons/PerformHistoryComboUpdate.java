@@ -2,10 +2,10 @@ package app.view.buttons;
 
 import java.io.IOException;
 
-import api.control.sync.ClientStream;
 import app.model.messages.ServerMessage;
 import app.view.WindowDataFacade;
 import app.view.events.EventInterface;
+import net.sytes.surfael.api.control.sync.ClientStream;
 
 public class PerformHistoryComboUpdate implements EventInterface {
 	@Override

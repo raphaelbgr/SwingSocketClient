@@ -7,8 +7,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import api.control.sync.ClientStream;
-import api.control.sync.Status;
 import app.ClientMain;
 import app.model.clients.Client;
 import app.model.exceptions.ServerException;
@@ -23,6 +21,8 @@ import app.view.WindowDataFacade;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import net.sytes.surfael.api.control.sync.ClientStream;
+import net.sytes.surfael.api.control.sync.Status;
 
 public class FXReceiveFromServerThread implements Runnable {
 

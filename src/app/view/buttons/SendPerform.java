@@ -7,7 +7,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import api.control.sync.Status;
 import app.ClientMain;
 import app.control.serverinteraction.Connect;
 import app.control.serverinteraction.Send;
@@ -16,6 +15,7 @@ import app.model.clients.Client;
 import app.model.exceptions.LocalException;
 import app.view.WindowDataFacade;
 import app.view.events.EventInterface;
+import net.sytes.surfael.api.control.sync.Status;
 
 public class SendPerform implements EventInterface {
 
