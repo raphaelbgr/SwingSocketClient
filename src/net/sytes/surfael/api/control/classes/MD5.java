@@ -1,4 +1,4 @@
-package lib;
+package net.sytes.surfael.api.control.classes;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
