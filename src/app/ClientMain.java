@@ -52,17 +52,17 @@ public class ClientMain extends Application {
 	public static String COMPILATION_KEY = "test";
 
 	public static String defaultServer = "54.232.241.237";
-	
+
 	public static boolean testRegister = false;
 
 	public static void main(final String[] args) {
-		
+
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].equalsIgnoreCase("-testregister")) {
 				testRegister = true;
 			}
 		}
-		
+
 		launch(args);
 	}
 
@@ -79,8 +79,8 @@ public class ClientMain extends Application {
 				System.out.println("run: " + Thread.currentThread());
 				mainStage = new Stage();
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource(
-							"/fxgui.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(
+							"fxgui.fxml"));
 					Parent root = (Parent) loader.load();
 					fxControl = loader.getController();
 					scene = new MainScene(root);
@@ -125,11 +125,11 @@ public class ClientMain extends Application {
 		});
 		System.out.println("public void start: " + Thread.currentThread());
 	}
-	
+
 	public static String getTimestamp() {
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateFormatted = formatter.format(new Date());
-		return "["+dateFormatted+"]" + " ";
+		return "[" + dateFormatted + "]" + " ";
 	}
 
 }

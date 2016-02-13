@@ -159,7 +159,7 @@ public class FXController implements Initializable {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void handleMenuCreator() {
-		aboutMeLoader = new FXMLLoader(getClass().getResource("/aboutme.fxml"));
+		aboutMeLoader = new FXMLLoader(getClass().getClassLoader().getResource("aboutme.fxml"));
 		Parent root;
 		try {
 			root = (Parent) aboutMeLoader.load();

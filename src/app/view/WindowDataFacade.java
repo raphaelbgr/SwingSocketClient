@@ -42,7 +42,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import lib.MD5;
+import net.sytes.surfael.api.control.classes.MD5;
 import net.sytes.surfael.api.model.clients.Client;
 import net.sytes.surfael.api.model.clients.NewClient;
 import net.sytes.surfael.api.model.messages.History;

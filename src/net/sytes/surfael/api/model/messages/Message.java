@@ -10,9 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
-import net.sytes.surfael.api.model.clients.ClientSeenTime;
-
-@SuppressWarnings("unused")
 public class Message implements Serializable, Comparable<Message> {
 
 	/**
@@ -35,7 +32,7 @@ public class Message implements Serializable, Comparable<Message> {
 	private Date serverReceivedTimeDate;
 	private String serverReceivedTimeString;
 	
-	private ClientSeenTime [] cst;
+//	private ClientSeenTime [] cst;
 	private Vector<String> onlineUserList;
 
 	private boolean disconnect = false;
@@ -61,14 +58,16 @@ public class Message implements Serializable, Comparable<Message> {
 	private String servresponse;
 	private String dnsHostName;
 
-	private String aux1;
-	private String aux2;
-	private String aux3;
-	private String aux4;
+//	private String aux1;
+//	private String aux2;
+//	private String aux3;
+//	private String aux4;
 
 	private Object msg_DateCreatedSQL;
 
 	private Long serverReceivedTimeLong;
+
+	private int senderId;
 
 	public Set<String> getSeen() {
 		return receivedby;
@@ -395,5 +394,11 @@ public class Message implements Serializable, Comparable<Message> {
 	}
 	public void setDnsHostName(String dnsHostName) {
 		this.dnsHostName = dnsHostName;
+	}
+	public void setSenderId(int id) {
+		this.senderId = id;
+	}
+	public int getSenderId() {
+		return this.senderId;
 	}
 }

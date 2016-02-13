@@ -19,7 +19,6 @@ import net.sytes.surfael.api.model.exceptions.LocalException;
 
 public class SendPerform implements EventInterface {
 
-
 	@Override
 	public boolean performAction() {
 		if (WindowDataFacade.getInstance().validadeMessage()) {
@@ -51,10 +50,8 @@ public class SendPerform implements EventInterface {
 			WindowDataFacade.getInstance().setBigStatusMsg(getTimestamp() +"LOCAL> " + "Blank messages not allowed.");
 			return false;
 		}
-		
 	}
 
-	@SuppressWarnings("rawtypes")
 	private Client buildClient(WindowDataFacade wdf) {
 		Client c = new Client();
 		c.setLogin(wdf.getLogin());
@@ -103,8 +100,7 @@ public class SendPerform implements EventInterface {
 						e2.printStackTrace();
 					}
 				}
-			}
-			if (Status.getInstance().isConnected()) {
+			} if (Status.getInstance().isConnected()) {
 				WindowDataFacade.getInstance().createConnectedWorker();
 				WindowDataFacade.getInstance().setConnectedLockFields();
 				WindowDataFacade.getInstance().createConnectedWorker();
@@ -112,7 +108,6 @@ public class SendPerform implements EventInterface {
 				WindowDataFacade.getInstance().createCanceledWorker();
 				WindowDataFacade.getInstance().setDisconnectedLockFields();
 			}			
-		} else {
 		}
 	}
 }
